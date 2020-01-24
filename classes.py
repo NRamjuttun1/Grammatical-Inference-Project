@@ -3,33 +3,36 @@ class Automaton:
     def __init__(self, ssymbol):
         self.symbol = ssymbol
         self.nodes = []
-        self.nodes.append(Node("" + self.symbol + '0'))
+        self.nodes.append(Node("" + str(self.symbol) + '0'))
         self.transitions = []
         self.size = 1
+        self.name = 1
         self.start = self.nodes[0]
         self.end = []
 
-    def addNode(self ):
-        newnode = Node("" + self.symbol + self.size)
-        nodes.add(newnode)
-        size = size + 1
+    def addNode(self):
+        newnode = Node("" + str(self.symbol) + str(self.name))
+        self.nodes.append(newnode)
+        self.size = self.size + 1
+        self.name = self.name + 1
 
     def addTransition(self, sstart, eend, ssymbol):
         newtransistion = Transition(sstart, eend, ssymbol)
-        transitions.add(newtransistion)
+        self.transitions.append(newtransistion)
 
     def size(self):
         return len(nodes)
 
     def findNode(self, id):
         for i in range (len(self.nodes)):
-            if (node[i].getID() == id):
-                return node[i]
+            if (self.nodes[i].getID() == id):
+                return self.nodes[i]
 
     def checkNodeExists(self, nnode):
-        if (self.findNode(nnode.getID()) != None): #NOT DEFINED HERE
+        try:
+            newnode = self.findNode(nnode.getID())
             return True
-        else:
+        except AttributeError:
             return False
 
     def findTransFromNode(self, node):
@@ -57,27 +60,14 @@ class Automaton:
                     return True
         return False
 
-    def buildAutomatonFromStrings(self, sstrings):
-        for i in range(sstrings):
-            buildAutomatonFromString(sstrings[i])
-
-    def buildAutomatonFromString(self, sstring):
-        addNode()
-        endNode = findNode("" + self.symbol + (self.size - 1))
-        addTransition(self.start, endNode, sstring[0])
-        for i in range(len(sstring[1:])):
-            startNode = findNode("" + self.symbol + (self.size - 1))
-            addNode()
-            endNode = findNode("" + self.symbol + (self.size - 1))
-            addTransition(startNode, endNode, sstring[i])
-
-
-
 
 class Node:
 
     def __init__(self, iid):
         self.id = iid
+
+    def __str__(self):
+        return "Node : "+ self.id
 
     def getID(self):
         return self.id
@@ -102,6 +92,26 @@ class Transition:
     def getSymbol(self):
         return self.symbol
 
-auto = Automaton("s")
-node = Node("d7")
-auto.checkNodeExists(node)
+
+def buildAutomatonFromStrings(sstrings, ssymbol):
+    auto = Automaton(ssymbol)
+    for i in range(len(sstrings)):
+        _buildAutomatonFromString(sstrings[i], auto)
+    return auto
+
+def _buildAutomatonFromString(sstring, auto):
+    auto.addNode()
+    endNode = auto.findNode("" + str(auto.symbol) + str(auto.size - 1))
+    auto.addTransition(auto.start, endNode, sstring[0])
+    for i in range(len(sstring)-1): #change here to remove sstring[1:]
+        startNode = auto.findNode("" + str(auto.symbol) + str(auto.size - 1))
+        auto.addNode()
+        endNode = auto.findNode("" + str(auto.symbol) + str(auto.size - 1))
+        auto.addTransition(startNode, endNode, sstring[i+1]) #change here for sstring[i] to i+1
+
+strs = ["cars", "drives"]
+auto = buildAutomatonFromStrings(strs, "s")
+print(auto.checkNodeExists(auto.findNode("s10")))
+for i in range(len(auto.transitions)):
+    if (auto.transitions[i].getStart().getID() == "s3"): 
+        print(auto.transitions[i].getSymbol())
