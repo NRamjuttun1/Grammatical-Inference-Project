@@ -54,16 +54,17 @@ class Automaton:
 
     def _checkInput(self, sstring, nnode):
         if (len(sstring) == 0):
+            for x in range(len(self.end)):
+                if (nnode.equals(self.end[x])):
+                    return True
             return False
         print(nnode.getID() + " -> " + sstring[0])
         trans = self.findTransFromNode(nnode)
         for i in range(len(trans)):
             if (trans[i].getSymbol() == sstring[0]):
-                for j in range(len(self.end)):
-                    if ((trans[i].getEnd().equals(self.end[j])) & (len(sstring) == 1)):
-                        return True
-                    else:
-                        return self._checkInput(sstring[1:], trans[i].getEnd())
+                return self._checkInput(sstring[1:], trans[i].getEnd())
+        return False
+
 
 
 class Node:
@@ -114,16 +115,3 @@ def _buildAutomatonFromString(sstring, auto):
         endNode = auto.findNode("" + str(auto.symbol) + str(auto.size - 1))
         auto.addTransition(startNode, endNode, sstring[i+1]) #change here for sstring[i] to i+1
     auto.end.append(endNode)
-
-def test(auto):
-    print(auto.checkNodeExists(auto.findNode("s10")))
-    for i in range(len(auto.transitions)):
-        if (auto.transitions[i].getStart().getID() == "s9"):
-            print(auto.transitions[i].getSymbol())
-    for i in range(len(auto.end)):
-        print(auto.end[i].getID())
-
-strs = ["cars", "drives", "good"]
-auto = buildAutomatonFromStrings(strs, "s")
-print(auto.checkInput("good"))
-#test(auto)
