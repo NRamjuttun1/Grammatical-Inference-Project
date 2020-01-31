@@ -1,12 +1,12 @@
 class Automaton:
 
     def __init__(self, ssymbol):
-        self.symbol = ssymbol
+        self.symbol = ssymbol[:1]
         self.nodes = []
-        self.nodes.append(Node("" + str(self.symbol) + '0'))
         self.transitions = []
-        self.size = 1
-        self.name = 1
+        self.size = 0
+        self.name = 0
+        self.addNode()
         self.start = self.nodes[0]
         self.end = []
 
@@ -78,6 +78,9 @@ class Node:
     def getID(self):
         return self.id
 
+    def getNO(self):
+        return int(self.id[1:])
+
     def equals(self, node):
         return (self.id == node.getID())
 
@@ -115,3 +118,36 @@ def _buildAutomatonFromString(sstring, auto):
         endNode = auto.findNode("" + str(auto.symbol) + str(auto.size - 1))
         auto.addTransition(startNode, endNode, sstring[i+1]) #change here for sstring[i] to i+1
     auto.end.append(endNode)
+
+def checkExists(arr, el):
+    for item in arr:
+        if (item == el):
+            return True
+    return False
+
+def mergeAutomaton(auto, arr):
+    nlist = []
+    temparr = []
+    for item in arr:
+        if (not(checkExists(temparr,item))):
+            temparr.append(item)
+    print(temparr)
+    for item in temparr:
+        nlist.append([])
+    for i in range(len(arr)):
+        nlist[arr[i]].append(i) #appends position number to nlist[value] list
+    print(nlist)
+    return buildAutomatonFromMergeList(nlist, auto)
+
+def findNewNodeFromMergeList(auto, arr, nodeid):
+
+
+def buildAutomatonFromMergeList(arr, auto):
+    newauto = Automaton("T")
+    for g in range(len(arr) - 1):
+        newauto.addNode()
+    for i in range(len(arr)):
+        for j in range(len(arr[i])):
+            trans = auto.findTransFromNode(findNode("" + auto.symbol + arr[i][j]))
+            for x in range(len(trans)):
+                #go to trans.end find the destination node and map that to the new node and then create a new transition between the two using the same symbol

@@ -1,4 +1,4 @@
-from classes import Automaton, Node, Transition, buildAutomatonFromStrings, _buildAutomatonFromString
+from classes import Automaton, Node, Transition, buildAutomatonFromStrings, _buildAutomatonFromString, mergeAutomaton, buildAutomatonFromMergeList
 
 def test(auto):
     print(auto.checkNodeExists(auto.findNode("s10")))
@@ -9,6 +9,7 @@ def test(auto):
         print(auto.end[i].getID())
 
 strs = ["cars", "drives", "good"]
-auto = buildAutomatonFromStrings(strs, "s")
+auto = buildAutomatonFromStrings(strs, "G")
 print(auto.checkInput("drives"))
+mergeAutomaton(auto, [0,1,1,2,5,5,1,3,6,6,2,6,2,3,4])
 #test(auto)
