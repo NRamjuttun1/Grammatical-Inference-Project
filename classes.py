@@ -10,6 +10,15 @@ class Automaton:
         self.start = self.nodes[0]
         self.end = []
 
+    def __str__(self):
+        sstring = ""
+        for x in self.nodes:
+            sstring = sstring + str(x) + '\n'
+        sstring = sstring + '\n'
+        for y in self.transitions:
+            sstring = sstring + str(y.getStart()) + " -" + str(y.getSymbol()) + "-> " + str(y.getEnd()) + '\n'
+        return sstring
+
     def addNode(self):
         newnode = Node("" + str(self.symbol) + str(self.name))
         self.nodes.append(newnode)
@@ -131,16 +140,18 @@ def mergeAutomaton(auto, arr):
     for item in arr:
         if (not(checkExists(temparr,item))):
             temparr.append(item)
-    print(temparr)
     for item in temparr:
         nlist.append([])
     for i in range(len(arr)):
         nlist[arr[i]].append(i) #appends position number to nlist[value] list
-    print(nlist)
     return buildAutomatonFromMergeList(nlist, auto)
 
-def findNewNodeFromMergeList(auto, arr, nodeid):
-
+def findNewNodeFromMerge(auto, arr, node):
+    nodesymbol = node.getNO()
+    for x in range(len(arr)):
+        for y in range(len(arr[x])):
+            if (arr[x][y] == nodesymbol):
+                return x
 
 def buildAutomatonFromMergeList(arr, auto):
     newauto = Automaton("T")
@@ -148,6 +159,26 @@ def buildAutomatonFromMergeList(arr, auto):
         newauto.addNode()
     for i in range(len(arr)):
         for j in range(len(arr[i])):
-            trans = auto.findTransFromNode(findNode("" + auto.symbol + arr[i][j]))
+            trans = auto.findTransFromNode(auto.findNode("" + auto.symbol + str(arr[i][j])))
             for x in range(len(trans)):
+                newauto.addTransition(newauto.nodes[i], newauto.nodes[findNewNodeFromMerge(auto, arr, trans[x].getEnd())], trans[x].getSymbol())
                 #go to trans.end find the destination node and map that to the new node and then create a new transition between the two using the same symbol
+    newauto.start = newauto.nodes[findNewNodeFromMerge(auto, arr, auto.start)]
+    for m in range(len(auto.end)):
+        newauto.end.append(newauto.nodes[findNewNodeFromMerge(auto, arr, auto.end[m])])
+    return newauto
+
+def getListPos(arr, el):
+    for x in range(len(arr)):
+        if (arr[x] == el):
+            return x
+
+def flattenMergeList(arr):
+    templist = []
+    for x in arr:
+        if (not(x in templist)):
+            templist.append(x)
+    templist.sort()
+    for x in range(len(arr)):
+        arr[x] = getListPos(templist, arr[x])
+    return arr
