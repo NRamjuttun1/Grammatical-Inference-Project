@@ -1,0 +1,9 @@
+Automaton -
+
+symbol - 1 character to distinguish nodes belonging to this Automaton between others
+nodes - list containing all node elements belonging to this Automaton
+transitions - list containing all transition elements belonging to this Automaton
+size - number of node elements belonging to this Automaton (size of nodes list)
+name - incrementing integer to keep all Node elements unique
+start - node element which the Automaton begins from
+end - list of nodes for which accepting inputs are exited from

@@ -29,8 +29,8 @@ class Automaton:
         newtransistion = Transition(sstart, eend, ssymbol)
         self.transitions.append(newtransistion)
 
-    def size(self):
-        return len(nodes)
+    def getSize(self):
+        return self.size
 
     def findNode(self, id):
         for i in range (len(self.nodes)):
@@ -67,11 +67,13 @@ class Automaton:
                 if (nnode.equals(self.end[x])):
                     return True
             return False
-        print(nnode.getID() + " -> " + sstring[0])
+        #print(nnode.getID() + " -> " + sstring[0])
         trans = self.findTransFromNode(nnode)
         for i in range(len(trans)):
             if (trans[i].getSymbol() == sstring[0]):
-                return self._checkInput(sstring[1:], trans[i].getEnd())
+                check = self._checkInput(sstring[1:], trans[i].getEnd())
+                if (check):
+                    return True
         return False
 
 
@@ -135,15 +137,18 @@ def checkExists(arr, el):
     return False
 
 def mergeAutomaton(auto, arr):
-    nlist = []
     temparr = []
     for item in arr:
         if (not(checkExists(temparr,item))):
             temparr.append(item)
-    for item in temparr:
-        nlist.append([])
+    nlist = [[] for i in range(len(temparr))]
     for i in range(len(arr)):
-        nlist[arr[i]].append(i) #appends position number to nlist[value] list
+        try:
+            nlist[arr[i]].append(i) #appends position number to nlist[value] list
+        except(IndexError):
+            print("Value of i is {} and the max length of the nlist is {}".format(arr[i], len(nlist)))
+            print("Length of arr is {} and it contains {}".format(len(arr), arr))
+            exit()
     return buildAutomatonFromMergeList(nlist, auto)
 
 def findNewNodeFromMerge(auto, arr, node):
