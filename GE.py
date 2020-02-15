@@ -13,22 +13,27 @@ def test():
 
 
 
+def buildAndTest(arr, MCA, s_neg):
+    newauto = mergeAutomaton(MCA, arr)
+    fitness = _testFitness(newauto, s_neg)
+    print("Correctly rejected {} incorrect words out of {}".format(fitness, len(s_neg)))
+    return fitness
 
-
-def testFitness(auto, s_neg):
+def _testFitness(auto, s_neg):
     performance = 0
     for i in s_neg:
         if (not(auto.checkInput(i))):
             performance += 1
     return performance
 
-def buildAndTest(arr, MCA, s_neg):
-    newauto = mergeAutomaton(MCA, arr)
-    fitness = testFitness(newauto, s_neg)
-    print("Correctly rejected {} incorrect words out of 5".format(fitness))
-    return fitness
+def crossOver(samples, fitnessarr, pos1, pos2, mutatechance):
+    temparr = _crossOver(samples[pos1], samples[pos2], mutatechance)
+    samples[pos1] = flattenMergeList(temparr[0])
+    samples[pos2] = flattenMergeList(temparr[1])
+    fitnessarr[pos1] = buildAndTest(samples[pos1], MCA, s_neg)
+    fitnessarr[pos2] = buildAndTest(samples[pos2], MCA, s_neg)
 
-def crossOver(arr, arr2):
+def _crossOver(arr, arr2, mutatechance):
     returnarr = [None for i in range(2)]
     split = random.randint(0, len(arr) - 1)
     b_arr = arr[0:split]
@@ -40,7 +45,7 @@ def crossOver(arr, arr2):
     returnarr[0] = b_arr
     returnarr[1] = b_arr2
     listno = random.randint(0,1)
-    if (random.randint(0,20) == 0):
+    if (random.randint(0,mutatechance) == mutatechance):
         returnarr[listno] = mutate(returnarr[listno])
     return returnarr
 
@@ -67,23 +72,35 @@ except:
     print("File not found!")
     exit()
 MCA = buildAutomatonFromStrings(s_pos, "Q")
-
+samplesize = 10
 samples = []
-for i in range(10):
+for i in range(samplesize):
     samples.append(flattenMergeList(generateNewSampleElement(MCA.getSize())))
-
-
 fitnessarr = [0 for i in range(len(samples))]
-
-for i in range(100):
-    for x in range(len(samples)):
-        fitnessarr[x] = buildAndTest(samples[x], MCA, s_neg)
+for x in range(len(samples)):
+    fitnessarr[x] = buildAndTest(samples[x], MCA, s_neg)
+count = 0
+populations = 0
+while(True):
+    count += 1
     if (len(s_neg) in fitnessarr):   #    WIN CONDITION
-        print("Correct Automaton Found \n{}".format(mergeAutomaton(MCA, samples[fitnessarr.index(len(s_neg))])))
+        print("Correct Automaton Found in\n{}\n{} generations \n {} new populations has to be generated".format(mergeAutomaton(MCA, samples[fitnessarr.index(len(s_neg))]), count, populations))
         exit()
-    pos1 = pos2 = random.randint(0,len(samples) - 1)
-    while(pos2 == pos1):
-        pos2 = random.randint(0, len(samples) - 1)
-    temparr = crossOver(samples[pos1], samples[pos2])
-    samples[pos1] = flattenMergeList(temparr[0])
-    samples[pos2] = flattenMergeList(temparr[1])
+    max1 = max2 = checkcount = totalfitness = 0
+    for i in range(len(fitnessarr)):
+        totalfitness += fitnessarr[i]
+        if (fitnessarr[i] > max2):
+            if (fitnessarr[i] > max1):
+                max1 = i
+            else:
+                max2 = i
+        elif (fitnessarr[i] == 0):
+            checkcount += 1
+    if (checkcount > (samplesize - 2)):
+        samples = []
+        for i in range(samplesize):
+            samples.append(flattenMergeList(generateNewSampleElement(MCA.getSize())))
+        print("Samples not satisfactory! New Population generated\n{}".format(fitnessarr))
+        populations += 1
+        count = 0
+    crossOver(samples, fitnessarr, max1, max2, totalfitness)
