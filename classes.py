@@ -77,6 +77,16 @@ class Automaton:
         return False
 
 
+    def checkDeterministic(self):
+        for i in self.nodes:
+            arr = []
+            trans = findTransFromNode(i)
+            for x in trans:
+                arr.append(x.getSymbol)
+            if (checkRepeats):
+                return False
+        return True
+
 
 class Node:
 
@@ -187,3 +197,12 @@ def flattenMergeList(arr):
     for x in range(len(arr)):
         arr[x] = getListPos(templist, arr[x])
     return arr
+
+def checkRepeats(arr):
+    list = []
+    for x in arr:
+        if (!(x in list)):
+            list.append(x)
+        elif (x in list):
+            return True
+    return False
