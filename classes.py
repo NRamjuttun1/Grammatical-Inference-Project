@@ -17,6 +17,9 @@ class Automaton:
         sstring = sstring + '\n'
         for y in self.transitions:
             sstring = sstring + str(y.getStart()) + " -" + str(y.getSymbol()) + "-> " + str(y.getEnd()) + '\n'
+        sstring = sstring + "Start Node = {} '\n' Final Nodes = ".format(self.start)
+        for i in self.end:
+            sstring = sstring + str(i) + " "
         return sstring
 
     def addNode(self):
@@ -82,10 +85,17 @@ class Automaton:
             arr = []
             trans = findTransFromNode(i)
             for x in trans:
-                arr.append(x.getSymbol)
-            if (checkRepeats):
+                arr.append(x.getSymbol())
+            if (checkRepeats(arr)):
                 return False
         return True
+
+    def checkInputs(self, arr):
+        count = 0
+        for i in arr:
+            if checkInput(i):
+                count += 1
+        return count
 
 
 class Node:
@@ -201,7 +211,7 @@ def flattenMergeList(arr):
 def checkRepeats(arr):
     list = []
     for x in arr:
-        if (!(x in list)):
+        if (  not (x in list)):
             list.append(x)
         elif (x in list):
             return True
