@@ -1,7 +1,7 @@
 class Automaton:
 
     def __init__(self, ssymbol):
-        self.symbol = ssymbol[:1]
+        self.symbol = ssymbol
         self.nodes = []
         self.transitions = []
         self.size = 0

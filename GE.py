@@ -96,7 +96,7 @@ while(True):
                 max2 = i
         elif (fitnessarr[i] == 0):
             checkcount += 1
-    if (checkcount > (samplesize - 2)):
+    if (checkcount > (samplesize - 2)): #checkcount and this statement is for optimisation purposes and should not be included in the testing stage
         samples = []
         for i in range(samplesize):
             samples.append(flattenMergeList(generateNewSampleElement(MCA.getSize())))
