@@ -92,7 +92,10 @@ while(True):
     count += 1
     if (len(s_neg) in fitnessarr):   #    WIN CONDITION
         print("Correct Automaton Found in\n{}\n{} generations \n {} new populations has to be generated".format(mergeAutomaton(MCA, samples[fitnessarr.index(len(s_neg))]), count, populations))
-        print("--- %s seconds ---" % (time.time() - start_time))
+        timed = ("--- %s seconds ---" % (time.time() - start_time))
+        print(timed)
+        with open('genetic_time.txt', 'wb') as fh:
+            fh.write(timed)
         exit()
     max = checkcount = totalfitness = 0
     min1 = min2 = 2**32
