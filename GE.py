@@ -1,5 +1,5 @@
 from classes import Automaton, Node, Transition, buildAutomatonFromStrings, _buildAutomatonFromString, mergeAutomaton, buildAutomatonFromMergeList, flattenMergeList, getListPos
-import random
+import random, time
 
 
 def test():
@@ -11,12 +11,20 @@ def test():
     print(tempauto)
     print(tempauto.checkInput("good"))
 
+def printFitness(fitness):
+    stringg = "["
+    for x in fitness:
+        stringg += str(x) + ", "
+    stringg = stringg[:-2]
+    stringg += "]"
+    print(stringg)
+
 
 
 def buildAndTest(arr, MCA, s_neg):
     newauto = mergeAutomaton(MCA, arr)
     fitness = _testFitness(newauto, s_neg)
-    print("Correctly rejected {} incorrect words out of {}".format(fitness, len(s_neg)))
+    #print("Correctly rejected {} incorrect words out of {}".format(fitness, len(s_neg)))
     return fitness
 
 def _testFitness(auto, s_neg):
@@ -26,14 +34,14 @@ def _testFitness(auto, s_neg):
             performance += 1
     return performance
 
-def crossOver(samples, fitnessarr, pos1, pos2, mutatechance):
-    temparr = _crossOver(samples[pos1], samples[pos2], mutatechance)
+def crossOver(samples, fitnessarr, pos1, pos2):
+    temparr = _crossOver(samples[pos1], samples[pos2])
     samples[pos1] = flattenMergeList(temparr[0])
     samples[pos2] = flattenMergeList(temparr[1])
     fitnessarr[pos1] = buildAndTest(samples[pos1], MCA, s_neg)
     fitnessarr[pos2] = buildAndTest(samples[pos2], MCA, s_neg)
 
-def _crossOver(arr, arr2, mutatechance):
+def _crossOver(arr, arr2):
     returnarr = [None for i in range(2)]
     split = random.randint(0, len(arr) - 1)
     b_arr = arr[0:split]
@@ -44,9 +52,6 @@ def _crossOver(arr, arr2, mutatechance):
     b_arr2 = b_arr2 + e_arr
     returnarr[0] = b_arr
     returnarr[1] = b_arr2
-    listno = random.randint(0,1)
-    if (random.randint(0,mutatechance) == mutatechance):
-        returnarr[listno] = mutate(returnarr[listno])
     return returnarr
 
 def generateNewSampleElement(ssize):
@@ -55,11 +60,13 @@ def generateNewSampleElement(ssize):
         arr.append(random.randint(0, ssize - 1))
     return arr
 
-def mutate(arr):
+def mutate(arr, fitnessarr, ptr):
     pos = random.randint(0, len(arr) - 1)
     arr[pos] = random.randint(0, len(arr) - 1)
-    return flattenMergeList(arr)
+    arr = flattenMergeList(arr)
+    fitnessarr[ptr] = buildAndTest(arr, MCA, s_neg)
 
+start_time = time.time()
 try:
     _s_pos = open("regex.txt", "r")
     _s_neg = open("regex-.txt", "r")
@@ -85,8 +92,9 @@ while(True):
     count += 1
     if (len(s_neg) in fitnessarr):   #    WIN CONDITION
         print("Correct Automaton Found in\n{}\n{} generations \n {} new populations has to be generated".format(mergeAutomaton(MCA, samples[fitnessarr.index(len(s_neg))]), count, populations))
+        print("--- %s seconds ---" % (time.time() - start_time))
         exit()
-    min1 = min2 = checkcount = totalfitness = 0
+    max = checkcount = totalfitness = 0
     min1 = min2 = 2**32
     for i in range(len(fitnessarr)):
         totalfitness += fitnessarr[i]
@@ -97,6 +105,8 @@ while(True):
                 min2 = i
         elif (fitnessarr[i] == 0):
             checkcount += 1
+        if (fitnessarr[i] > max):
+            max = i
     if (checkcount > (samplesize - 2)): #checkcount and this statement is for optimisation purposes and should not be included in the testing stage
         samples = []
         for i in range(samplesize):
@@ -104,4 +114,7 @@ while(True):
         print("Samples not satisfactory! New Population generated\n{}".format(fitnessarr))
         populations += 1
         count = 0
-    crossOver(samples, fitnessarr, min1, min2, totalfitness)
+    crossOver(samples, fitnessarr, min1, min2)
+    #if (random.randint(0,totalfitness//2) == 0):
+    mutate(samples[max], fitnessarr, max)
+    printFitness(fitnessarr)
