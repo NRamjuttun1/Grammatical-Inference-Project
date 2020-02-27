@@ -86,14 +86,15 @@ while(True):
     if (len(s_neg) in fitnessarr):   #    WIN CONDITION
         print("Correct Automaton Found in\n{}\n{} generations \n {} new populations has to be generated".format(mergeAutomaton(MCA, samples[fitnessarr.index(len(s_neg))]), count, populations))
         exit()
-    max1 = max2 = checkcount = totalfitness = 0
+    min1 = min2 = checkcount = totalfitness = 0
+    min1 = min2 = 2**32
     for i in range(len(fitnessarr)):
         totalfitness += fitnessarr[i]
-        if (fitnessarr[i] > max2):
-            if (fitnessarr[i] > max1):
-                max1 = i
+        if (fitnessarr[i] < min2):
+            if (fitnessarr[i] < min1):
+                min1 = i
             else:
-                max2 = i
+                min2 = i
         elif (fitnessarr[i] == 0):
             checkcount += 1
     if (checkcount > (samplesize - 2)): #checkcount and this statement is for optimisation purposes and should not be included in the testing stage
@@ -103,4 +104,4 @@ while(True):
         print("Samples not satisfactory! New Population generated\n{}".format(fitnessarr))
         populations += 1
         count = 0
-    crossOver(samples, fitnessarr, max1, max2, totalfitness)
+    crossOver(samples, fitnessarr, min1, min2, totalfitness)
