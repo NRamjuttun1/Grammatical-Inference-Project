@@ -81,10 +81,17 @@ except:
     print("File not found!")
     exit()
 MCA = buildAutomatonFromStrings(s_pos, "Q")
+optimalFitness = len(s_neg)
 samplesize = 10
 samples = []
 for i in range(samplesize):
-    samples.append(flattenMergeList(generateNewSampleElement(MCA.getSize())))
+    check = True
+    while(check):
+        newsample = flattenMergeList(generateNewSampleElement(MCA.getSize()))
+        if (not(buildAndTest(newsample, MCA, s_neg) == optimalFitness)):
+            check = False
+        samples.append(newsample)
+        #samples.append(flattenMergeList(generateNewSampleElement(MCA.getSize())))
 fitnessarr = [0 for i in range(len(samples))]
 for x in range(len(samples)):
     fitnessarr[x] = buildAndTest(samples[x], MCA, s_neg)
@@ -92,11 +99,11 @@ count = 0
 populations = 0
 while(True):
     count += 1
-    if (len(s_neg) in fitnessarr):   #    WIN CONDITION
+    if (optimalFitness in fitnessarr):   #    WIN CONDITION
         print("Correct Automaton Found in\n{}\n{} generations \n {} new populations has to be generated".format(mergeAutomaton(MCA, samples[fitnessarr.index(len(s_neg))]), count, populations))
         timed = ("--- %s seconds ---" % (time.time() - start_time))
         print(timed)
-        with open('genetic_time.txt', 'wb') as fh:
+        with open('genetic_time.txt', 'w') as fh:
             fh.write(timed)
         exit()
     max = checkcount = totalfitness = 0
