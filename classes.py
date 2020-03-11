@@ -73,6 +73,29 @@ class Automaton:
                 trans.append(self.transitions[i])
         return trans
 
+    def findAllPaths(self):
+        paths = []
+        explored = []
+        while(not len(explored) == len(self.nodes)):
+            val = self._findAllPaths(explored, self.start, [])
+            if (not val == None):
+                paths.append(val)
+        return paths
+
+    def _findAllPaths(self, explored, currentNode, path): #find all paths not working
+        explored.append(currentNode)
+        path.append(currentNode)
+        if (currentNode in self.end):
+            return path
+        else:
+            for x in self.findTransFromNode(currentNode):
+                if (x.getEnd() not in explored):
+                    val = self._findAllPaths(explored, x.getEnd(), path)
+                    if (not val == None):
+                        return val
+        path.pop()
+        explored.remove(currentNode)
+
     def _checkPathExists(self, currentNode, explored):
         if (len(explored) == len(self.nodes)):
             return False

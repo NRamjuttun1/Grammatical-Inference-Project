@@ -48,12 +48,14 @@ while((not exampleAuto.checkPathExists())):
     newtrans = Transition(random.choice(exampleAuto.nodes), random.choice(exampleAuto.nodes), random.choice(alphabet))
     if (not exampleAuto.checkTransExists(newtrans)):
         exampleAuto.addNewTrans(newtrans)
-for x in range(exampleAuto.getSize() * 10000):
+print(exampleAuto.findAllPaths())
+for x in range(0):
     newword = createNewWord()
     if (exampleAuto.checkInput(newword)):
         poswords.append(newword)
     else:
         negwords.append(newword)
+    print("Current size of the + words = {}".format(str(len(poswords))))
 
 
 print("Positive words -> {}".format(poswords))
