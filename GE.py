@@ -35,11 +35,13 @@ def _testFitness(auto, s_neg):
     return performance
 
 def crossOver(samples, fitnessarr, pos1, pos2):
+    print("Before Merge Ftiness 1 : {}, and Fitness 2 : {}".format(str(fitnessarr[pos1]), str(fitnessarr[pos2])))
     temparr = _crossOver(samples[pos1], samples[pos2])
     samples[pos1] = flattenMergeList(temparr[0])
     samples[pos2] = flattenMergeList(temparr[1])
     fitnessarr[pos1] = buildAndTest(samples[pos1], MCA, s_neg)
     fitnessarr[pos2] = buildAndTest(samples[pos2], MCA, s_neg)
+    print("After Merge Ftiness 1 : {}, and Fitness 2 : {}".format(str(fitnessarr[pos1]), str(fitnessarr[pos2])))
 
 def _crossOver(arr, arr2):
     returnarr = [None for i in range(2)]

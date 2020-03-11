@@ -17,7 +17,7 @@ class Automaton:
         sstring = sstring + '\n'
         for y in self.transitions:
             sstring = sstring + str(y.getStart()) + " -" + str(y.getSymbol()) + "-> " + str(y.getEnd()) + '\n'
-        sstring = sstring + "Start Node = {} '\n' Final Nodes = ".format(self.start)
+        sstring = sstring + "Start Node = {} \n Final Nodes = ".format(self.start)
         for i in self.end:
             sstring = sstring + str(i) + " "
         return sstring
@@ -31,6 +31,18 @@ class Automaton:
     def addTransition(self, sstart, eend, ssymbol):
         newtransistion = Transition(sstart, eend, ssymbol)
         self.transitions.append(newtransistion)
+
+    def addNewTrans(self, trans):
+        self.transitions.append(trans)
+
+    def checkTransExists(self, trans):
+        if (trans in self.transitions):
+            return True
+        return False
+
+    def deleteTransition(self, trans):
+        if (self.checkTransExists(trans)):
+            self.transitions.remove(trans)
 
     def getSize(self):
         return self.size
@@ -61,6 +73,28 @@ class Automaton:
                 trans.append(self.transitions[i])
         return trans
 
+    def _checkPathExists(self, currentNode, explored):
+        if (len(explored) == len(self.nodes)):
+            return False
+        explored.append(currentNode)
+        if (currentNode in self.end):
+            return True
+        trans = self.findTransFromNode(currentNode)
+        for x in trans:
+            if (x.getEnd() in self.end):
+                return True
+        for x in range(len(trans)):
+            check = False
+            if (trans[x].getEnd() not in explored):
+                check = self._checkPathExists(trans[x].getEnd(), explored)
+            if (check):
+                return True
+        return False
+
+    def checkPathExists(self):
+        return self._checkPathExists(self.start, [])
+
+
     def checkInput(self, sstring):
         return self._checkInput(sstring, self.start)
 
@@ -83,7 +117,7 @@ class Automaton:
     def checkDeterministic(self):
         for i in self.nodes:
             arr = []
-            trans = findTransFromNode(i)
+            trans = self.findTransFromNode(i)
             for x in trans:
                 arr.append(x.getSymbol())
             if (checkRepeats(arr)):
@@ -131,6 +165,9 @@ class Transition:
 
     def getSymbol(self):
         return self.symbol
+
+    def __eq__(self, obj):
+        return ((obj.start == self.start) and (obj.end == self.end) and (obj.symbol == self.symbol))
 
 
 def buildAutomatonFromStrings(sstrings, ssymbol):
