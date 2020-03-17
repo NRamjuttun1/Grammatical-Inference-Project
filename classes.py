@@ -32,6 +32,18 @@ class Automaton:
         newtransistion = Transition(sstart, eend, ssymbol)
         self.transitions.append(newtransistion)
 
+    def setStart(self, sstart):
+        self.start = sstart
+
+    def setEnd(self, end):
+        self.end = [end]
+
+    def addEnd(self, end):
+        self.end.append(end)
+
+    def getNode(self, node):
+        return self.nodes[node]
+
     def addNewTrans(self, trans):
         self.transitions.append(trans)
 
