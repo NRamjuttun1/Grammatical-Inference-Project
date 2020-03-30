@@ -25,8 +25,8 @@ class Automaton:
     def addNode(self):
         newnode = Node("" + str(self.symbol) + str(self.name))
         self.nodes.append(newnode)
-        self.size = self.size + 1
-        self.name = self.name + 1
+        self.size += 1
+        self.name += 1
 
     def addTransition(self, sstart, eend, ssymbol):
         newtransistion = Transition(sstart, eend, ssymbol)
@@ -44,6 +44,12 @@ class Automaton:
     def getNode(self, node):
         return self.nodes[node]
 
+    def addColourNode(self):
+        newnode = colourNode("" + str(self.symbol) + str(self.name))
+        self.nodes.append(newnode)
+        self.size += 1
+        self.name += 1
+
     def addNewTrans(self, trans):
         if (not self.checkTransExists(trans)):
             self.transitions.append(trans)
@@ -59,6 +65,9 @@ class Automaton:
 
     def getSize(self):
         return self.size
+
+    def getSymbol(self):
+        return self.symbol
 
     def findNodeobj(self, node):
         return self.findNode(node.getID())
@@ -219,6 +228,19 @@ class Automaton:
         self.removeNode(node1)
         self.removeNode(node2)
 
+    def getNodePos(self, node):
+        for x in range(len(self.nodes)):
+            if (self.nodes[x] == node):
+                return x
+
+    def copyAutomaton(self, symbol):
+        newauto = Automaton(symbol)
+        for x in range(self.getSize()):
+            newauto.addColourNode()
+        for i in self.transitions:
+            newauto.addTransition(newauto.nodes[self.getNodePos(i.getStart())], newauto.nodes[self.getNodePos(i.getEnd())], i.getSymbol())
+        return newauto
+
 
 
 class Node:
@@ -237,6 +259,18 @@ class Node:
 
     def equals(self, node):
         return (self.id == node.getID())
+
+def colourNode(Node):
+
+    def __init__(self, iid):
+        super().__init__(self, iid)
+        self.colour = False
+
+    def promote(self):
+        self.colour = True
+
+    def checkLevel(self):
+        return self.colour
 
 
 class Transition:

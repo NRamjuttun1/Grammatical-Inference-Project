@@ -1,24 +1,41 @@
 from classes import *
+import random
 
-def findAllPaths(auto):
-    explored = []
+def findAllPaths(auto): #method is to find a path add it to paths, and then add one of the transitions used in the path to a list where the next path cannot traverse, this will force a new path next iteration
     paths = []
-    while(not len(explored) == len(auto.transitions)):
-        newpath, explored = _findAllPaths(auto, auto.start, [], explored)
+    removedtrans = []
+    check = 0
+    while(check < 10):
+        newpath = _findAllPaths(auto, auto.start, [], removedtrans, 0)
         if (not newpath == False):
             paths.append(newpath)
-    for x in paths:
-        print(str(x))
+            newint = random.randint(0, len(newpath) - 2)
+            for x in auto.transitions:
+                if ((x.getStart() == newpath[newint]) and (x.getEnd() == newpath[newint + 1])):
+                    removedtrans.append(x)
+        elif(newpath == False):
+            check += 1
+    return paths
 
-def _findAllPaths(auto, current, path, explored):
+def _findAllPaths(auto, current, explored, removedtrans, turn): #somehow getting None type from here
+    turn += 1
+    if turn == auto.getSize() * 3:
+        return False
     if (current in auto.end):
         return [current]
-    for x in auto.findTransFromNode(current):
-        explored.append(x)
-        newrun = _findAllPaths(auto, x.getEnd(), path, explored)
-        if (not newrun == False):
-            return path.append(current), explored
-    return False, explored
+    frontier = auto.findTransFromNode(current)
+    random.shuffle(frontier)
+    for x in range(len(frontier)):
+        next = frontier.pop()
+        if (next not in removedtrans):
+            newpath = _findAllPaths(auto, next.getEnd(), explored, removedtrans, turn)
+            if(not newpath == False):
+                return newpath.append(current)
+    return False
+
+
+
+
 
 
 newauto = Automaton("G")
@@ -33,5 +50,5 @@ newauto.addTransition(newauto.nodes[1], newauto.nodes[3], "f")
 newauto.setStart(newauto.getNode(2))
 newauto.setEnd(newauto.getNode(3))
 print(newauto)
-newauto.mergeNode(newauto.nodes[2], newauto.nodes[0])
-print(newauto)
+newauto2 = newauto.copyAutomaton("B") #try copying automaton
+print(newauto2)
