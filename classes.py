@@ -30,7 +30,7 @@ class Automaton:
 
     def addTransition(self, sstart, eend, ssymbol):
         newtransistion = Transition(sstart, eend, ssymbol)
-        self.transitions.append(newtransistion)
+        self.addNewTrans(newtransistion)
 
     def setStart(self, sstart):
         self.start = sstart
@@ -45,7 +45,8 @@ class Automaton:
         return self.nodes[node]
 
     def addNewTrans(self, trans):
-        self.transitions.append(trans)
+        if (not self.checkTransExists(trans)):
+            self.transitions.append(trans)
 
     def checkTransExists(self, trans):
         if (trans in self.transitions):
@@ -59,10 +60,31 @@ class Automaton:
     def getSize(self):
         return self.size
 
+    def findNodeobj(self, node):
+        return self.findNode(node.getID())
+
     def findNode(self, id):
         for i in range (len(self.nodes)):
             if (self.nodes[i].getID() == id):
                 return self.nodes[i]
+
+    def removeNode(self, node):
+        if node in self.end:
+            if (len(self.end) == 1):
+                print("Cannot delete final end node")
+                return
+            else:
+                self.end.remove(node)
+        if (self.start == node):
+            print("Cannot delete start node")
+            return
+        transto = self.findTransToNode(node)
+        transfrom = self.findTransFromNode(node)
+        for x in transto:
+            self.deleteTransition(x)
+        for x in transfrom:
+            self.deleteTransition(x)
+        self.nodes.remove(node)
 
     def checkNodeExists(self, nnode):
         try:
@@ -165,6 +187,38 @@ class Automaton:
             if checkInput(i):
                 count += 1
         return count
+
+    def mergeNode(self, node1, node2):
+        #determine whether it is easier to send the ID or the node Object
+        self.addNode()
+        newnode = self.nodes[-1]
+        node1to = self.findTransToNode(node1)
+        node1from = self.findTransFromNode(node1)
+        node2to = self.findTransToNode(node2)
+        node2from = self.findTransFromNode(node2)
+        for x in node1to:
+            if (x.getStart() == node2):
+                self.addTransition(newnode, newnode, x.getSymbol())
+            else:
+                self.addTransition(x.getStart(), newnode, x.getSymbol())
+        for x in node2to:
+            if (x.getStart() == node1):
+                self.addTransition(newnode, newnode, x.getSymbol())
+            else:
+                self.addTransition(x.getStart(), newnode, x.getSymbol())
+        for x in node1from:
+            if (not x.getEnd() == node2):
+                self.addTransition(newnode, x.getEnd(), x.getSymbol())
+        for x in node2from:
+            if (not x.getEnd() == node1):
+                self.addTransition(newnode, x.getEnd(), x.getSymbol())
+        if ((node1 in self.end) or (node2 in self.end)):
+            self.addEnd(newnode)
+        if ((node1 == self.start) or (node2 == self.start)):
+            self.setStart(newnode)
+        self.removeNode(node1)
+        self.removeNode(node2)
+
 
 
 class Node:
