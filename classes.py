@@ -13,13 +13,14 @@ class Automaton:
     def __str__(self):
         sstring = ""
         for x in self.nodes:
-            sstring = sstring + str(x) + '\n'
-        sstring = sstring + '\n'
+            sstring += str(x) + '\n'
+        sstring += '\n'
         for y in self.transitions:
-            sstring = sstring + str(y.getStart()) + " -" + str(y.getSymbol()) + "-> " + str(y.getEnd()) + '\n'
-        sstring = sstring + "Start Node = {} \n Final Nodes = ".format(self.start)
+            sstring += str(y.getStart()) + " -" + str(y.getSymbol()) + "-> " + str(y.getEnd()) + '\n'
+        sstring = sstring + "\nStart Node = {} \nFinal Nodes = ".format(self.start)
         for i in self.end:
-            sstring = sstring + str(i) + " "
+            sstring += str(i) + " "
+        sstring += '\n'
         return sstring
 
     def addNode(self):
@@ -44,11 +45,6 @@ class Automaton:
     def getNode(self, node):
         return self.nodes[node]
 
-    def addColourNode(self):
-        newnode = colourNode("" + str(self.symbol) + str(self.name))
-        self.nodes.append(newnode)
-        self.size += 1
-        self.name += 1
 
     def addNewTrans(self, trans):
         if (not self.checkTransExists(trans)):
@@ -115,29 +111,6 @@ class Automaton:
             if (self.transitions[i].end.equals(node)):
                 trans.append(self.transitions[i])
         return trans
-
-    def findAllPaths(self):
-        paths = []
-        explored = []
-        while(not len(explored) == len(self.nodes)):
-            val = self._findAllPaths(explored, self.start, [])
-            if (not val == None):
-                paths.append(val)
-        return paths
-
-    def _findAllPaths(self, explored, currentNode, path): #find all paths not working
-        explored.append(currentNode)
-        path.append(currentNode)
-        if (currentNode in self.end):
-            return path
-        else:
-            for x in self.findTransFromNode(currentNode):
-                if (x.getEnd() not in explored):
-                    val = self._findAllPaths(explored, x.getEnd(), path)
-                    if (not val == None):
-                        return val
-        path.pop()
-        explored.remove(currentNode)
 
     def _checkPathExists(self, currentNode, explored):
         if (len(explored) == len(self.nodes)):
@@ -235,12 +208,45 @@ class Automaton:
 
     def copyAutomaton(self, symbol):
         newauto = Automaton(symbol)
-        for x in range(self.getSize()):
-            newauto.addColourNode()
+        return self._copyAutomaton(newauto)
+
+    def _copyAutomaton(self, newauto):
+        for x in range(self.getSize()-1):
+            newauto.addNode()
         for i in self.transitions:
             newauto.addTransition(newauto.nodes[self.getNodePos(i.getStart())], newauto.nodes[self.getNodePos(i.getEnd())], i.getSymbol())
+        newauto.setStart(newauto.nodes[self.getNodePos(self.start)])
+        for f in self.end:
+            newauto.addEnd(newauto.nodes[self.getNodePos(f)])
         return newauto
 
+class cAutomaton(Automaton):
+
+    def __init__(self, idd):
+        super().__init__(idd)
+
+    def __str__(self):
+        sstring = ""
+        for x in self.nodes:
+            sstring += str(x) + '\n'
+        sstring = sstring + '\n'
+        for y in self.transitions:
+            sstring += y.getStart().displaycNode() + " -" + y.getSymbol()+ "-> " + y.getEnd().displaycNode() + '\n'
+        sstring += "\nStart Node = {} \nFinal Nodes = ".format(self.start)
+        for i in self.end:
+            sstring += str(i) + " "
+        sstring += '\n'
+        return sstring
+
+    def addNode(self):
+        newnode = colourNode("" + str(self.symbol) + str(self.name))
+        self.nodes.append(newnode)
+        self.size += 1
+        self.name += 1
+
+    def copyAutomaton(self, symbol):
+        newauto = cAutomaton(symbol)
+        return super()._copyAutomaton(newauto)
 
 
 class Node:
@@ -249,7 +255,7 @@ class Node:
         self.id = iid
 
     def __str__(self):
-        return "Node : "+ self.id
+        return "Node : "+ self.getID()
 
     def getID(self):
         return self.id
@@ -260,17 +266,28 @@ class Node:
     def equals(self, node):
         return (self.id == node.getID())
 
-def colourNode(Node):
+class colourNode(Node):
 
     def __init__(self, iid):
-        super().__init__(self, iid)
+        super().__init__(iid)
         self.colour = False
+
+    def __str__(self):
+        return "cNode : {} - State : {}".format(str(self.getID()), str(self.getState()))
+
+    def displaycNode(init):
+        return "cNode : {}".format(str(super().getID()))
 
     def promote(self):
         self.colour = True
 
     def checkLevel(self):
         return self.colour
+
+    def getState(self):
+        if (self.checkLevel()):
+            return "Red"
+        return "Blue"
 
 
 class Transition:
@@ -292,11 +309,17 @@ class Transition:
     def __eq__(self, obj):
         return ((obj.start == self.start) and (obj.end == self.end) and (obj.symbol == self.symbol))
 
+def buildcAutomatonFromStrings(sstrings, ssymbol):
+    auto = cAutomaton(ssymbol)
+    return _buildAutomatonFromStrings(auto, sstrings)
 
 def buildAutomatonFromStrings(sstrings, ssymbol):
     auto = Automaton(ssymbol)
-    for i in range(len(sstrings)):
-        _buildAutomatonFromString(sstrings[i], auto)
+    return _buildAutomatonFromStrings(auto, sstrings)
+
+def _buildAutomatonFromStrings(auto, strings):
+    for i in strings:
+        _buildAutomatonFromString(i, auto)
     return auto
 
 def _buildAutomatonFromString(sstring, auto):

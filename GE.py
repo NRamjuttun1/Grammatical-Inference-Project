@@ -1,4 +1,4 @@
-from classes import Automaton, Node, Transition, buildAutomatonFromStrings, _buildAutomatonFromString, mergeAutomaton, buildAutomatonFromMergeList, flattenMergeList, getListPos
+from classes import *
 import random, time
 
 

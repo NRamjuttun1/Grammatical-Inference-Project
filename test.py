@@ -36,8 +36,6 @@ def _findAllPaths(auto, current, explored, removedtrans, turn): #somehow getting
 
 
 
-
-
 newauto = Automaton("G")
 for x in range(3):
     newauto.addNode()
@@ -50,5 +48,20 @@ newauto.addTransition(newauto.nodes[1], newauto.nodes[3], "f")
 newauto.setStart(newauto.getNode(2))
 newauto.setEnd(newauto.getNode(3))
 print(newauto)
-newauto2 = newauto.copyAutomaton("B") #try copying automaton
+newauto2 = newauto.copyAutomaton("B")
 print(newauto2)
+t = cAutomaton("P")
+t.addNode()
+t.addTransition(t.getNode(0), t.getNode(1), "A")
+print(t)
+try:
+    _s_pos = open("regex.txt", "r")
+    _s_neg = open("regex-.txt", "r")
+    s_pos = s_neg = []
+    s_pos = [line.rstrip('\n') for line in _s_pos]
+    s_neg = [line.rstrip('\n') for line in _s_neg]
+    _s_pos.close()
+    _s_neg.close()
+except:
+    print("File not found!")
+    exit()
