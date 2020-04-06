@@ -26,16 +26,8 @@ def getSize():
         value = input("Enter the size of the Automaton: \n")
     return int(value)
 
-def createNewWord():
-    word = ""
-    for x in range(exampleAuto.getSize()-1):
-        letter = random.choice(alphabet)
-        if (not letter == ""):
-            word += letter
-    return word
 
 alphabet = getAlphabet()
-alphabet.append("")
 poswords = []
 negwords = []
 exampleAuto = Automaton("E")
@@ -44,19 +36,16 @@ for i in range(size):
     exampleAuto.addNode()
 exampleAuto.end.append(exampleAuto.nodes[-1])
 #for x in range(size * 2):
-while((not exampleAuto.checkPathExists())):
+failed = 0
+while(not failed == 5):
     newtrans = Transition(random.choice(exampleAuto.nodes), random.choice(exampleAuto.nodes), random.choice(alphabet))
-    if (not exampleAuto.checkTransExists(newtrans)):
+    if ((not exampleAuto.checkTransExists(newtrans)) and (exampleAuto.checkNoRepeatSymbol(newtrans))):
         exampleAuto.addNewTrans(newtrans)
-print(exampleAuto.findAllPaths())
-for x in range(0):
-    newword = createNewWord()
-    if (exampleAuto.checkInput(newword)):
-        poswords.append(newword)
+        failed = 0
     else:
-        negwords.append(newword)
-    print("Current size of the + words = {}".format(str(len(poswords))))
-
-
-print("Positive words -> {}".format(poswords))
+        failed += 1
+print(alphabet)
+print(exampleAuto)
+print("Determinism = {}".format(exampleAuto.checkDeterministic()))
+#print("Positive words -> {}".format(poswords))
 #print("Negative words -> {}".format(negwords))

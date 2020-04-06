@@ -16,11 +16,6 @@ def getSymbol(autos):
 
 
 
-def copyAutomaton(auto, listofautos):
-    newauto = Automaton(getSymbol())
-    for i in range(len(auto.getSize())):
-        newauto.addColourNode()
-        
 
 automatons = []
 try:

@@ -6,8 +6,7 @@ class Automaton:
         self.transitions = []
         self.size = 0
         self.name = 0
-        self.addNode()
-        self.start = self.nodes[0]
+        self.start = self.addAndGetNode()
         self.end = []
 
     def __str__(self):
@@ -37,13 +36,20 @@ class Automaton:
         self.start = sstart
 
     def setEnd(self, end):
-        self.end = [end]
+        self.end = end
 
     def addEnd(self, end):
         self.end.append(end)
 
     def getNode(self, node):
         return self.nodes[node]
+
+    def getAlphabet(self):
+        alphabet = []
+        for x in self.transitions:
+            if (x.getSymbol() not in alphabet):
+                alphabet.append(x.getSymbol())
+        return alphabet
 
 
     def addNewTrans(self, trans):
@@ -155,11 +161,23 @@ class Automaton:
 
     def checkDeterministic(self):
         for i in self.nodes:
-            arr = []
-            trans = self.findTransFromNode(i)
-            for x in trans:
-                arr.append(x.getSymbol())
-            if (checkRepeats(arr)):
+            if (not self.checkNoRepeatTransitions(i)):
+                return False
+        return True
+
+    def checkNoRepeatTransitions(self, node):
+        arr = []
+        trans = self.findTransFromNode(node)
+        for x in trans:
+            arr.append(x.getSymbol())
+        if (checkRepeats(arr)):
+            return False
+        return True
+
+    def checkNoRepeatSymbol(self, transition):
+        trans = self.findTransFromNode(transition.getStart())
+        for x in trans:
+            if (x.getSymbol() == transition.getSymbol()):
                 return False
         return True
 
@@ -170,10 +188,14 @@ class Automaton:
                 count += 1
         return count
 
+    def addAndGetNode(self):
+        self.addNode()
+        return self.nodes[-1]
+
     def mergeNode(self, node1, node2):
         #determine whether it is easier to send the ID or the node Object
         self.addNode()
-        newnode = self.nodes[-1]
+        newnode = addAndGetNode()
         node1to = self.findTransToNode(node1)
         node1from = self.findTransFromNode(node1)
         node2to = self.findTransToNode(node2)
@@ -220,6 +242,23 @@ class Automaton:
             newauto.addEnd(newauto.nodes[self.getNodePos(f)])
         return newauto
 
+    def getComplementAutomaton(self):
+        newauto = self.copyAutomaton("_{}_".format(self.getSymbol()))
+        alphabet = newauto.getAlphabet()
+        terminating = newauto.addAndGetNode()
+        newend = []
+        for x in newauto.nodes:
+            ab = alphabet.copy()
+            for j in newauto.findTransFromNode(x):
+                ab.remove(j.getSymbol())
+            for i in ab:
+                newauto.addTransition(x, terminating, i)
+            if (x not in newauto.end):
+                newend.append(x)
+        newauto.setEnd(newend)
+        return newauto
+
+
 class cAutomaton(Automaton):
 
     def __init__(self, idd):
@@ -243,6 +282,13 @@ class cAutomaton(Automaton):
         self.nodes.append(newnode)
         self.size += 1
         self.name += 1
+
+    def getAllBlueNodes(self):
+        blues = []
+        for x in self.nodes:
+            if (x.checkLevel() == 1):
+                blues.append(x)
+        return blues
 
     def copyAutomaton(self, symbol):
         newauto = cAutomaton(symbol)
@@ -270,7 +316,7 @@ class colourNode(Node):
 
     def __init__(self, iid):
         super().__init__(iid)
-        self.colour = False
+        self.colour = 0
 
     def __str__(self):
         return "cNode : {} - State : {}".format(str(self.getID()), str(self.getState()))
@@ -279,15 +325,18 @@ class colourNode(Node):
         return "cNode : {}".format(str(super().getID()))
 
     def promote(self):
-        self.colour = True
+        if (not self.colour == 2):
+            self.colour += 1
 
     def checkLevel(self):
         return self.colour
 
     def getState(self):
-        if (self.checkLevel()):
-            return "Red"
-        return "Blue"
+        if (self.checkLevel() == 0):
+            return "White"
+        elif (self.checkLevel() == 1):
+            return "Blue"
+        return "Red"
 
 
 class Transition:

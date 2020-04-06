@@ -46,22 +46,9 @@ newauto.addTransition(newauto.nodes[2], newauto.nodes[0], "d")
 newauto.addTransition(newauto.nodes[2], newauto.nodes[1], "e")
 newauto.addTransition(newauto.nodes[1], newauto.nodes[3], "f")
 newauto.setStart(newauto.getNode(2))
-newauto.setEnd(newauto.getNode(3))
+newauto.addEnd(newauto.getNode(3))
 print(newauto)
-newauto2 = newauto.copyAutomaton("B")
-print(newauto2)
-t = cAutomaton("P")
-t.addNode()
-t.addTransition(t.getNode(0), t.getNode(1), "A")
-print(t)
-try:
-    _s_pos = open("regex.txt", "r")
-    _s_neg = open("regex-.txt", "r")
-    s_pos = s_neg = []
-    s_pos = [line.rstrip('\n') for line in _s_pos]
-    s_neg = [line.rstrip('\n') for line in _s_neg]
-    _s_pos.close()
-    _s_neg.close()
-except:
-    print("File not found!")
-    exit()
+compauto = newauto.getComplementAutomaton()
+print(compauto)
+input = "dcdcdcdcdcdcdcdcdb"
+print("Automaton accepts input -> {} \nComplement Automaton accepts input -> {}".format(newauto.checkInput(input), compauto.checkInput(input)))
