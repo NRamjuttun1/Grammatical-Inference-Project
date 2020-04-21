@@ -29,4 +29,4 @@ try:
 except:
     print("File not found!")
     exit()
-automatons.append(buildAutomatonFromStrings(s_pos, "A"))
+MCA = buildAutomatonFromStrings(s_pos, "A")

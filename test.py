@@ -1,40 +1,36 @@
 from classes import *
 import random
 
-def findAllPaths(auto): #method is to find a path add it to paths, and then add one of the transitions used in the path to a list where the next path cannot traverse, this will force a new path next iteration
-    paths = []
-    removedtrans = []
-    check = 0
-    while(check < 10):
-        newpath = _findAllPaths(auto, auto.start, [], removedtrans, 0)
-        if (not newpath == False):
-            paths.append(newpath)
-            newint = random.randint(0, len(newpath) - 2)
-            for x in auto.transitions:
-                if ((x.getStart() == newpath[newint]) and (x.getEnd() == newpath[newint + 1])):
-                    removedtrans.append(x)
-        elif(newpath == False):
-            check += 1
-    return paths
-
-def _findAllPaths(auto, current, explored, removedtrans, turn): #somehow getting None type from here
-    turn += 1
-    if turn == auto.getSize() * 3:
-        return False
-    if (current in auto.end):
-        return [current]
-    frontier = auto.findTransFromNode(current)
-    random.shuffle(frontier)
-    for x in range(len(frontier)):
-        next = frontier.pop()
-        if (next not in removedtrans):
-            newpath = _findAllPaths(auto, next.getEnd(), explored, removedtrans, turn)
-            if(not newpath == False):
-                return newpath.append(current)
-    return False
-
-
-
+def getWords(_auto):
+    auto, terminating = _auto.getComplementAutomaton(True)
+    print("Terminating Node : {}".format(terminating))
+    words = []
+    for x in range(100):
+        current = auto.start
+        word = ""
+        count = 0
+        end = False
+        while(end == False) and (count < auto.getSize()*100):
+            count += 1
+            if (current not in auto.end):
+                if (word not in words):
+                    words.append(word)
+            trans = auto.findTransFromNode(current)
+            if (not len(trans) == 0):
+                delete_list = []
+                for x in trans:
+                    if (x.getEnd() == terminating):
+                        delete_list.append(x)
+                for x in delete_list:
+                    trans.remove(x)
+            if (not len(trans) == 0):
+                random_trans = random.choice(trans)
+                if (not random_trans.getEnd() == terminating):
+                    current = random_trans.getEnd()
+                    word += random_trans.getSymbol()
+            else:
+                end = True
+    return words
 
 newauto = Automaton("G")
 for x in range(3):
@@ -52,3 +48,4 @@ compauto = newauto.getComplementAutomaton()
 print(compauto)
 input = "dcdcdcdcdcdcdcdcdb"
 print("Automaton accepts input -> {} \nComplement Automaton accepts input -> {}".format(newauto.checkInput(input), compauto.checkInput(input)))
+print("Accepting Words: {}".format(getWords(newauto)))

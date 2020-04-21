@@ -242,7 +242,7 @@ class Automaton:
             newauto.addEnd(newauto.nodes[self.getNodePos(f)])
         return newauto
 
-    def getComplementAutomaton(self):
+    def getComplementAutomaton(self, terminate = False):
         newauto = self.copyAutomaton("_{}_".format(self.getSymbol()))
         alphabet = newauto.getAlphabet()
         terminating = newauto.addAndGetNode()
@@ -256,6 +256,8 @@ class Automaton:
             if (x not in newauto.end):
                 newend.append(x)
         newauto.setEnd(newend)
+        if (terminate):
+            return newauto, terminating
         return newauto
 
 

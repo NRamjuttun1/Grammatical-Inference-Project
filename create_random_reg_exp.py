@@ -3,10 +3,13 @@ import random
 
 def getAlphabet():
     alphabet = []
-    msg = "Enter Character for alphabet (Press Enter To Finish):\n"
+    msg = "Enter Character for alphabet (Enter EXIT To Finish):\n"
     value = input(msg)
-    while(not value == ''):
-        if (value[0] not in alphabet):
+    while(not value == 'EXIT'):
+        if (value == ''):
+            if (value not in alphabet):
+                alphabet.append(value)
+        elif (value[0] not in alphabet):
             alphabet.append(value[0])
         else:
             print("Character already exists in Alphabet\n")
@@ -26,6 +29,49 @@ def getSize():
         value = input("Enter the size of the Automaton: \n")
     return int(value)
 
+def getPosWords(_auto):
+    auto, terminating = _auto.getComplementAutomaton(True)
+    print("Terminating Node : {}".format(terminating))
+    words = []
+    for x in range(auto.getSize() * 10):
+        current = auto.start
+        word = ""
+        count = 0
+        end = False
+        while(end == False) and (count < auto.getSize() * 5):
+            count += 1
+            if (current not in auto.end):
+                if (word not in words):
+                    words.append(word)
+            trans = auto.findTransFromNode(current)
+            if (not len(trans) == 0):
+                delete_list = []
+                for x in trans:
+                    if (x.getEnd() == terminating):
+                        delete_list.append(x)
+                for x in delete_list:
+                    trans.remove(x)
+            if (not len(trans) == 0):
+                random_trans = random.choice(trans)
+                if (not random_trans.getEnd() == terminating):
+                    current = random_trans.getEnd()
+                    word += random_trans.getSymbol()
+            else:
+                end = True
+    return words
+
+def getNegWords(auto):
+    words = []
+    for x in range(auto.getSize() * 10):
+        word = ""
+        for x in range(auto.getSize() * 2):
+            if (random.randint(0,1)):
+                word += random.choice(alphabet)
+                if (not auto.checkInput(word)):
+                    if (word not in words):
+                        words.append(word)
+    return words
+
 
 alphabet = getAlphabet()
 poswords = []
@@ -44,8 +90,9 @@ while(not failed == 5):
         failed = 0
     else:
         failed += 1
-print(alphabet)
 print(exampleAuto)
 print("Determinism = {}".format(exampleAuto.checkDeterministic()))
+poswords = getPosWords(exampleAuto)
+negwords = getNegWords(exampleAuto)
 #print("Positive words -> {}".format(poswords))
 #print("Negative words -> {}".format(negwords))
