@@ -104,12 +104,19 @@ class Automaton:
         except AttributeError:
             return False
 
-    def findTransFromNode(self, node):
+    def findTransFromNode(self, node, symbol = False):
         trans = []
         for i in range(len(self.transitions)):
             if (self.transitions[i].start.equals(node)):
                 trans.append(self.transitions[i])
-        return trans
+        if (symbol == False):
+            return trans
+        else:
+            return_trans = []
+            for x in trans:
+                if (x.getSymbol() == symbol):
+                    return_trans.append(x)
+            return return_trans
 
     def findTransToNode(self, node):
         trans = []
@@ -192,7 +199,7 @@ class Automaton:
         self.addNode()
         return self.nodes[-1]
 
-    def mergeNode(self, node1, node2):
+    def mergeNode(self, node1, node2, returnNode = False):
         #determine whether it is easier to send the ID or the node Object
         self.addNode()
         newnode = addAndGetNode()
@@ -222,6 +229,8 @@ class Automaton:
             self.setStart(newnode)
         self.removeNode(node1)
         self.removeNode(node2)
+        if (returnNode):
+            return newnode
 
     def getNodePos(self, node):
         for x in range(len(self.nodes)):
@@ -356,6 +365,12 @@ class Transition:
 
     def getSymbol(self):
         return self.symbol
+
+    def setStart(self, node):
+        self.start = node
+
+    def setEnd(self, node):
+        self.end = node
 
     def __eq__(self, obj):
         return ((obj.start == self.start) and (obj.end == self.end) and (obj.symbol == self.symbol))
