@@ -282,9 +282,9 @@ class cAutomaton(Automaton):
         sstring = sstring + '\n'
         for y in self.transitions:
             sstring += y.getStart().displaycNode() + " -" + y.getSymbol()+ "-> " + y.getEnd().displaycNode() + '\n'
-        sstring += "\nStart Node = {} \nFinal Nodes = ".format(self.start)
+        sstring += "\nStart Node = {} \nFinal Nodes = ".format(self.start.displaycNode())
         for i in self.end:
-            sstring += str(i) + " "
+            sstring += i.displaycNode() + " "
         sstring += '\n'
         return sstring
 
@@ -353,6 +353,10 @@ class colourNode(Node):
     def promote(self):
         if (not self.colour == 2):
             self.colour += 1
+            return True
+        else:
+            print("Cannot promote red state")
+        return False
 
     def checkLevel(self):
         return self.colour

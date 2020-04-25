@@ -19,6 +19,17 @@ def getSymbol():
 def buildPTAFromStrings(sstrings):
     return buildPTA(sstrings, getSymbol())
 
+def promoteNode(node):
+    if (node.promote()):
+        if (node.checkLevel() == 2):
+            red_nodes.append(node)
+            blue_nodes.remove(node)
+        elif (node.checkLevel() == 1):
+            blue_nodes.append(node)
+            white_nodes.remove(node)
+
+
+
 def fold(auto, merged_node):
     check = False
     while(not check == True):
@@ -94,4 +105,11 @@ except:
     print("File not found!")
     exit()
 pta = buildPTAFromStrings(s_pos)
-print(pta.returnSimpleString())
+white_nodes = []
+blue_nodes = []
+red_nodes = []
+for x in pta.nodes[1:]:
+    white_nodes.append(x)
+red_nodes.append(pta.start)
+pta.start.promote()
+pta.start.promote()
