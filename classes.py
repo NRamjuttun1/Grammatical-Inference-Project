@@ -288,6 +288,19 @@ class cAutomaton(Automaton):
         sstring += '\n'
         return sstring
 
+    def returnSimpleString(self):
+        sstring = ""
+        for x in self.nodes:
+            sstring += str(x) + '\n'
+        sstring = sstring + '\n'
+        for y in self.transitions:
+            sstring += y.getStart().displaycNode() + " -" + y.getSymbol()+ "-> " + y.getEnd().displaycNode() + '\n'
+        sstring += "\nStart Node = {} \nFinal Nodes = ".format(self.start.displaycNode())
+        for i in self.end:
+            sstring += str(i.displaycNode()) + " "
+        sstring += '\n'
+        return sstring
+
     def addNode(self, return_node = False):
         newnode = colourNode("" + str(self.symbol) + str(self.name))
         self.nodes.append(newnode)
@@ -403,10 +416,9 @@ def _buildAutomatonFromString(sstring, auto):
 
 def buildPTA(sstrings, ssymbol):
     newauto = cAutomaton(ssymbol)
-    print("Start Nodesssssssssssssss : {}".format(newauto.start))
     for x in sstrings:
         newauto = buildPTA2(x, newauto, newauto.start)
-    return pta
+    return newauto
 
 def buildPTA2(str, newauto, current_node):
     for letter in str:
@@ -422,6 +434,8 @@ def buildPTA2(str, newauto, current_node):
             new_node = newauto.addNode(True)
             newauto.addTransition(current_node, new_node, letter)
             current_node = new_node
+    newauto.addEnd(current_node)
+    return newauto
 
 def checkExists(arr, el):
     for item in arr:

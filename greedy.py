@@ -94,3 +94,4 @@ except:
     print("File not found!")
     exit()
 pta = buildPTAFromStrings(s_pos)
+print(pta.returnSimpleString())
