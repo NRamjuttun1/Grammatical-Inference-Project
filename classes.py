@@ -399,6 +399,28 @@ def _buildAutomatonFromString(sstring, auto):
         auto.addTransition(startNode, endNode, sstring[i+1]) #change here for sstring[i] to i+1
     auto.end.append(endNode)
 
+def _buildPTAFromStrings(sstrings, ssymbol):
+    newauto = Automaton(ssymbol)
+    print(newauto)
+    for x in sstrings:
+        newauto = buildPTAFromString(x, newauto, newauto.start)
+    return pta
+
+def buildPTAFromString(str, newauto, current_node):
+    for letter in str:
+        trans = newauto.findTransFromNode(current_node, letter)
+        if (len(trans) > 1):
+            print(newauto.checkDeterministic())
+            print("Determinism lost")
+            print(newauto)
+            exit()
+        elif (len(trans) == 1):
+            current_node = trans[0].getEnd()
+        elif(len(trans) == 0):
+            new_node = newauto.addNode(True)
+            newauto.addTransition(current_node, new_node, letter)
+            current_node = new_node
+
 def checkExists(arr, el):
     for item in arr:
         if (item == el):
