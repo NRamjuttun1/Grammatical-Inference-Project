@@ -1,7 +1,9 @@
 from classes import *
 
-def getSymbol(autos):
-    lastsymbol = autos[-1].getSymbol()
+def getSymbol():
+    if (len(automatons) == 0):
+        return "A"
+    lastsymbol = automatons[-1].getSymbol()
     if (lastsymbol[-1] == 'Z'):
         for x in range(2, len(lastsymbol)):
             if (not lastsymbol[-x] == 'Z'):
@@ -10,12 +12,12 @@ def getSymbol(autos):
         newsymbol = ""
         for x in range(len(lastsymbol)+1):
             newsymbol += 'A'
-
+            return newsymbol
     else:
         return chr(ord(lastsymbol[-1]) + 1)
 
 def buildPTAFromStrings(sstrings):
-    return _buildPTAFromStrings(sstrings, getSymbol())
+    return buildPTA(sstrings, getSymbol())
 
 def fold(auto, merged_node):
     check = False

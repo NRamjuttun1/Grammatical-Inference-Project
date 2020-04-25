@@ -6,7 +6,7 @@ class Automaton:
         self.transitions = []
         self.size = 0
         self.name = 0
-        self.start = self.addAndGetNode()
+        self.start = self.addNode(True)
         self.end = []
 
     def __str__(self):
@@ -22,11 +22,14 @@ class Automaton:
         sstring += '\n'
         return sstring
 
-    def addNode(self):
+    def addNode(self, return_node = False):
         newnode = Node("" + str(self.symbol) + str(self.name))
         self.nodes.append(newnode)
         self.size += 1
         self.name += 1
+        if (return_node):
+            return newnode
+
 
     def addTransition(self, sstart, eend, ssymbol):
         newtransistion = Transition(sstart, eend, ssymbol)
@@ -195,14 +198,11 @@ class Automaton:
                 count += 1
         return count
 
-    def addAndGetNode(self):
-        self.addNode()
-        return self.nodes[-1]
 
     def mergeNode(self, node1, node2, returnNode = False):
         #determine whether it is easier to send the ID or the node Object
         self.addNode()
-        newnode = addAndGetNode()
+        newnode = addNode(True)
         node1to = self.findTransToNode(node1)
         node1from = self.findTransFromNode(node1)
         node2to = self.findTransToNode(node2)
@@ -254,7 +254,7 @@ class Automaton:
     def getComplementAutomaton(self, terminate = False):
         newauto = self.copyAutomaton("_{}_".format(self.getSymbol()))
         alphabet = newauto.getAlphabet()
-        terminating = newauto.addAndGetNode()
+        terminating = newauto.addNode(True)
         newend = []
         for x in newauto.nodes:
             ab = alphabet.copy()
@@ -288,11 +288,13 @@ class cAutomaton(Automaton):
         sstring += '\n'
         return sstring
 
-    def addNode(self):
+    def addNode(self, return_node = False):
         newnode = colourNode("" + str(self.symbol) + str(self.name))
         self.nodes.append(newnode)
         self.size += 1
         self.name += 1
+        if (return_node):
+            return newnode
 
     def getAllBlueNodes(self):
         blues = []
@@ -399,14 +401,14 @@ def _buildAutomatonFromString(sstring, auto):
         auto.addTransition(startNode, endNode, sstring[i+1]) #change here for sstring[i] to i+1
     auto.end.append(endNode)
 
-def _buildPTAFromStrings(sstrings, ssymbol):
-    newauto = Automaton(ssymbol)
-    print(newauto)
+def buildPTA(sstrings, ssymbol):
+    newauto = cAutomaton(ssymbol)
+    print("Start Nodesssssssssssssss : {}".format(newauto.start))
     for x in sstrings:
-        newauto = buildPTAFromString(x, newauto, newauto.start)
+        newauto = buildPTA2(x, newauto, newauto.start)
     return pta
 
-def buildPTAFromString(str, newauto, current_node):
+def buildPTA2(str, newauto, current_node):
     for letter in str:
         trans = newauto.findTransFromNode(current_node, letter)
         if (len(trans) > 1):
