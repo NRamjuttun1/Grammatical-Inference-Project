@@ -94,5 +94,4 @@ def foldTest():
     newauto.addTransition(newauto.nodes[9], newauto.nodes[10], "a")
     print(newauto)
     fold(newauto, newauto.getNode(0))
-
-foldTest()
+    

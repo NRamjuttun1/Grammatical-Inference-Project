@@ -28,6 +28,23 @@ def promoteNode(node):
             blue_nodes.append(node)
             white_nodes.remove(node)
 
+def getScore(auto):
+    score = 0
+    score += len(auto.nodes)
+    score += len(auto.transitions)
+    return score
+
+def printStates(hideWhites = False):
+    print("Red Nodes : ")
+    for x in red_nodes:
+        print(x)
+    print("\nBlue Nodes")
+    for x in blue_nodes:
+        print(x)
+    if (hideWhites == False):
+        print("\nWhite Nodes")
+        for x in white_nodes:
+            print(x)
 
 
 def fold(auto, merged_node):
@@ -113,3 +130,4 @@ for x in pta.nodes[1:]:
 red_nodes.append(pta.start)
 pta.start.promote()
 pta.start.promote()
+printStates(1)
