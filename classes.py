@@ -201,8 +201,10 @@ class Automaton:
 
     def mergeNode(self, node1, node2, returnNode = False):
         #determine whether it is easier to send the ID or the node Object
-        self.addNode()
-        newnode = addNode(True)
+        print("{} <--------".format(node1 in self.nodes))
+        print("{} <--------".format(node2 in self.nodes))
+        print(node2)
+        newnode = self.addNode(True)
         node1to = self.findTransToNode(node1)
         node1from = self.findTransFromNode(node1)
         node2to = self.findTransToNode(node2)
@@ -210,10 +212,14 @@ class Automaton:
         for x in node1to:
             if (x.getStart() == node2):
                 self.addTransition(newnode, newnode, x.getSymbol())
+            elif (x.getStart() == node1):
+                self.addTransition(newnode, newnode, x.getSymbol())
             else:
                 self.addTransition(x.getStart(), newnode, x.getSymbol())
         for x in node2to:
             if (x.getStart() == node1):
+                self.addTransition(newnode, newnode, x.getSymbol())
+            elif (x.getStart() == node2):
                 self.addTransition(newnode, newnode, x.getSymbol())
             else:
                 self.addTransition(x.getStart(), newnode, x.getSymbol())
@@ -227,6 +233,7 @@ class Automaton:
             self.addEnd(newnode)
         if ((node1 == self.start) or (node2 == self.start)):
             self.setStart(newnode)
+        print("Node 1 : {} ---- Node 2 : {}".format(node1, node2))
         self.removeNode(node1)
         self.removeNode(node2)
         if (returnNode):
@@ -309,6 +316,13 @@ class cAutomaton(Automaton):
         if (return_node):
             return newnode
 
+    def getAllWhiteNodes(self):
+        whites = []
+        for x in self.nodes:
+            if (x.checkLevel() == 0):
+                whites.append(x)
+        return whites
+
     def getAllBlueNodes(self):
         blues = []
         for x in self.nodes:
@@ -316,9 +330,23 @@ class cAutomaton(Automaton):
                 blues.append(x)
         return blues
 
+    def getAllRedNodes(self):
+        reds = []
+        for x in self.nodes:
+            if (x.checkLevel() == 2):
+                reds.append(x)
+        return reds
+
     def copyAutomaton(self, symbol):
         newauto = cAutomaton(symbol)
-        return super()._copyAutomaton(newauto)
+        newauto = super()._copyAutomaton(newauto)
+        for x in self.getAllRedNodes():
+            newauto.findNode(str(symbol) + str(x.getNO())).promote()
+            newauto.findNode(str(symbol) + str(x.getNO())).promote()
+        for x in self.getAllBlueNodes():
+            newauto.findNode(str(symbol) + str(x.getNO())).promote()
+        return newauto
+
 
 
 class Node:

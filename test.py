@@ -49,9 +49,10 @@ def fold(auto, merged_node): #additional strain testing required
                                 print(m)
                     for m in nodes_to_fold:
                         auto.removeNode(m)
-        print(auto)
         if (len(repeats) == 0):
             check = True
+
+
 
 def test():
     newauto = Automaton("G")
@@ -75,7 +76,7 @@ def test():
         print("Start : {}, End : {}, Symbol : {}".format(x.getStart(), x.getEnd(), x.getSymbol()))
 
 def foldTest():
-    newauto = Automaton("P")
+    newauto = cAutomaton("P")
     for x in range(7):
         newauto.addNode()
     newauto.addTransition(newauto.nodes[0], newauto.nodes[1], "a")
@@ -86,12 +87,22 @@ def foldTest():
     newauto.addTransition(newauto.nodes[3], newauto.nodes[4], "a")
     newauto.addTransition(newauto.nodes[4], newauto.nodes[5], "a")
     newauto.addTransition(newauto.nodes[5], newauto.nodes[6], "c")
-    newauto.addEnd(6)
+    newauto.addEnd(newauto.getNode(6))
     for x in range(3):
         newauto.addNode()
     newauto.addTransition(newauto.nodes[0], newauto.nodes[8], "a")
     newauto.addTransition(newauto.nodes[8], newauto.nodes[9], "a")
     newauto.addTransition(newauto.nodes[9], newauto.nodes[10], "a")
-    print(newauto)
     fold(newauto, newauto.getNode(0))
-    
+    print("{} \n\n\n".format(newauto))
+    newauto.mergeNode(newauto.getNode(0), newauto.findNode(newauto.symbol + "6"))
+    print(newauto)
+
+#foldTest()
+cauto = cAutomaton("A")
+cauto.addNode()
+cauto.getNode(0).promote()
+cauto.getNode(0).promote()
+cauto.getNode(1).promote()
+print(cauto)
+print(cauto.copyAutomaton("e"))

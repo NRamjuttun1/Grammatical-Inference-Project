@@ -1,9 +1,9 @@
 from classes import *
 
-def getSymbol():
+def getSymbol(automatons):
     if (len(automatons) == 0):
         return "A"
-    lastsymbol = automatons[-1].getSymbol()
+    lastsymbol = automatons[-1][0].getSymbol()
     if (lastsymbol[-1] == 'Z'):
         for x in range(2, len(lastsymbol)):
             if (not lastsymbol[-x] == 'Z'):
@@ -17,15 +17,15 @@ def getSymbol():
         return chr(ord(lastsymbol[-1]) + 1)
 
 def buildPTAFromStrings(sstrings):
-    return buildPTA(sstrings, getSymbol())
+    return buildPTA(sstrings, getSymbol([]))
 
 def promoteNode(node):
     if (node.promote()):
         if (node.checkLevel() == 2):
-            red_nodes.append(node)
+            red_nodes.insert(0, node)
             blue_nodes.remove(node)
         elif (node.checkLevel() == 1):
-            blue_nodes.append(node)
+            blue_nodes.insert(0, node)
             white_nodes.remove(node)
 
 def getScore(auto):
@@ -45,6 +45,30 @@ def printStates(hideWhites = False):
         print("\nWhite Nodes")
         for x in white_nodes:
             print(x)
+
+def fillBlues(trans, node):
+    if (len(trans) == 0):
+        if (node.checkLevel() == 1):
+            promoteNode(node)
+    check = False
+    for x in trans:
+        if (x.getEnd().checkLevel() == 0):
+            promoteNode(x.getEnd())
+            check = True
+    if (not check):
+        if (node.checkLevel() == 1):
+            promoteNode(node)
+
+def checkFinished():
+    if (len(white_nodes) == 0) and (len(blue_nodes) == 0):
+        return True
+    return False
+
+def updateStateLists(auto):
+    red_nodes = auto.getAllRedNodes()
+    blue_nodes = auto.getAllBlueNodes()
+    white_nodes = auto.getAllWhiteNodes()
+
 
 
 def fold(auto, merged_node):
@@ -72,11 +96,12 @@ def fold(auto, merged_node):
                         print("Current Node : {}".format(current_node))
                         nodes_to_fold.append(current_node)
                         new_trans = auto.findTransFromNode(current_node, i)
+                        print(auto)
                         if (len(new_trans) > 1):
                             print(auto.checkDeterministic())
                             print("Determinism not reached multiple transitions from Node : {} with the symbol {}".format(current_node, x.getSymbol()))
-                            exit()
-                        if (len(new_trans) == 0):
+                            auto = fold(auto, current_node)
+                        elif (len(new_trans) == 0):
                             end = True
                             print("Got to end of branch")
                         elif(len(new_trans) == 1):
@@ -100,14 +125,11 @@ def fold(auto, merged_node):
                         if (m == auto.start):
                             auto.setStart(merged_node)
                         auto.removeNode(m)
-        print(auto)
         if (len(repeats) == 0):
             check = True
     return auto
 
 
-
-automatons = []
 try:
     #_s_pos = open("regex.txt", "r")
     #_s_neg = open("regex-.txt", "r")
@@ -130,4 +152,21 @@ for x in pta.nodes[1:]:
 red_nodes.append(pta.start)
 pta.start.promote()
 pta.start.promote()
-printStates(1)
+num_nodes = len(white_nodes) + len(red_nodes) + len(blue_nodes)
+current = pta.start
+check = False
+while(check == False):
+    fillBlues(pta.findTransFromNode(current), current)
+    auto_list = [[]]
+    auto_list.append([pta, getScore(pta), None])
+    for x in blue_nodes:
+        for j in red_nodes:
+            new_auto = pta.copyAutomaton(getSymbol(auto_list))
+            print(pta)
+            print(new_auto)
+            print(new_auto.size)
+            merge_node = new_auto.mergeNode(new_auto.findNode(str(new_auto.symbol) + str(x.getNO())), new_auto.findNode(str(new_auto.symbol) + str(j.getNO())), True)
+            new_auto = fold(new_auto, merge_node)
+            auto_list.append([new_auto, getScore(new_auto), merge_node])
+    print(len(auto_list))
+    check = True
