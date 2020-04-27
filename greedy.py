@@ -100,7 +100,7 @@ def fold(auto, merged_node):
                         if (len(new_trans) > 1):
                             print(auto.checkDeterministic())
                             print("Determinism not reached multiple transitions from Node : {} with the symbol {}".format(current_node, x.getSymbol()))
-                            auto = fold(auto, current_node)
+                            end = True
                         elif (len(new_trans) == 0):
                             end = True
                             print("Got to end of branch")
@@ -161,11 +161,10 @@ while(check == False):
     auto_list.append([pta, getScore(pta), None])
     for x in blue_nodes:
         for j in red_nodes:
+            print("Blue Node : {} \nRed Node : {}".format(x, j))
             new_auto = pta.copyAutomaton(getSymbol(auto_list))
-            print(pta)
-            print(new_auto)
-            print(new_auto.size)
             merge_node = new_auto.mergeNode(new_auto.findNode(str(new_auto.symbol) + str(x.getNO())), new_auto.findNode(str(new_auto.symbol) + str(j.getNO())), True)
+            print("Node that has been merged : {}".format(merge_node))
             new_auto = fold(new_auto, merge_node)
             auto_list.append([new_auto, getScore(new_auto), merge_node])
     print(len(auto_list))
