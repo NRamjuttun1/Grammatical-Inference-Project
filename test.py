@@ -99,10 +99,13 @@ def foldTest():
     print(newauto)
 
 #foldTest()
-cauto = cAutomaton("A")
-cauto.addNode()
-cauto.getNode(0).promote()
-cauto.getNode(0).promote()
-cauto.getNode(1).promote()
-print(cauto)
-print(cauto.copyAutomaton("e"))
+try:
+    pos_file = open("regex.txt", "w")
+    neg_file = open("regex-.txt", "w")
+    for x in ["Hello\n", "World\n"]:
+        pos_file.write(x)
+    pos_file.close()
+    neg_file.close()
+except:
+    print("File not found!")
+    exit()

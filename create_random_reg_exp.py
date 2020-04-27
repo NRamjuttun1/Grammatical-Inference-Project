@@ -31,7 +31,6 @@ def getSize():
 
 def getPosWords(_auto):
     auto, terminating = _auto.getComplementAutomaton(True)
-    print("Terminating Node : {}".format(terminating))
     words = []
     for x in range(auto.getSize() * 10):
         current = auto.start
@@ -94,5 +93,24 @@ print(exampleAuto)
 print("Determinism = {}".format(exampleAuto.checkDeterministic()))
 poswords = getPosWords(exampleAuto)
 negwords = getNegWords(exampleAuto)
+try:
+    pos_file = open("regex.txt", "w")
+    neg_file = open("regex-.txt", "w")
+    sstring = ""
+    for x in poswords:
+        sstring += x + "\n"
+    pos_file.write(sstring)
+    sstring = ""
+    for x in negwords:
+        sstring += x + "\n"
+    neg_file.write(sstring)
+    pos_file.close()
+    neg_file.close()
+except:
+    print("File not found!")
+    exit()
 #print("Positive words -> {}".format(poswords))
 #print("Negative words -> {}".format(negwords))
+for x in poswords:
+    if (exampleAuto.checkInput(x) == False):
+        print("OH BOY")

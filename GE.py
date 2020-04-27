@@ -80,7 +80,9 @@ try:
 except:
     print("File not found!")
     exit()
+print("Building these stringd")
 MCA = buildAutomatonFromStrings(s_pos, "Q")
+print("Finished building the MCA")
 optimalFitness = len(s_neg)
 samplesize = 10
 samples = []
