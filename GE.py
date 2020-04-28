@@ -116,7 +116,7 @@ win = False
 while(win == False):
     count += 1
     if (optimalFitness in fitnessarr):   #    WIN CONDITION
-        correct_auto = mergeAutomaton(MCA, samples[fitnessarr.index(len(s_neg))])
+        correct_auto = mergeAutomaton(MCA, samples[fitnessarr.index(optimalFitness)])
         print("Automaton with max score found in\n{}\n{} generations \n {} new populations has to be generated".format(correct_auto, count, populations))
         neg_true = pos_false = 0
         for x in s_neg:
@@ -133,10 +133,11 @@ while(win == False):
             if correct_auto.checkInput(x) == False:
                 pos_false += 1
         if (pos_false == 0) and (neg_true == 0):
-            print("Unknwon Positives rejected = {}/{} \nUnknown Negatives accepted = {}/{}".format(pos_false, u_pos, neg_true, u_neg))
+            print("Unknown Positives rejected = {}/{} \nUnknown Negatives accepted = {}/{}".format(pos_false, len(u_pos), neg_true, len(u_neg)))
             win = True
         else:
             print("Unknown words not classified correctly")
+            print("Unknown Positives rejected = {}/{} \nUnknown Negatives accepted = {}/{}".format(pos_false, len(u_pos), neg_true, len(u_neg)))
     if (win == False):
         checkcount = 0
         min1, min2 = find2Min(fitnessarr)

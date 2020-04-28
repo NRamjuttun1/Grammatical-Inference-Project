@@ -26,7 +26,7 @@ def getSize():
         value = input("Enter the size of the Automaton: \n")
     return int(value)
 
-def getPosWords(_auto):
+def getPosWords(_auto, ls):
     auto, terminating = _auto.getComplementAutomaton(True)
     words = []
     for x in range(auto.getSize()):
@@ -59,7 +59,7 @@ def getPosWords(_auto):
                 end = True
     return words
 
-def getNegWords(auto):
+def getNegWords(auto, ls):
     words = []
     for x in range(auto.getSize() * 2):
         word = ""
@@ -67,7 +67,7 @@ def getNegWords(auto):
             if (random.randint(0,1)):
                 word += random.choice(alphabet)
                 if (not auto.checkInput(word)):
-                    if (word not in words):
+                    if (word not in words) and (word not in ls):
                         words.append(word)
     return words
 
@@ -121,20 +121,33 @@ while(not failed == 5):
         failed += 1
 print(exampleAuto)
 print("Determinism = {}".format(exampleAuto.checkDeterministic()))
-poswords = getPosWords(exampleAuto)
+poswords = []
+count = 0
+while(len(poswords) < 10 or count == 20):
+    poswords += getPosWords(exampleAuto, poswords)
+    count += 1
 if (len(poswords) < 10):
     print("Positive words found is {} regular expression may not be inferred from examples".format(len(poswords)))
+    exit()
 u_poswords = []
-while(not len(u_poswords) == 5):
-    ran_pos = random.choice(poswords)
-    if (checkUniqueSymbols(ran_pos, poswords) == False):
-        u_poswords.append(ran_pos)
-        poswords.remove(ran_pos)
-negwords = getNegWords(exampleAuto)
-u_negwords = negwords[-5:]
-negwords = negwords[:-5]
-print(poswords)
-print(u_poswords)
+try:
+    while(not len(u_poswords) == 5):
+        ran_pos = random.choice(poswords)
+        if (checkUniqueSymbols(ran_pos, poswords) == False):
+            u_poswords.append(ran_pos)
+            poswords.remove(ran_pos)
+except(IndexError):
+    print("Positive words were not generated")
+    exit()
+negwords = []
+while(len(negwords) < 15):
+    negwords += getNegWords(exampleAuto, negwords)
+u_negwords = []
+while(not len(u_negwords) == 5):
+    ran_pos = random.choice(negwords)
+    u_negwords.append(ran_pos)
+    negwords.remove(ran_pos)
+print(u_negwords)
 try:
     pos_file = open("regex+.txt", "w")
     neg_file = open("regex-.txt", "w")
@@ -152,6 +165,7 @@ try:
     for x in u_poswords:
         sstring += x + "\n"
     u_pos_file.write(sstring)
+    sstring = ""
     for x in u_negwords:
         sstring += x + "\n"
     u_neg_file.write(sstring)
