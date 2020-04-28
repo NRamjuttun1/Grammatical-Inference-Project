@@ -535,3 +535,22 @@ def checkRepeats(arr):
         elif (x in list):
             return True
     return False
+
+def find2Min(fitnessarr):
+    min1 = 0
+    min2 = 1
+    for i in range(len(fitnessarr)):
+        if (fitnessarr[i] < fitnessarr[min2]):
+            if (fitnessarr[i] < fitnessarr[min1]):
+                min1 = i
+            else:
+                if (not min1 == i):
+                    min2 = i
+    return min1, min2
+
+def findMax(fitnessarr):
+    max = 0
+    for i in range(len(fitnessarr)):
+        if (fitnessarr[i] > fitnessarr[max]):
+            max = i
+    return max

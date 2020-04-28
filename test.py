@@ -98,14 +98,46 @@ def foldTest():
     newauto.mergeNode(newauto.getNode(0), newauto.findNode(newauto.symbol + "6"))
     print(newauto)
 
-#foldTest()
-try:
-    pos_file = open("regex.txt", "w")
-    neg_file = open("regex-.txt", "w")
-    for x in ["Hello\n", "World\n"]:
-        pos_file.write(x)
-    pos_file.close()
-    neg_file.close()
-except:
-    print("File not found!")
-    exit()
+def checkUniqueSymbols(sstring, list):
+    str_ls = []
+    for letter in sstring:
+        str_ls.append(letter)
+    done = False
+    i = 0
+    j = -1
+    while(done == False):
+        j += 1
+        if (len(str_ls) == 0):
+            return False
+        if (j == len(list[i])):
+            i += 1
+            j = 0
+        if (i == len(list)):
+            done = True
+        if (done == False):
+            if (list[i][j] in str_ls):
+                str_ls = removeAll(list[i][j], str_ls)
+    return True
+
+def find2Min(fitnessarr):
+    min1 = 0
+    min2 = 1
+    for i in range(len(fitnessarr)):
+        if (fitnessarr[i] < fitnessarr[min2]):
+            if (fitnessarr[i] < fitnessarr[min1]):
+                min1 = i
+            else:
+                if (not min1 == i):
+                    min2 = i
+    return min1, min2
+
+def findMax(fitnessarr):
+    max = 0
+    for i in range(len(fitnessarr)):
+        if (fitnessarr[i] > fitnessarr[max]):
+            max = i
+    return max
+
+ls = [4,6,8,6,7,7]
+print(find2Min(ls))
+print(findMax(ls))
