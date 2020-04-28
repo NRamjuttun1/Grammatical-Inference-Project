@@ -547,11 +547,12 @@ def find2Min(fitnessarr):
                 if (not min1 == i):
                     min2 = i
     return min1, min2
-    
 
-def findMax(fitnessarr):
+
+def findMax(fitnessarr, ignore = []):
     max = 0
     for i in range(len(fitnessarr)):
-        if (fitnessarr[i] > fitnessarr[max]):
-            max = i
+        if (i not in ignore):
+            if (fitnessarr[i] > fitnessarr[max]):
+                max = i
     return max

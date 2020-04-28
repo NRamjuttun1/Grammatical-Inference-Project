@@ -140,7 +140,7 @@ while(win == False):
     if (win == False):
         checkcount = 0
         min1, min2 = find2Min(fitnessarr)
-        max = findMax(fitnessarr)
+        max = findMax(fitnessarr, [min1, min2])
         printFitness(fitnessarr)
         if (checkcount > (samplesize - 2)): #checkcount and this statement is for optimisation purposes and should not be included in the testing stage
             samples = []
@@ -159,5 +159,5 @@ print("Correct Automaton found!")
 print(timed)
 with open('genetic_time.txt', 'w') as fh:
     fh.write(timed)
-    
+
 exit()
