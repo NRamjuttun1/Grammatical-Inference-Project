@@ -159,4 +159,5 @@ print("Correct Automaton found!")
 print(timed)
 with open('genetic_time.txt', 'w') as fh:
     fh.write(timed)
+    
 exit()
