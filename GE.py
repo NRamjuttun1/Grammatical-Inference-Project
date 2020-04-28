@@ -40,12 +40,16 @@ def _testFitness(auto, s_neg, u_pos, u_neg):
             performance += 1
     return performance
 
-def crossOver(samples, fitnessarr, pos1, pos2):
+def crossOver(samples, fitnessarr, pos1, pos2, converge = False):
     temparr = _crossOver(samples[pos1], samples[pos2])
-    samples[pos1] = flattenMergeList(temparr[0])
-    samples[pos2] = flattenMergeList(temparr[1])
-    fitnessarr[pos1] = buildAndTest(samples[pos1], MCA, s_neg, u_pos, u_neg)
-    fitnessarr[pos2] = buildAndTest(samples[pos2], MCA, s_neg, u_pos, u_neg)
+    if converge == False:
+        samples[pos1] = flattenMergeList(temparr[0])
+        samples[pos2] = flattenMergeList(temparr[1])
+        fitnessarr[pos1] = buildAndTest(samples[pos1], MCA, s_neg, u_pos, u_neg)
+        fitnessarr[pos2] = buildAndTest(samples[pos2], MCA, s_neg, u_pos, u_neg)
+    elif converge == True:
+        samples[min] = flattenMergeList(temparr[random.randint(0,1)])
+        fitnessarr[min] = buildAndTest(samples[min], MCA, s_neg, u_pos, u_neg)
 
 def _crossOver(arr, arr2):
     returnarr = [None for i in range(2)]
@@ -155,6 +159,9 @@ while(win == False):
             count = 0
         crossOver(samples, fitnessarr, min1, min2)
         #if (random.randint(0,totalfitness//2) == 0):
+        max1, max2 = find2Max(fitnessarr, [min1, min2])
+        if (max1 > (optimalFitness - 15)):
+            crossOver(samples, fitnessarr, max1, max2)
         mutate(samples[max], fitnessarr, max)
         print("Mins were {} and {} Max was {}".format(min1, min2, max))
 

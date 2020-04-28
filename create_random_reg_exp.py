@@ -132,7 +132,7 @@ if (len(poswords) < 10):
     exit()
 u_poswords = []
 try:
-    while(not len(u_poswords) == 15):
+    while(not len(u_poswords) == 5):
         ran_pos = random.choice(poswords)
         if (checkUniqueSymbols(ran_pos, poswords) == False):
             u_poswords.append(ran_pos)
@@ -144,7 +144,7 @@ negwords = []
 while(len(negwords) < 50):
     negwords += getNegWords(exampleAuto, negwords)
 u_negwords = []
-while(not len(u_negwords) == 15):
+while(not len(u_negwords) == 5):
     ran_pos = random.choice(negwords)
     u_negwords.append(ran_pos)
     negwords.remove(ran_pos)

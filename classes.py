@@ -556,3 +556,23 @@ def findMax(fitnessarr, ignore = []):
             if (fitnessarr[i] > fitnessarr[max]):
                 max = i
     return max
+
+def findMin(fitnessarr):
+    min = 0
+    for i in range(len(fitnessarr)):
+        if (fitnessarr[i] < fitnessarr[min]):
+            min = i
+    return min
+
+def find2Max(fitnessarr, ignore = []):
+    max1 = 0
+    max2 = 1
+    for i in range(len(fitnessarr)):
+        if (fitnessarr[i] > fitnessarr[max2]):
+            if (fitnessarr[i] > fitnessarr[max1]):
+                if (i not in ignore):
+                    max1 = i
+            else:
+                if (i not in ignore):
+                    max2 = i
+    return max1, max2
