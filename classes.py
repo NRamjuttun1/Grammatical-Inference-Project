@@ -547,6 +547,7 @@ def find2Min(fitnessarr):
                 if (not min1 == i):
                     min2 = i
     return min1, min2
+    
 
 def findMax(fitnessarr):
     max = 0
