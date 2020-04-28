@@ -29,16 +29,17 @@ def getSize():
 def getPosWords(_auto, ls):
     auto, terminating = _auto.getComplementAutomaton(True)
     words = []
-    for x in range(auto.getSize()):
+    for x in range(auto.getSize() * 3):
         current = auto.start
         word = ""
         count = 0
         end = False
-        while(end == False) and (count < auto.getSize() * 10):
+        while(end == False) and (count < auto.getSize() * 3):
             count += 1
             if (current not in auto.end):
                 if (word not in words):
-                    words.append(word)
+                    if (word not in ls):
+                        words.append(word)
             if (len(words) < auto.getSize() * 2):
                 trans = auto.findTransFromNode(current)
                 if (not len(trans) == 0):
@@ -123,7 +124,7 @@ print(exampleAuto)
 print("Determinism = {}".format(exampleAuto.checkDeterministic()))
 poswords = []
 count = 0
-while(len(poswords) < 10 or count == 20):
+while(len(poswords) < 50 or count == 20):
     poswords += getPosWords(exampleAuto, poswords)
     count += 1
 if (len(poswords) < 10):
@@ -131,7 +132,7 @@ if (len(poswords) < 10):
     exit()
 u_poswords = []
 try:
-    while(not len(u_poswords) == 5):
+    while(not len(u_poswords) == 15):
         ran_pos = random.choice(poswords)
         if (checkUniqueSymbols(ran_pos, poswords) == False):
             u_poswords.append(ran_pos)
@@ -140,10 +141,10 @@ except(IndexError):
     print("Positive words were not generated")
     exit()
 negwords = []
-while(len(negwords) < 15):
+while(len(negwords) < 50):
     negwords += getNegWords(exampleAuto, negwords)
 u_negwords = []
-while(not len(u_negwords) == 5):
+while(not len(u_negwords) == 15):
     ran_pos = random.choice(negwords)
     u_negwords.append(ran_pos)
     negwords.remove(ran_pos)
