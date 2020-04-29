@@ -147,8 +147,6 @@ while(win == False):
             print("Unknown Positives rejected = {}/{} \nUnknown Negatives accepted = {}/{}".format(pos_false, len(u_pos), neg_true, len(u_neg)))
     if (win == False):
         checkcount = 0
-        min1, min2 = find2Min(fitnessarr)
-        max = findMax(fitnessarr, [min1, min2])
         printFitness(fitnessarr)
         if (checkcount > (samplesize - 2)): #checkcount and this statement is for optimisation purposes and should not be included in the testing stage
             samples = []
@@ -157,13 +155,15 @@ while(win == False):
             print("Samples not satisfactory! New Population generated\n{}".format(fitnessarr))
             populations += 1
             count = 0
+        min1, min2 = find2Min(fitnessarr)
         crossOver(samples, fitnessarr, min1, min2)
         #if (random.randint(0,totalfitness//2) == 0):
         max1, max2 = find2Max(fitnessarr, [min1, min2])
-        if (max1 > (optimalFitness - 15)):
-            crossOver(samples, fitnessarr, max1, max2)
+        if (max1 > (optimalFitness - 15) and (max1 < (optimalFitness - 5))):
+                crossOver(samples, fitnessarr, max1, max2)
+        max = findMax(fitnessarr)
         mutate(samples[max], fitnessarr, max)
-        print("Mins were {} and {} Max was {}".format(min1, min2, max))
+        print("Mins were {} and {} Max was  {}".format(min1, min2, max))
 
 timed = ("--- %s seconds ---" % (time.time() - start_time))
 print("Correct Automaton found!")

@@ -530,7 +530,7 @@ def flattenMergeList(arr):
 def checkRepeats(arr):
     list = []
     for x in arr:
-        if (  not (x in list)):
+        if (not x in list):
             list.append(x)
         elif (x in list):
             return True

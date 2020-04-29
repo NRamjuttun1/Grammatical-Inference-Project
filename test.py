@@ -1,7 +1,7 @@
 from classes import *
 import random
 
-def fold(auto, merged_node): #additional strain testing required
+def fold(auto, merged_node):
     check = False
     while(not check == True):
         trans = auto.findTransFromNode(merged_node)
@@ -29,8 +29,8 @@ def fold(auto, merged_node): #additional strain testing required
                         if (len(new_trans) > 1):
                             print(auto.checkDeterministic())
                             print("Determinism not reached multiple transitions from Node : {} with the symbol {}".format(current_node, x.getSymbol()))
-                            exit()
-                        if (len(new_trans) == 0):
+                            end = True
+                        elif (len(new_trans) == 0):
                             end = True
                             print("Got to end of branch")
                         elif(len(new_trans) == 1):
@@ -46,11 +46,16 @@ def fold(auto, merged_node): #additional strain testing required
                             else:
                                 x.setStart(merged_node)
                                 print("Number of transitions still attached from removed Node {} : {}".format(m,len(auto.findTransFromNode(m))))
-                                print(m)
                     for m in nodes_to_fold:
+                        if (m in auto.end):
+                            if (merged_node not in auto.end):
+                                auto.addEnd(merged_node)
+                        if (m == auto.start):
+                            auto.setStart(merged_node)
                         auto.removeNode(m)
         if (len(repeats) == 0):
-            check = True
+                check = True
+    return auto
 
 
 
@@ -80,7 +85,7 @@ def foldTest():
     for x in range(7):
         newauto.addNode()
     newauto.addTransition(newauto.nodes[0], newauto.nodes[1], "a")
-    newauto.addTransition(newauto.nodes[0], newauto.nodes[7], "a")
+    newauto.addTransition(newauto.nodes[0], newauto.nodes[7], "b")
     newauto.addTransition(newauto.nodes[1], newauto.nodes[2], "a")
     newauto.addTransition(newauto.nodes[2], newauto.nodes[3], "a")
     newauto.addTransition(newauto.nodes[2], newauto.nodes[0], "b")
@@ -90,54 +95,11 @@ def foldTest():
     newauto.addEnd(newauto.getNode(6))
     for x in range(3):
         newauto.addNode()
-    newauto.addTransition(newauto.nodes[0], newauto.nodes[8], "a")
+    newauto.addTransition(newauto.nodes[0], newauto.nodes[8], "c")
     newauto.addTransition(newauto.nodes[8], newauto.nodes[9], "a")
     newauto.addTransition(newauto.nodes[9], newauto.nodes[10], "a")
+    print(newauto)
     fold(newauto, newauto.getNode(0))
-    print("{} \n\n\n".format(newauto))
-    newauto.mergeNode(newauto.getNode(0), newauto.findNode(newauto.symbol + "6"))
     print(newauto)
 
-def checkUniqueSymbols(sstring, list):
-    str_ls = []
-    for letter in sstring:
-        str_ls.append(letter)
-    done = False
-    i = 0
-    j = -1
-    while(done == False):
-        j += 1
-        if (len(str_ls) == 0):
-            return False
-        if (j == len(list[i])):
-            i += 1
-            j = 0
-        if (i == len(list)):
-            done = True
-        if (done == False):
-            if (list[i][j] in str_ls):
-                str_ls = removeAll(list[i][j], str_ls)
-    return True
-
-def find2Min(fitnessarr):
-    min1 = 0
-    min2 = 1
-    for i in range(len(fitnessarr)):
-        if (fitnessarr[i] < fitnessarr[min2]):
-            if (fitnessarr[i] < fitnessarr[min1]):
-                min1 = i
-            else:
-                if (not min1 == i):
-                    min2 = i
-    return min1, min2
-
-def findMax(fitnessarr):
-    max = 0
-    for i in range(len(fitnessarr)):
-        if (fitnessarr[i] > fitnessarr[max]):
-            max = i
-    return max
-
-ls = [4,6,8,6,7,7]
-print(find2Min(ls))
-print(findMax(ls))
+foldTest()
