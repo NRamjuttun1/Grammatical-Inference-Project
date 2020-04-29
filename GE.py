@@ -158,9 +158,9 @@ while(win == False):
         min1, min2 = find2Min(fitnessarr)
         crossOver(samples, fitnessarr, min1, min2)
         #if (random.randint(0,totalfitness//2) == 0):
-        max1, max2 = find2Max(fitnessarr, [min1, min2])
-        if (max1 > (optimalFitness - 15) and (max1 < (optimalFitness - 5))):
-                crossOver(samples, fitnessarr, max1, max2)
+        #max1, max2 = find2Max(fitnessarr, [min1, min2])
+        #if (max1 > (optimalFitness - 15) and (max1 < (optimalFitness - 5))):
+        #        crossOver(samples, fitnessarr, max1, max2)
         max = findMax(fitnessarr)
         mutate(samples[max], fitnessarr, max)
         print("Mins were {} and {} Max was  {}".format(min1, min2, max))
