@@ -1,61 +1,7 @@
 from classes import *
 import random
 
-def fold(auto, merged_node):
-    check = False
-    while(not check == True):
-        trans = auto.findTransFromNode(merged_node)
-        symbols = []
-        repeats = []
-        for x in trans:
-            if (x.getSymbol() not in symbols):
-                symbols.append(x.getSymbol())
-            elif (x.getSymbol() in symbols):
-                repeats.append(x.getSymbol())
-        if (len(repeats) == 0):
-            check = True
-        if (check == False):
-            for i in repeats:
-                auto.addTransition(merged_node, merged_node, i)
-                trans_to_fold = auto.findTransFromNode(merged_node, i)
-                end = False
-                for x in trans_to_fold:
-                    current_node = x.getEnd()
-                    nodes_to_fold = []
-                    while(end == False):
-                        print("Current Node : {}".format(current_node))
-                        nodes_to_fold.append(current_node)
-                        new_trans = auto.findTransFromNode(current_node, i)
-                        if (len(new_trans) > 1):
-                            print(auto.checkDeterministic())
-                            print("Determinism not reached multiple transitions from Node : {} with the symbol {}".format(current_node, x.getSymbol()))
-                            end = True
-                        elif (len(new_trans) == 0):
-                            end = True
-                            print("Got to end of branch")
-                        elif(len(new_trans) == 1):
-                            current_node = new_trans[0].getEnd()
-                    for m in nodes_to_fold:
-                        get_trans = auto.findTransFromNode(m)
-                        for x in get_trans:
-                            if (x.getSymbol() == i):
-                                auto.deleteTransition(x)
-                            elif(x.getEnd() in nodes_to_fold):
-                                x.setStart(merged_node)
-                                x.setEnd(merged_node)
-                            else:
-                                x.setStart(merged_node)
-                                print("Number of transitions still attached from removed Node {} : {}".format(m,len(auto.findTransFromNode(m))))
-                    for m in nodes_to_fold:
-                        if (m in auto.end):
-                            if (merged_node not in auto.end):
-                                auto.addEnd(merged_node)
-                        if (m == auto.start):
-                            auto.setStart(merged_node)
-                        auto.removeNode(m)
-        if (len(repeats) == 0):
-                check = True
-    return auto
+
 
 
 
@@ -85,13 +31,13 @@ def foldTest():
     for x in range(7):
         newauto.addNode()
     newauto.addTransition(newauto.nodes[0], newauto.nodes[1], "a")
-    newauto.addTransition(newauto.nodes[0], newauto.nodes[7], "b")
+    newauto.addTransition(newauto.nodes[0], newauto.nodes[7], "a")
     newauto.addTransition(newauto.nodes[1], newauto.nodes[2], "a")
     newauto.addTransition(newauto.nodes[2], newauto.nodes[3], "a")
     newauto.addTransition(newauto.nodes[2], newauto.nodes[0], "b")
     newauto.addTransition(newauto.nodes[3], newauto.nodes[4], "a")
     newauto.addTransition(newauto.nodes[4], newauto.nodes[5], "a")
-    newauto.addTransition(newauto.nodes[5], newauto.nodes[6], "c")
+    newauto.addTransition(newauto.nodes[5], newauto.nodes[6], "d")
     newauto.addEnd(newauto.getNode(6))
     for x in range(3):
         newauto.addNode()
@@ -99,7 +45,37 @@ def foldTest():
     newauto.addTransition(newauto.nodes[8], newauto.nodes[9], "a")
     newauto.addTransition(newauto.nodes[9], newauto.nodes[10], "a")
     print(newauto)
-    fold(newauto, newauto.getNode(0))
+    newauto.fold(newauto.getNode(0))
     print(newauto)
 
-foldTest()
+def readinexamples():
+    try:
+        _s_pos = open("ex+.txt", "r")
+        _s_neg = open("ex-.txt", "r")
+        _u_pos = open("ex+_u.txt", "r")
+        _u_neg = open("ex-_u.txt", "r")
+        s_pos = []
+        s_neg = []
+        u_pos = []
+        u_neg = []
+        s_pos = [line.rstrip('\n') for line in _s_pos]
+        s_neg = [line.rstrip('\n') for line in _s_neg]
+        u_pos = [line.rstrip('\n') for line in _u_pos]
+        u_neg = [line.rstrip('\n') for line in _u_neg]
+        _s_pos.close()
+        _s_neg.close()
+        _u_pos.close()
+        _u_neg.close()
+    except():
+        print("File not found!")
+        exit()
+    return s_pos, s_neg, u_pos, u_neg
+
+s_pos, s_neg, u_pos, u_neg = readinexamples()
+PTA = buildPTA(s_pos, "A")
+print("PRE MERGE \n{}".format(PTA.getDisplayTranisitions()))
+merged_node = PTA.mergeNode(PTA.start, PTA.findNode(7), True)
+print("POST MERGE \n{}".format(PTA.getDisplayTranisitions()))
+if (not PTA.checkDeterministic()):
+    PTA.fold(merged_node)
+print("POST FOLD \n{}".format(PTA))

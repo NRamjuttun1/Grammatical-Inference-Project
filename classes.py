@@ -15,12 +15,20 @@ class Automaton:
             sstring += str(x) + '\n'
         sstring += '\n'
         for y in self.transitions:
-            sstring += str(y.getStart()) + " -" + str(y.getSymbol()) + "-> " + str(y.getEnd()) + '\n'
+            sstring += str(y) + '\n'
         sstring = sstring + "\nStart Node = {} \nFinal Nodes = ".format(self.start)
         for i in self.end:
             sstring += str(i) + " "
         sstring += '\n'
         return sstring
+
+    def getDisplayTranisitions(self):
+        sstring = ""
+        for x in self.nodes:
+            for i in self.findTransFromNode(x):
+                sstring += str(i) + '\n'
+        return sstring
+
 
     def addNode(self, return_node = False):
         newnode = Node("" + str(self.symbol) + str(self.name))
@@ -79,8 +87,12 @@ class Automaton:
 
     def findNode(self, id):
         for i in range (len(self.nodes)):
-            if (self.nodes[i].getID() == id):
-                return self.nodes[i]
+            if (not isinstance(id, int)):
+                if (self.nodes[i].getID() == id):
+                    return self.nodes[i]
+            elif (isinstance(id, int)):
+                if (self.nodes[i].getNO() == id):
+                    return self.nodes[i]
 
     def removeNode(self, node):
         if node in self.end:
@@ -239,6 +251,74 @@ class Automaton:
         if (returnNode):
             return newnode
 
+    def fold(self, merged_node):
+        check = False
+        while(not check == True):
+            print("Full Iteration")
+            trans = self.findTransFromNode(merged_node)
+            symbols = []
+            repeats = []
+            for x in trans:
+                if (x.getSymbol() not in symbols):
+                    symbols.append(x.getSymbol())
+                elif (x.getSymbol() in symbols):
+                    repeats.append(x.getSymbol())
+            if (len(repeats) == 0):
+                check = True
+            if (check == False):
+                for i in repeats:
+                    print("Repeat Iteration")
+                    self.addTransition(merged_node, merged_node, i)
+                    trans_to_fold = self.findTransFromNode(merged_node, i)
+                    end = False
+                    for x in trans_to_fold:
+                        print("For each transition")
+                        current_node = x.getEnd()
+                        nodes_to_fold = []
+                        while(end == False):
+                            print("Current Node : {}".format(current_node))
+                            nodes_to_fold.append(current_node)
+                            new_trans = self.findTransFromNode(current_node, i)
+                            if (len(new_trans) > 1):
+                                end = True
+                            elif (len(new_trans) == 0):
+                                end = True
+                                print("Got to end of branch")
+                            elif(len(new_trans) == 1):
+                                if (new_trans[0].getEnd() not in nodes_to_fold):
+                                    current_node = new_trans[0].getEnd()
+                                else:
+                                    end = True
+                                    print("Got to end of loop")
+                        print("NODES TO FOLD")
+                        for x in nodes_to_fold:
+                            print(x)
+                        for m in nodes_to_fold:
+                            get_trans = self.findTransFromNode(m)
+                            for x in get_trans:
+                                if (not x.getEnd() == x.getStart()):
+                                    if (x.getSymbol() == i):
+                                        print("Deleted Transition {}".format(x))
+                                        self.deleteTransition(x)
+                                    elif(x.getEnd() in nodes_to_fold):
+                                        x.setStart(merged_node)
+                                        x.setEnd(merged_node)
+                                    else:
+                                        x.setStart(merged_node)
+                                        print("Number of transitions still attached from removed Node {} : {}".format(m.getID(), len(self.findTransFromNode(m))))
+                        for m in nodes_to_fold:
+                            if (m in self.end):
+                                if (merged_node not in self.end):
+                                    self.addEnd(merged_node)
+                            if (m == self.start):
+                                self.setStart(merged_node)
+                            self.removeNode(m)
+            if (len(repeats) == 0):
+                    check = True
+        return self
+
+
+
     def getNodePos(self, node):
         for x in range(len(self.nodes)):
             if (self.nodes[x] == node):
@@ -288,10 +368,10 @@ class cAutomaton(Automaton):
             sstring += str(x) + '\n'
         sstring = sstring + '\n'
         for y in self.transitions:
-            sstring += y.getStart().displaycNode() + " -" + y.getSymbol()+ "-> " + y.getEnd().displaycNode() + '\n'
-        sstring += "\nStart Node = {} \nFinal Nodes = ".format(self.start.displaycNode())
+            sstring += y.getStart().displayNode() + " -" + y.getSymbol()+ "-> " + y.getEnd().displayNode() + '\n'
+        sstring += "\nStart Node = {} \nFinal Nodes = ".format(self.start.displayNode())
         for i in self.end:
-            sstring += i.displaycNode() + " "
+            sstring += i.displayNode() + " "
         sstring += '\n'
         return sstring
 
@@ -301,10 +381,10 @@ class cAutomaton(Automaton):
             sstring += str(x) + '\n'
         sstring = sstring + '\n'
         for y in self.transitions:
-            sstring += y.getStart().displaycNode() + " -" + y.getSymbol()+ "-> " + y.getEnd().displaycNode() + '\n'
-        sstring += "\nStart Node = {} \nFinal Nodes = ".format(self.start.displaycNode())
+            sstring += y.getStart().displayNode() + " -" + y.getSymbol()+ "-> " + y.getEnd().displayNode() + '\n'
+        sstring += "\nStart Node = {} \nFinal Nodes = ".format(self.start.displayNode())
         for i in self.end:
-            sstring += str(i.displaycNode()) + " "
+            sstring += str(i.displayNode()) + " "
         sstring += '\n'
         return sstring
 
@@ -357,6 +437,9 @@ class Node:
     def __str__(self):
         return "Node : "+ self.getID()
 
+    def displayNode(self):
+        return "Node : "+ self.getID()
+
     def getID(self):
         return self.id
 
@@ -375,7 +458,7 @@ class colourNode(Node):
     def __str__(self):
         return "cNode : {} - State : {}".format(str(self.getID()), str(self.getState()))
 
-    def displaycNode(init):
+    def displayNode(self):
         return "cNode : {}".format(str(super().getID()))
 
     def promote(self):
@@ -403,6 +486,9 @@ class Transition:
         self.start = sstart
         self.end = eend
         self.symbol = ssymbol
+
+    def __str__(self):
+        return self.getStart().displayNode() + " -" + str(self.getSymbol()) + "-> " + self.getEnd().displayNode()
 
     def getStart(self):
         return self.start

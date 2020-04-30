@@ -1,6 +1,8 @@
 from classes import *
 import random, time
 
+test_for_unknowns = True
+converge = True
 
 def test():
     strs = ["cars", "drives", "good"]
@@ -21,35 +23,36 @@ def printFitness(fitness):
 
 
 
-def buildAndTest(arr, MCA, s_neg, u_pos, u_neg):
+def buildAndTest(arr, MCA, s_neg, u_pos, u_neg, negs):
     newauto = mergeAutomaton(MCA, arr)
-    fitness = _testFitness(newauto, s_neg, u_pos, u_neg)
+    fitness = _testFitness(newauto, s_neg, u_pos, u_neg, negs)
     #print("Correctly rejected {} incorrect words out of {}".format(fitness, len(s_neg)))
     return fitness
 
-def _testFitness(auto, s_neg, u_pos, u_neg):
+def _testFitness(auto, s_neg, u_pos, u_neg, negs):
     performance = 0
     for i in s_neg:
         if (not(auto.checkInput(i))):
             performance += 1
-    for x in u_pos:
-        if (auto.checkInput(x)):
-            performance += 1
-    for x in u_neg:
-        if (not auto.checkInput(x)):
-            performance += 1
+    if (negs):
+        for x in u_pos:
+            if (auto.checkInput(x)):
+                performance += 1
+        for x in u_neg:
+            if (not auto.checkInput(x)):
+                performance += 1
     return performance
 
-def crossOver(samples, fitnessarr, pos1, pos2, converge = False):
+def crossOver(samples, fitnessarr, pos1, pos2, test_for_unknowns, converge = None):
     temparr = _crossOver(samples[pos1], samples[pos2])
-    if converge == False:
+    if converge == None:
         samples[pos1] = flattenMergeList(temparr[0])
         samples[pos2] = flattenMergeList(temparr[1])
-        fitnessarr[pos1] = buildAndTest(samples[pos1], MCA, s_neg, u_pos, u_neg)
-        fitnessarr[pos2] = buildAndTest(samples[pos2], MCA, s_neg, u_pos, u_neg)
-    elif converge == True:
-        samples[min] = flattenMergeList(temparr[random.randint(0,1)])
-        fitnessarr[min] = buildAndTest(samples[min], MCA, s_neg, u_pos, u_neg)
+        fitnessarr[pos1] = buildAndTest(samples[pos1], MCA, s_neg, u_pos, u_neg, test_for_unknowns)
+        fitnessarr[pos2] = buildAndTest(samples[pos2], MCA, s_neg, u_pos, u_neg, test_for_unknowns)
+    elif (not converge == None):
+        samples[converge] = flattenMergeList(temparr[random.randint(0,1)])
+        fitnessarr[converge] = buildAndTest(samples[min], MCA, s_neg, u_pos, u_neg, test_for_unknowns)
 
 def _crossOver(arr, arr2):
     returnarr = [None for i in range(2)]
@@ -70,18 +73,18 @@ def generateNewSampleElement(ssize):
         arr.append(random.randint(0, ssize - 1))
     return arr
 
-def mutate(arr, fitnessarr, ptr):
+def mutate(arr, fitnessarr, ptr, test_for_unknowns):
     pos = random.randint(0, len(arr) - 1)
     arr[pos] = random.randint(0, len(arr) - 1)
     arr = flattenMergeList(arr)
-    fitnessarr[ptr] = buildAndTest(arr, MCA, s_neg, u_pos, u_neg)
+    fitnessarr[ptr] = buildAndTest(arr, MCA, s_neg, u_pos, u_neg, test_for_unknowns)
 
 start_time = time.time()
 try:
-    _s_pos = open("regex+.txt", "r")
-    _s_neg = open("regex-.txt", "r")
-    _u_pos = open("regex+_u.txt", "r")
-    _u_neg = open("regex-_u.txt", "r")
+    _s_pos = open("ex+.txt", "r")
+    _s_neg = open("ex-.txt", "r")
+    _u_pos = open("ex+_u.txt", "r")
+    _u_neg = open("ex-_u.txt", "r")
     s_pos = []
     s_neg = []
     u_pos = []
@@ -101,69 +104,57 @@ print("Building these stringd")
 MCA = buildAutomatonFromStrings(s_pos, "Q")
 print("Finished building the MCA")
 print(MCA)
-optimalFitness = len(s_neg) + len(u_pos) + len(u_neg)
+if (test_for_unknowns):
+    optimalFitness = len(s_neg) + len(u_pos) + len(u_neg)
+else:
+    optimalFitness = len(s_neg)
 samplesize = 10
 samples = []
 for i in range(samplesize):
     check = True
     while(check):
         newsample = flattenMergeList(generateNewSampleElement(MCA.getSize()))
-        fitness_1 = buildAndTest(newsample, MCA, s_neg, u_pos, u_neg)
+        fitness_1 = buildAndTest(newsample, MCA, s_neg, u_pos, u_neg, test_for_unknowns)
         if (not(fitness_1 == optimalFitness)):
             check = False
         samples.append(newsample)
         #samples.append(flattenMergeList(generateNewSampleElement(MCA.getSize())))
 fitnessarr = [0 for i in range(len(samples))]
 for x in range(len(samples)):
-    fitnessarr[x] = buildAndTest(samples[x], MCA, s_neg, u_pos, u_neg)
+    fitnessarr[x] = buildAndTest(samples[x], MCA, s_neg, u_pos, u_neg, test_for_unknowns)
 print("Current Fitnesses : {} /{}".format(fitnessarr, optimalFitness))
-count = 0
-populations = 0
+randcount = count = 0
 win = False
+pre_min1 = pre_min2 = -1
 while(win == False):
+    printFitness(fitnessarr)
     count += 1
     if (optimalFitness in fitnessarr):   #    WIN CONDITION
-        correct_auto = mergeAutomaton(MCA, samples[fitnessarr.index(optimalFitness)])
-        print("Automaton with max score found in\n{}\n{} generations \n {} new populations has to be generated".format(correct_auto, count, populations))
-        neg_true = pos_false = 0
-        for x in s_neg:
-            if correct_auto.checkInput(x) == True:
-                neg_true += 1
-        for x in s_pos:
-            if correct_auto.checkInput(x) == False:
-                pos_false += 1
-        neg_true = pos_false = 0
-        for x in u_neg:
-            if correct_auto.checkInput(x) == True:
-                neg_true += 1
-        for x in u_pos:
-            if correct_auto.checkInput(x) == False:
-                pos_false += 1
-        if (pos_false == 0) and (neg_true == 0):
-            print("Unknown Positives rejected = {}/{} \nUnknown Negatives accepted = {}/{}".format(pos_false, len(u_pos), neg_true, len(u_neg)))
-            win = True
-        else:
-            print("Unknown words not classified correctly")
-            print("Unknown Positives rejected = {}/{} \nUnknown Negatives accepted = {}/{}".format(pos_false, len(u_pos), neg_true, len(u_neg)))
+        solution = 0
+        for x in range(len(fitnessarr)):
+            if fitnessarr[x] == optimalFitness:
+                solution = x
+        correct_auto = mergeAutomaton(MCA, samples[solution])
+        print("Automaton with max score found in\n{}\n{} generations \n Correct Fitness found at position {}".format(correct_auto, count, solution))
+        win = True
     if (win == False):
-        checkcount = 0
-        printFitness(fitnessarr)
-        if (checkcount > (samplesize - 2)): #checkcount and this statement is for optimisation purposes and should not be included in the testing stage
-            samples = []
-            for i in range(samplesize):
-                samples.append(flattenMergeList(generateNewSampleElement(MCA.getSize())))
-            print("Samples not satisfactory! New Population generated\n{}".format(fitnessarr))
-            populations += 1
-            count = 0
         min1, min2 = find2Min(fitnessarr)
-        crossOver(samples, fitnessarr, min1, min2)
-        #if (random.randint(0,totalfitness//2) == 0):
-        #max1, max2 = find2Max(fitnessarr, [min1, min2])
-        #if (max1 > (optimalFitness - 15) and (max1 < (optimalFitness - 5))):
-        #        crossOver(samples, fitnessarr, max1, max2)
+        if (not converge):
+            if (not randcount == 10):
+                crossOver(samples, fitnessarr, min1, min2, test_for_unknowns)
+            else:
+                crossOver(samples, fitnessarr, random.randint(0, len(fitnessarr) - 1), random.randint(0, len(fitnessarr) - 1), test_for_unknowns)
+        elif (converge):
+            max1, max2 = find2Max(fitnessarr, [min1, min2])
+            crossOver(samples, fitnessarr, max1, max2, findMin(fitnessarr))
         max = findMax(fitnessarr)
-        mutate(samples[max], fitnessarr, max)
-        print("Mins were {} and {} Max was  {}".format(min1, min2, max))
+        mutate(samples[max], fitnessarr, max, test_for_unknowns)
+        if (min1 == pre_min1) and (min2 == pre_min2):
+            randcount += 1
+        else:
+            randcount = 0
+        pre_min1 = min1
+        pre_min2 = min2
 
 timed = ("--- %s seconds ---" % (time.time() - start_time))
 print("Correct Automaton found!")
