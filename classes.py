@@ -245,7 +245,6 @@ class Automaton:
             self.addEnd(newnode)
         if ((node1 == self.start) or (node2 == self.start)):
             self.setStart(newnode)
-        print("Node 1 : {} ---- Node 2 : {}".format(node1, node2))
         self.removeNode(node1)
         self.removeNode(node2)
         if (returnNode):
@@ -254,7 +253,6 @@ class Automaton:
     def fold(self, merged_node):
         check = False
         while(not check == True):
-            print("Full Iteration")
             trans = self.findTransFromNode(merged_node)
             symbols = []
             repeats = []
@@ -267,51 +265,53 @@ class Automaton:
                 check = True
             if (check == False):
                 for i in repeats:
-                    print("Repeat Iteration")
                     self.addTransition(merged_node, merged_node, i)
                     trans_to_fold = self.findTransFromNode(merged_node, i)
                     end = False
                     for x in trans_to_fold:
-                        print("For each transition")
                         current_node = x.getEnd()
                         nodes_to_fold = []
-                        while(end == False):
-                            print("Current Node : {}".format(current_node))
+                        while(end == False): #traversing each node to get to the end
                             nodes_to_fold.append(current_node)
                             new_trans = self.findTransFromNode(current_node, i)
                             if (len(new_trans) > 1):
                                 end = True
                             elif (len(new_trans) == 0):
                                 end = True
-                                print("Got to end of branch")
                             elif(len(new_trans) == 1):
-                                if (new_trans[0].getEnd() not in nodes_to_fold):
+                                if (new_trans[0].getEnd() not in nodes_to_fold) and (not trans[0].getEnd() == merged_node ):
                                     current_node = new_trans[0].getEnd()
                                 else:
                                     end = True
-                                    print("Got to end of loop")
-                        print("NODES TO FOLD")
-                        for x in nodes_to_fold:
-                            print(x)
+                        if (merged_node in nodes_to_fold):
+                            nodes_to_fold.remove(merged_node)
                         for m in nodes_to_fold:
                             get_trans = self.findTransFromNode(m)
                             for x in get_trans:
-                                if (not x.getEnd() == x.getStart()):
-                                    if (x.getSymbol() == i):
-                                        print("Deleted Transition {}".format(x))
-                                        self.deleteTransition(x)
-                                    elif(x.getEnd() in nodes_to_fold):
+                                #if (not x.getEnd() == merged_node):
+                                    #if (x.getSymbol() == i):
+                                    #    print("Deleted Transition {}".format(x))
+                                    #    self.deleteTransition(x)
+                                if(x.getEnd() in nodes_to_fold):
+                                    if (not self.checkTransExists(Transition(merged_node, merged_node, x.getSymbol()))):
                                         x.setStart(merged_node)
                                         x.setEnd(merged_node)
                                     else:
+                                        self.deleteTransition(x)
+                                else:
+                                    if (not self.checkTransExists(Transition(merged_node, x.getEnd(), x.getSymbol()))):
                                         x.setStart(merged_node)
-                                        print("Number of transitions still attached from removed Node {} : {}".format(m.getID(), len(self.findTransFromNode(m))))
+                                    else:
+                                        self.deleteTransition(x)
+                                print("REPEAT")
                         for m in nodes_to_fold:
+                            print("REPEAT")
                             if (m in self.end):
                                 if (merged_node not in self.end):
                                     self.addEnd(merged_node)
                             if (m == self.start):
                                 self.setStart(merged_node)
+                            print("REMOVED")
                             self.removeNode(m)
             if (len(repeats) == 0):
                     check = True

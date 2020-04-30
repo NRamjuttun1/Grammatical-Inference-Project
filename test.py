@@ -2,9 +2,6 @@ from classes import *
 import random
 
 
-
-
-
 def test():
     newauto = Automaton("G")
     for x in range(3):
@@ -39,13 +36,16 @@ def foldTest():
     newauto.addTransition(newauto.nodes[4], newauto.nodes[5], "a")
     newauto.addTransition(newauto.nodes[5], newauto.nodes[6], "d")
     newauto.addEnd(newauto.getNode(6))
-    for x in range(3):
+    for x in range(4):
         newauto.addNode()
     newauto.addTransition(newauto.nodes[0], newauto.nodes[8], "c")
     newauto.addTransition(newauto.nodes[8], newauto.nodes[9], "a")
     newauto.addTransition(newauto.nodes[9], newauto.nodes[10], "a")
+    newauto.addTransition(newauto.nodes[7], newauto.nodes[11], "c")
     print(newauto)
-    newauto.fold(newauto.getNode(0))
+    m = newauto.mergeNode(newauto.getNode(1), newauto.getNode(8), True)
+    print(newauto)
+    newauto.fold(m)
     print(newauto)
 
 def readinexamples():
@@ -71,11 +71,5 @@ def readinexamples():
         exit()
     return s_pos, s_neg, u_pos, u_neg
 
-s_pos, s_neg, u_pos, u_neg = readinexamples()
-PTA = buildPTA(s_pos, "A")
-print("PRE MERGE \n{}".format(PTA.getDisplayTranisitions()))
-merged_node = PTA.mergeNode(PTA.start, PTA.findNode(7), True)
-print("POST MERGE \n{}".format(PTA.getDisplayTranisitions()))
-if (not PTA.checkDeterministic()):
-    PTA.fold(merged_node)
-print("POST FOLD \n{}".format(PTA))
+
+foldTest()
