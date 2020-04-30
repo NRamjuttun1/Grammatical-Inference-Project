@@ -252,6 +252,7 @@ class Automaton:
 
     def fold(self, merged_node):
         check = False
+        no_already = False #testing
         while(not check == True):
             trans = self.findTransFromNode(merged_node)
             symbols = []
@@ -265,8 +266,12 @@ class Automaton:
                 check = True
             if (check == False):
                 for i in repeats:
-                    self.addTransition(merged_node, merged_node, i)
+                    if (not self.checkTransExists(Transition(merged_node, merged_node, i))):
+                        self.addTransition(merged_node, merged_node, i)
                     trans_to_fold = self.findTransFromNode(merged_node, i)
+                    for x in trans_to_fold:
+                        if x.getEnd() == merged_node:
+                            trans_to_fold.remove(x)
                     end = False
                     for x in trans_to_fold:
                         current_node = x.getEnd()
@@ -285,6 +290,9 @@ class Automaton:
                                     end = True
                         if (merged_node in nodes_to_fold):
                             nodes_to_fold.remove(merged_node)
+                        if (len(nodes_to_fold) == 0) and (no_already == False):
+                            print("Empty")
+                            no_already = True
                         for m in nodes_to_fold:
                             get_trans = self.findTransFromNode(m)
                             for x in get_trans:
