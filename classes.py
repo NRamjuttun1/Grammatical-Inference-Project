@@ -2,6 +2,7 @@ class Automaton:
 
     def __init__(self, ssymbol):
         self.symbol = ssymbol
+        self.symbol_count = len(self.symbol)
         self.nodes = []
         self.transitions = []
         self.size = 0
@@ -27,6 +28,10 @@ class Automaton:
         for x in self.nodes:
             for i in self.findTransFromNode(x):
                 sstring += str(i) + '\n'
+        sstring += "\nStart Node = {} \nFinal Nodes = ".format(self.start.displayNode())
+        for x in self.end:
+            sstring += str(x.displayNode()) + " "
+        sstring += '\n'
         return sstring
 
 
@@ -206,16 +211,13 @@ class Automaton:
     def checkInputs(self, arr):
         count = 0
         for i in arr:
-            if checkInput(i):
+            if self.checkInput(i):
                 count += 1
         return count
 
 
     def mergeNode(self, node1, node2, returnNode = False):
         #determine whether it is easier to send the ID or the node Object
-        print("{} <--------".format(node1 in self.nodes))
-        print("{} <--------".format(node2 in self.nodes))
-        print(node2)
         newnode = self.addNode(True)
         node1to = self.findTransToNode(node1)
         node1from = self.findTransFromNode(node1)
@@ -252,7 +254,6 @@ class Automaton:
 
     def fold(self, merged_node):
         check = False
-        no_already = False #testing
         while(not check == True):
             trans = self.findTransFromNode(merged_node)
             symbols = []
@@ -290,9 +291,6 @@ class Automaton:
                                     end = True
                         if (merged_node in nodes_to_fold):
                             nodes_to_fold.remove(merged_node)
-                        if (len(nodes_to_fold) == 0) and (no_already == False):
-                            print("Empty")
-                            no_already = True
                         for m in nodes_to_fold:
                             get_trans = self.findTransFromNode(m)
                             for x in get_trans:
@@ -311,15 +309,12 @@ class Automaton:
                                         x.setStart(merged_node)
                                     else:
                                         self.deleteTransition(x)
-                                print("REPEAT")
                         for m in nodes_to_fold:
-                            print("REPEAT")
                             if (m in self.end):
                                 if (merged_node not in self.end):
                                     self.addEnd(merged_node)
                             if (m == self.start):
                                 self.setStart(merged_node)
-                            print("REMOVED")
                             self.removeNode(m)
             if (len(repeats) == 0):
                     check = True
@@ -397,7 +392,7 @@ class cAutomaton(Automaton):
         return sstring
 
     def addNode(self, return_node = False):
-        newnode = colourNode("" + str(self.symbol) + str(self.name))
+        newnode = colourNode("" + str(self.symbol) + str(self.name), self.name)
         self.nodes.append(newnode)
         self.size += 1
         self.name += 1
@@ -435,7 +430,12 @@ class cAutomaton(Automaton):
             newauto.findNode(str(symbol) + str(x.getNO())).promote()
         return newauto
 
-
+    def delete_unused_nodes(self):
+        nodes = []
+        for x in self.nodes:
+            if (not len(self.findTransToNode(x)) == 0) or (not len(self.findTransFromNode(x)) == 0):
+                nodes.append(x)
+        self.nodes = nodes
 
 class Node:
 
@@ -457,11 +457,14 @@ class Node:
     def equals(self, node):
         return (self.id == node.getID())
 
+
+
 class colourNode(Node):
 
-    def __init__(self, iid):
+    def __init__(self, iid, num):
         super().__init__(iid)
         self.colour = 0
+        self.num = num
 
     def __str__(self):
         return "cNode : {} - State : {}".format(str(self.getID()), str(self.getState()))
@@ -486,6 +489,9 @@ class colourNode(Node):
         elif (self.checkLevel() == 1):
             return "Blue"
         return "Red"
+
+    def getNO(self):
+        return self.num
 
 
 class Transition:

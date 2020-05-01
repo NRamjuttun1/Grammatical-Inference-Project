@@ -66,12 +66,43 @@ def readinexamples():
         _s_neg.close()
         _u_pos.close()
         _u_neg.close()
-        pta = buildPTA(s_pos, "F")
+        pta = buildPTA(s_pos, "AAAA")
     except():
         print("File not found!")
         exit()
     return s_pos, s_neg, u_pos, u_neg, pta
 
-s_pos, s_neg, u_pos, u_neg, pta = readinexamples()
+def tryParse(sstring):
+    try:
+        num = int(sstring)
+        return True
+    except(ValueError):
+        return False
 
-#foldTest()
+def extest():
+    s_pos, s_neg, u_pos, u_neg, pta = readinexamples()
+    print(pta)
+    m = pta.mergeNode(pta.findNode(2), pta.findNode(0), True)
+    pta.fold(m)
+    print(pta)
+
+def getSymbol(arr):
+    if len(arr) == 0:
+        return "A"
+    new_count = 1
+    last_symbol = arr[-1]
+    for x in last_symbol:
+        if x == "_":
+            new_count += 26
+        else:
+            new_count += ord(x) - 65
+    new_symbol = ""
+    for i in range(new_count//26):
+        new_symbol += "_"
+    new_symbol += chr((new_count%26) + 65)
+    return new_symbol
+
+arr = []
+for x in range(100):
+    arr.append(getSymbol(arr))
+    print(arr[-1])
