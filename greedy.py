@@ -1,4 +1,5 @@
 from classes import *
+import time
 
 def getSymbol(arr = []):
     if len(arr) == 0:
@@ -134,13 +135,10 @@ def printListLengths():
     print("Reds : {}".format(len(red_nodes)))
 
 
-
-
+start_time = time.time()
 try:
-    #_s_pos = open("regex.txt", "r")
-    #_s_neg = open("regex-.txt", "r")
-    _s_pos = open("regex+.txt", "r")
-    _s_neg = open("regex-.txt", "r")
+    _s_pos = open("ex+.txt", "r")
+    _s_neg = open("ex-.txt", "r")
     s_pos = s_neg = []
     s_pos = [line.rstrip('\n') for line in _s_pos]
     s_neg = [line.rstrip('\n') for line in _s_neg]
@@ -207,4 +205,5 @@ if pta.checkInputs(s_neg) == 0:
     print("Correctly rejects all negative words")
 if pta.checkInputs(s_pos) == len(s_pos):
     print("Correctly accepts all postive words")
+timed = ("--- %s seconds ---" % (time.time() - start_time))
 print(its)

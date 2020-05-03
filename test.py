@@ -86,23 +86,6 @@ def extest():
     pta.fold(m)
     print(pta)
 
-def getSymbol(arr):
-    if len(arr) == 0:
-        return "A"
-    new_count = 1
-    last_symbol = arr[-1]
-    for x in last_symbol:
-        if x == "_":
-            new_count += 26
-        else:
-            new_count += ord(x) - 65
-    new_symbol = ""
-    for i in range(new_count//26):
-        new_symbol += "_"
-    new_symbol += chr((new_count%26) + 65)
-    return new_symbol
-
-arr = []
-for x in range(100):
-    arr.append(getSymbol(arr))
-    print(arr[-1])
+sstring = "0123456789"
+print(sstring[5:7])
+print(sstring[7:])

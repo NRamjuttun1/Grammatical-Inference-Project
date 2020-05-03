@@ -3,12 +3,11 @@ import random
 
 def getAlphabet():
     alphabet = []
-    allow_empty_string = False
-    msg = "Enter Character for alphabet (Enter EXIT to finish):\n"
+    msg = "Enter Character for alphabet (Enter blank to finish):\n"
     value = input(msg)
-    while(not value == 'EXIT'):
-        if (value == ''):
-            allow_empty_string = True
+    while(not value == ''):
+        if (value[0] == ' '):
+            print("Empty space is not supported in this model")
         elif (value[0] not in alphabet):
             alphabet.append(value[0])
         else:
@@ -75,6 +74,18 @@ def getNegWords(auto, ls):
                         words.append(word)
     return words
 
+def getNegWordsofLength(auto, size):
+    words = []
+    for i in range(100):
+        word = ""
+        for x in range(size):
+            word += random.choice(auto.getAlphabet())
+        if (not auto.checkInput(word)):
+            if (word not in words):
+                words.append(word)
+    return words
+
+
 def checkUniqueSymbols(sstring, list):
     str_ls = []
     for letter in sstring:
@@ -110,8 +121,6 @@ alphabet = getAlphabet()
 poswords = []
 negwords = []
 exampleAuto = Automaton("E")
-if allow_empty_string:
-    exampleAuto.addEnd(exampleAuto.start)
 size = getSize()
 for i in range(size):
     exampleAuto.addNode()
@@ -125,19 +134,14 @@ while(not failed == 5):
         failed = 0
     else:
         failed += 1
-print(exampleAuto)
-print("Determinism = {}".format(exampleAuto.checkDeterministic()))
 poswords = []
 count = 0
-while(len(poswords) < 50 or count == 20):
+while(len(poswords) < 100 or count == 20):
     poswords += getPosWords(exampleAuto, poswords)
     count += 1
-if (len(poswords) < 10):
-    print("Positive words found is {} regular expression may not be inferred from examples".format(len(poswords)))
-    exit()
 u_poswords = []
 try:
-    while(not len(u_poswords) == 5):
+    while(not len(u_poswords) == 50):
         ran_pos = random.choice(poswords)
         if (checkUniqueSymbols(ran_pos, poswords) == False):
             u_poswords.append(ran_pos)
@@ -146,19 +150,22 @@ except(IndexError):
     print("Positive words were not generated")
     exit()
 negwords = []
-while(len(negwords) < 50):
-    negwords += getNegWords(exampleAuto, negwords)
+negwords += getNegWords(exampleAuto, negwords)
+negwords = getNegWordsofLength(exampleAuto, 5)
 u_negwords = []
-while(not len(u_negwords) == 5):
+while(not len(u_negwords) == 50):
     ran_pos = random.choice(negwords)
     u_negwords.append(ran_pos)
     negwords.remove(ran_pos)
-print(u_negwords)
+random.shuffle(poswords)
+random.shuffle(negwords)
+random.shuffle(u_negwords)
+random.shuffle(u_poswords)
 try:
-    pos_file = open("regex+.txt", "w")
-    neg_file = open("regex-.txt", "w")
-    u_pos_file = open("regex+_u.txt", "w")
-    u_neg_file = open("regex-_u.txt", "w")
+    pos_file = open("nn_train_regex+.txt", "w")
+    neg_file = open("nn_train_regex-.txt", "w")
+    u_pos_file = open("nn_test_regex+.txt", "w")
+    u_neg_file = open("nn_test_regex-.txt", "w")
     sstring = ""
     for x in poswords:
         sstring += x + "\n"

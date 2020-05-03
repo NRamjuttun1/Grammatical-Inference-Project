@@ -1,7 +1,7 @@
 from classes import *
 import random, time
 
-test_for_unknowns = True
+test_for_unknowns = False
 converge = True
 
 def test():
@@ -44,15 +44,47 @@ def _testFitness(auto, s_neg, u_pos, u_neg, negs):
     return performance
 
 def crossOver(samples, fitnessarr, pos1, pos2, test_for_unknowns, converge = None):
-    temparr = _crossOver(samples[pos1], samples[pos2])
     if converge == None:
+        temparr = _crossOver(samples[pos1], samples[pos2])
         samples[pos1] = flattenMergeList(temparr[0])
         samples[pos2] = flattenMergeList(temparr[1])
         fitnessarr[pos1] = buildAndTest(samples[pos1], MCA, s_neg, u_pos, u_neg, test_for_unknowns)
         fitnessarr[pos2] = buildAndTest(samples[pos2], MCA, s_neg, u_pos, u_neg, test_for_unknowns)
-    elif (not converge == None):
-        samples[converge] = flattenMergeList(temparr[random.randint(0,1)])
-        fitnessarr[converge] = buildAndTest(samples[min], MCA, s_neg, u_pos, u_neg, test_for_unknowns)
+    else:
+        arr1, arr2 = __crossover(samples[pos1].copy(), samples[pos2].copy())
+        arr1 = flattenMergeList(arr1)
+        arr2 = flattenMergeList(arr2)
+        arr1_fitness = buildAndTest(arr1, MCA, s_neg, u_pos, u_neg, test_for_unknowns)
+        arr2_fitness = buildAndTest(arr2, MCA, s_neg, u_pos, u_neg, test_for_unknowns)
+        check = False
+        if (arr1_fitness > fitnessarr[pos1]):
+            samples[pos1] = arr1
+            fitnessarr[pos1] = arr1_fitness
+            check = True
+            print("1")
+        elif (arr1_fitness > fitnessarr[pos2]):
+            samples[pos2] = arr1
+            fitnessarr[pos2] = arr1_fitness
+            check = True
+            print("2")
+        if (arr2_fitness > fitnessarr[pos1]):
+            samples[pos1] = arr2
+            fitnessarr[pos1] = arr2_fitness
+            check = True
+            print("3")
+        elif (arr2_fitness > fitnessarr[pos2]):
+            samples[pos2] = arr2
+            fitnessarr[pos2] = arr2_fitness
+            check = True
+            print("4")
+        if (check == False):
+            if (not arr1_fitness < fitnessarr[converge]) or (not arr2_fitness < fitnessarr[converge]):
+                if arr1_fitness > arr2_fitness:
+                    samples[converge] = arr1
+                    fitnessarr[converge] = arr1_fitness
+                else:
+                    samples[converge] = arr2
+                    fitnessarr[converge] = arr2_fitness
 
 def _crossOver(arr, arr2):
     returnarr = [None for i in range(2)]
@@ -66,6 +98,16 @@ def _crossOver(arr, arr2):
     returnarr[0] = b_arr
     returnarr[1] = b_arr2
     return returnarr
+
+def __crossover(arr, arr2):
+    split = random.randint(0, len(arr) - 1)
+    b_arr = arr[0:split]
+    e_arr = arr2[split:]
+    b_arr += e_arr
+    b_arr2 = arr2[0:split]
+    e_arr2 = arr[split:]
+    b_arr2 += e_arr2
+    return b_arr, b_arr2
 
 def generateNewSampleElement(ssize):
     arr = []
@@ -146,7 +188,7 @@ while(win == False):
                 crossOver(samples, fitnessarr, random.randint(0, len(fitnessarr) - 1), random.randint(0, len(fitnessarr) - 1), test_for_unknowns)
         elif (converge):
             max1, max2 = find2Max(fitnessarr, [min1, min2])
-            crossOver(samples, fitnessarr, max1, max2, findMin(fitnessarr))
+            crossOver(samples, fitnessarr, max1, max2, test_for_unknowns, findMin(fitnessarr))
         max = findMax(fitnessarr)
         mutate(samples[max], fitnessarr, max, test_for_unknowns)
         if (min1 == pre_min1) and (min2 == pre_min2):
