@@ -1,91 +1,76 @@
-from classes import *
-import random
+import numpy as np
+
+class NeuralNetwork():
+
+    def __init__(self):
+        # Seed the random number generator
+        np.random.seed(1)
+
+        # Set synaptic weights to a 3x1 matrix,
+        # with values from -1 to 1 and mean 0
+        self.synaptic_weights = 2 * np.random.random((3, 1)) - 1
+
+    def sigmoid(self, x):
+        """
+        Takes in weighted sum of the inputs and normalizes
+        them through between 0 and 1 through a sigmoid function
+        """
+        return 1 / (1 + np.exp(-x))
+
+    def sigmoid_derivative(self, x):
+        """
+        The derivative of the sigmoid function used to
+        calculate necessary weight adjustments
+        """
+        return x * (1 - x)
+
+    def train(self, training_inputs, training_outputs, training_iterations):
+        """
+        We train the model through trial and error, adjusting the
+        synaptic weights each time to get a better result
+        """
+        for iteration in range(training_iterations):
+            # Pass training set through the neural network
+            output = self.think(training_inputs)
+            # Calculate the error rate
+            error = training_outputs - output
+            print(len(output))
+            print(len(training_outputs))
+            # Multiply error by input and gradient of the sigmoid function
+            # Less confident weights are adjusted more through the nature of the function
+            adjustments = np.dot(training_inputs.T, error * self.sigmoid_derivative(output))
+
+            # Adjust synaptic weights
+            self.synaptic_weights += adjustments
+
+    def think(self, inputs):
+        """
+        Pass inputs through the neural network to get output
+        """
+
+        inputs = inputs.astype(float)
+        output = self.sigmoid(np.dot(inputs, self.synaptic_weights))
+        return output
 
 
-def test():
-    newauto = Automaton("G")
-    for x in range(3):
-        newauto.addNode()
-    newauto.addTransition(newauto.nodes[0], newauto.nodes[1], "a")
-    newauto.addTransition(newauto.nodes[0], newauto.nodes[3], "b")
-    newauto.addTransition(newauto.nodes[0], newauto.nodes[2], "c")
-    newauto.addTransition(newauto.nodes[2], newauto.nodes[0], "d")
-    newauto.addTransition(newauto.nodes[2], newauto.nodes[1], "e")
-    newauto.addTransition(newauto.nodes[1], newauto.nodes[3], "f")
-    newauto.setStart(newauto.getNode(2))
-    newauto.addEnd(newauto.getNode(3))
-    print(newauto)
-    compauto = newauto.getComplementAutomaton()
-    print(compauto)
-    input = "dcdcdcdcdcdcdcdcdb"
-    print("Automaton accepts input -> {} \nComplement Automaton accepts input -> {}".format(newauto.checkInput(input), compauto.checkInput(input)))
-    trans = newauto.findTransFromNode(newauto.getNode(2), "d")
-    for x in trans:
-        print("Start : {}, End : {}, Symbol : {}".format(x.getStart(), x.getEnd(), x.getSymbol()))
+if __name__ == "__main__":
 
-def foldTest():
-    newauto = cAutomaton("P")
-    for x in range(7):
-        newauto.addNode()
-    newauto.addTransition(newauto.nodes[0], newauto.nodes[1], "a")
-    newauto.addTransition(newauto.nodes[0], newauto.nodes[7], "a")
-    newauto.addTransition(newauto.nodes[1], newauto.nodes[2], "a")
-    newauto.addTransition(newauto.nodes[2], newauto.nodes[3], "a")
-    newauto.addTransition(newauto.nodes[2], newauto.nodes[0], "b")
-    newauto.addTransition(newauto.nodes[3], newauto.nodes[4], "a")
-    newauto.addTransition(newauto.nodes[4], newauto.nodes[5], "a")
-    newauto.addTransition(newauto.nodes[5], newauto.nodes[6], "d")
-    newauto.addEnd(newauto.getNode(6))
-    for x in range(4):
-        newauto.addNode()
-    newauto.addTransition(newauto.nodes[0], newauto.nodes[8], "c")
-    newauto.addTransition(newauto.nodes[8], newauto.nodes[9], "a")
-    newauto.addTransition(newauto.nodes[9], newauto.nodes[10], "a")
-    newauto.addTransition(newauto.nodes[7], newauto.nodes[11], "c")
-    m = newauto.mergeNode(newauto.getNode(2), newauto.getNode(1), True)
-    print("{}\n".format(m))
-    print(newauto)
-    newauto.fold(m)
-    print(newauto)
+    # Initialize the single neuron neural network
+    neural_network = NeuralNetwork()
 
-def readinexamples():
-    try:
-        _s_pos = open("ex+.txt", "r")
-        _s_neg = open("ex-.txt", "r")
-        _u_pos = open("regex+_u.txt", "r")
-        _u_neg = open("regex-_u.txt", "r")
-        s_pos = []
-        s_neg = []
-        u_pos = []
-        u_neg = []
-        s_pos = [line.rstrip('\n') for line in _s_pos]
-        s_neg = [line.rstrip('\n') for line in _s_neg]
-        u_pos = [line.rstrip('\n') for line in _u_pos]
-        u_neg = [line.rstrip('\n') for line in _u_neg]
-        _s_pos.close()
-        _s_neg.close()
-        _u_pos.close()
-        _u_neg.close()
-        pta = buildPTA(s_pos, "AAAA")
-    except():
-        print("File not found!")
-        exit()
-    return s_pos, s_neg, u_pos, u_neg, pta
+    print("Random starting synaptic weights: ")
+    print(neural_network.synaptic_weights)
 
-def tryParse(sstring):
-    try:
-        num = int(sstring)
-        return True
-    except(ValueError):
-        return False
+    # The training set, with 4 examples consisting of 3
+    # input values and 1 output value
+    training_inputs = np.array([[0,0,1],
+                                [1,1,1],
+                                [1,0,1],
+                                [0,1,1]])
 
-def extest():
-    s_pos, s_neg, u_pos, u_neg, pta = readinexamples()
-    print(pta)
-    m = pta.mergeNode(pta.findNode(2), pta.findNode(0), True)
-    pta.fold(m)
-    print(pta)
+    training_outputs = np.array([[0,1,1,0]]).T
+    # Train the neural network
+    neural_network.train(training_inputs, training_outputs, 10)
 
-sstring = "0123456789"
-print(sstring[5:7])
-print(sstring[7:])
+    print("Synaptic weights after training: ")
+    print(neural_network.synaptic_weights)

@@ -31,12 +31,12 @@ def getSize():
 def getPosWords(_auto, ls):
     auto, terminating = _auto.getComplementAutomaton(True)
     words = []
-    for x in range(auto.getSize() * 3):
+    for x in range(auto.getSize() * 100):
         current = auto.start
         word = ""
         count = 0
         end = False
-        while(end == False) and (count < auto.getSize() * 3):
+        while(end == False) and (count < auto.getSize() * 2 ):
             count += 1
             if (current not in auto.end):
                 if (word not in words):
@@ -125,6 +125,13 @@ size = getSize()
 for i in range(size):
     exampleAuto.addNode()
 exampleAuto.end.append(exampleAuto.nodes[-1])
+for x in range(len(exampleAuto.nodes)//5):
+    check = False
+    while(not check):
+        rand = random.randint(0, len(exampleAuto.nodes)-2)
+        if (exampleAuto.getNode(rand) not in exampleAuto.end):
+            check = True
+    exampleAuto.addEnd(exampleAuto.getNode(rand))
 #for x in range(size * 2):
 failed = 0
 while(not failed == 5):
@@ -139,6 +146,7 @@ count = 0
 while(len(poswords) < 100 or count == 20):
     poswords += getPosWords(exampleAuto, poswords)
     count += 1
+
 u_poswords = []
 try:
     while(not len(u_poswords) == 50):
@@ -151,7 +159,6 @@ except(IndexError):
     exit()
 negwords = []
 negwords += getNegWords(exampleAuto, negwords)
-negwords = getNegWordsofLength(exampleAuto, 5)
 u_negwords = []
 while(not len(u_negwords) == 50):
     ran_pos = random.choice(negwords)
