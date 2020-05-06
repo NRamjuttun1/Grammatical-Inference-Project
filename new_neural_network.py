@@ -190,6 +190,3 @@ testing_set_output = testing_set_output.T
 
 
 net.train(training_set_input, training_set_output, epochs)
-i = 0
-for x in testing_set_input:
-    print(net.through(np.array(x)))

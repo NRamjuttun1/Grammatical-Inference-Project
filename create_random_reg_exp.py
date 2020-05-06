@@ -153,7 +153,8 @@ while(not len(u_negwords) == 5):
     ran_pos = random.choice(negwords)
     u_negwords.append(ran_pos)
     negwords.remove(ran_pos)
-print(u_negwords)
+if allow_empty_string:
+    poswords.append('')
 try:
     pos_file = open("regex+.txt", "w")
     neg_file = open("regex-.txt", "w")

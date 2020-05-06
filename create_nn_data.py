@@ -60,7 +60,12 @@ def getPosWords(_auto, ls):
                     end = True
             else:
                 end = True
-    return words
+    fixed_size_words = []
+    for x in words:
+        if len(x) >= 5:
+            fixed_size_words.append(x[:5])
+
+    return fixed_size_words
 
 def getNegWords(auto, ls):
     words = []
@@ -72,7 +77,11 @@ def getNegWords(auto, ls):
                 if (not auto.checkInput(word)):
                     if (word not in words) and (word not in ls):
                         words.append(word)
-    return words
+    fixed_size_words = []
+    for x in words:
+        if len(x) >= 5:
+            fixed_size_words.append(x[:5])
+    return fixed_size_words
 
 def getNegWordsofLength(auto, size):
     words = []

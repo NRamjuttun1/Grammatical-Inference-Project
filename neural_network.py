@@ -30,7 +30,7 @@ class Net(nn.Module):
         x = func(self.fc3(x))
         x = func(self.fc4(x))
         x = self.fc5(x)
-        return F.log_softmax(x, dim=1)
+        return x
 
 class words_dataset(Dataset):
 
@@ -50,6 +50,72 @@ def set_gpu():
     else:
         device = torch.device("cpu")
     return device
+
+def findMaxLength(ls):
+    max_length = 0
+    for x in ls:
+        if len(x) > max_length:
+            max_length = len(x)
+    return max_length
+
+def getAlphabet(sp, sn, tp, tn):
+    alphabet = []
+    for x in sp:
+        ls = x[0]
+        for num in ls:
+            check = False
+            for i in range(len(alphabet)):
+                if alphabet[i][0] == num:
+                    check = True
+                    break
+            if (check == False):
+                alphabet.append([num, len(alphabet)+1])
+    for x in sn:
+        ls = x[0]
+        for num in ls:
+            check = False
+            for i in range(len(alphabet)):
+                if alphabet[i][0] == num:
+                    check = True
+                    break
+            if (check == False):
+                alphabet.append([num, len(alphabet)+1])
+    for x in tp:
+        ls = x[0]
+        for num in ls:
+            check = False
+            for i in range(len(alphabet)):
+                if alphabet[i][0] == num:
+                    check = True
+                    break
+            if (check == False):
+                alphabet.append([num, len(alphabet)+1])
+    for x in tn:
+        ls = x[0]
+        for num in ls:
+            check = False
+            for i in range(len(alphabet)):
+                if alphabet[i][0] == num:
+                    check = True
+                    break
+            if (check == False):
+                alphabet.append([num, len(alphabet)+1])
+    length = len(alphabet)
+    for i in range(length):
+        alphabet[i][1] = alphabet[i][1]/length
+    return alphabet
+
+def getProcessedWord(word, max_length):
+    int_arr = []
+    length = max_length - len(word)
+    padding1 = [0 for i in range(length//2)]
+    if length % 2 == 1:
+        padding2 = [0 for i in range(length//2 + 1)]
+    else:
+        padding2 = [0 for i in range(length)]
+    for letter in word:
+        int_arr.append(ord(letter))
+    return padding1 + int_arr + padding2
 
 def readInExamples():
     try:
@@ -72,52 +138,31 @@ def readInExamples():
     except():
         print("File not found!")
         exit()
-    max_length = 0
-    pos_train_set = []
+    max_length = findMaxLength(s_pos)
+    if max_length < findMaxLength(s_neg):
+        max_length = findMaxLength(s_neg)
+    if max_length < findMaxLength(u_pos):
+        max_length = findMaxLength(u_pos)
+    if max_length < findMaxLength(u_neg):
+        max_length = findMaxLength(u_neg)
+    pos_train = []
     for x in s_pos:
-        if len(x) > max_length:
-            max_length = len(x)
-        int_arr = []
-        for letter in x:
-            int_arr.append(ord(letter))
-        pos_train_set.append([int_arr, 1])
-    neg_train_set = []
+        int_arr = getProcessedWord(x, max_length)
+        pos_train.append([int_arr, 1])
+    neg_train = []
     for x in s_neg:
-        if len(x) > max_length:
-            max_length = len(x)
-        int_arr = []
-        for letter in x:
-            int_arr.append(ord(letter))
-        neg_train_set.append([int_arr, 0])
-    pos_test_set = []
+        int_arr = getProcessedWord(x, max_length)
+        neg_train.append([int_arr, 0])
+    pos_test = []
     for x in u_pos:
-        if len(x) > max_length:
-            max_length = len(x)
-        int_arr = []
-        for letter in x:
-            int_arr.append(ord(letter))
-        pos_test_set.append([int_arr, 1])
-    neg_test_set = []
+        int_arr = getProcessedWord(x, max_length)
+        pos_test.append([int_arr, 1])
+    neg_test = []
     for x in u_neg:
-        if len(x) > max_length:
-            max_length = len(x)
-        int_arr = []
-        for letter in x:
-            int_arr.append(ord(letter))
-        neg_test_set.append([int_arr, 0])
-    train = pos_train_set + neg_train_set
-    random.shuffle(train)
-    for x in train:
-        for i in range(max_length - len(x[0])):
-            x[0].append(0)
-        x[0] = torch.Tensor(x[0])
-    test = pos_test_set + neg_test_set
-    random.shuffle(test)
-    for x in test:
-        for i in range(max_length - len(x[0])):
-            x[0].append(0)
-        x[0] = torch.Tensor(x[0])
-    return train, test, max_length
+        int_arr = getProcessedWord(x, max_length)
+        neg_test.append([int_arr, 0])
+    return pos_train, neg_train, pos_test, neg_test, max_length
+
 
 
 
@@ -126,8 +171,11 @@ if use_gpu:
 else:
     device = torch.device("cpu")
 
-train, test, max_length = readInExamples()
+ptrain, ntrain, ptest, ntest, max_length = readInExamples()
 
+
+train = ptrain = ntrain
+test =
 train_x = []
 train_y = []
 for x in train:
@@ -148,7 +196,7 @@ for epoch in range(epochs):
         net.zero_grad()
         output = net(x.view(-1, max_length))
         #y = F.log_softmax(y.view(len(y), 1), dim=1)
-        loss = loss_fn()(output, y)
+        print(output)
+        loss = loss_fn()(output, y.T)
         loss.backward()
         optimizer.step()
-        print(loss)

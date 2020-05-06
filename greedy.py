@@ -139,12 +139,21 @@ start_time = time.time()
 try:
     _s_pos = open("ex+.txt", "r")
     _s_neg = open("ex-.txt", "r")
-    s_pos = s_neg = []
+    _u_pos = open("ex+_u.txt", "r")
+    _u_neg = open("ex-_u.txt", "r")
+    s_pos = []
+    s_neg = []
+    u_pos = []
+    u_neg = []
     s_pos = [line.rstrip('\n') for line in _s_pos]
     s_neg = [line.rstrip('\n') for line in _s_neg]
+    u_pos = [line.rstrip('\n') for line in _u_pos]
+    u_neg = [line.rstrip('\n') for line in _u_neg]
     _s_pos.close()
     _s_neg.close()
-except:
+    _u_pos.close()
+    _u_neg.close()
+except():
     print("File not found!")
     exit()
 automatons = []

@@ -360,7 +360,7 @@ class Automaton:
         return newauto
 
 
-class cAutomaton(Automaton):
+class ColourAutomaton(Automaton):
 
     def __init__(self, idd):
         super().__init__(idd)
@@ -421,7 +421,7 @@ class cAutomaton(Automaton):
         return reds
 
     def copyAutomaton(self, symbol):
-        newauto = cAutomaton(symbol)
+        newauto = ColourAutomaton(symbol)
         newauto = super()._copyAutomaton(newauto)
         for x in self.getAllRedNodes():
             newauto.findNode(str(symbol) + str(x.getNO())).promote()
@@ -522,8 +522,8 @@ class Transition:
     def __eq__(self, obj):
         return ((obj.start == self.start) and (obj.end == self.end) and (obj.symbol == self.symbol))
 
-def buildcAutomatonFromStrings(sstrings, ssymbol):
-    auto = cAutomaton(ssymbol)
+def buildColourAutomatonFromStrings(sstrings, ssymbol):
+    auto = ColourAutomaton(ssymbol)
     return _buildAutomatonFromStrings(auto, sstrings)
 
 def buildAutomatonFromStrings(sstrings, ssymbol):
@@ -532,10 +532,14 @@ def buildAutomatonFromStrings(sstrings, ssymbol):
 
 def _buildAutomatonFromStrings(auto, strings):
     for i in strings:
-        _buildAutomatonFromString(i, auto)
+        auto = _buildAutomatonFromString(i, auto)
     return auto
 
 def _buildAutomatonFromString(sstring, auto):
+    if sstring == '':
+        if auto.start not in auto.end:
+            auto.addEnd(auto.start)
+        return auto
     auto.addNode()
     endNode = auto.findNode("" + str(auto.symbol) + str(auto.size - 1))
     auto.addTransition(auto.start, endNode, sstring[0])
@@ -545,14 +549,22 @@ def _buildAutomatonFromString(sstring, auto):
         endNode = auto.findNode("" + str(auto.symbol) + str(auto.size - 1))
         auto.addTransition(startNode, endNode, sstring[i+1]) #change here for sstring[i] to i+1
     auto.end.append(endNode)
+    return auto
 
-def buildPTA(sstrings, ssymbol):
-    newauto = cAutomaton(ssymbol)
+def buildPTA(sstrings, ssymbol, cauto = True):
+    if (cauto):
+        newauto = ColourAutomaton(ssymbol)
+    else:
+        newauto = Automaton(ssymbol)
     for x in sstrings:
         newauto = buildPTA2(x, newauto, newauto.start)
     return newauto
 
 def buildPTA2(str, newauto, current_node):
+    if str == '':
+        if newauto.start not in newauto.end:
+            newauto.addEnd(auto.start)
+        return newauto
     for letter in str:
         trans = newauto.findTransFromNode(current_node, letter)
         if (len(trans) > 1):
