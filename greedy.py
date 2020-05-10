@@ -49,40 +49,6 @@ def printStates(hideWhites = False):
         for x in white_nodes:
             print(x)
 
-def fillBluesnotwork(node, auto):
-    trans = auto.findTransFromNode(node)
-    for p in trans:
-        print(p)
-    print("Filling blues from {}".format(node))
-    if (len(trans) == 0):
-        if (node.checkLevel() == 1):
-            promoteNode(node)
-    check = False
-    for x in trans:
-        if (x.getEnd().checkLevel() == 0):
-            if (x.getEnd() not in white_nodes):
-                print("FUCK NO : {}".format(x.getEnd()))
-            promoteNode(x.getEnd())
-            check = True
-    if (not check):
-        end = False
-        for x in trans:
-            y = x.getEnd()
-            while(not end):
-                if (y.checkLevel() == 0):
-                    promoteNode(y)
-                    end = True
-                    if (node.checkLevel() == 1):
-                        promoteNode(node)
-                    return False
-                elif (len(auto.findTransFromNode(y)) == 0):
-                    end = True
-                else:
-                    return fillBlues(y, auto)
-        print("Forced End")
-        return True
-    return False
-
 def fillBlues(node, auto):
   if checkWin(auto):
       return True
@@ -137,10 +103,10 @@ def printListLengths():
 
 start_time = time.time()
 try:
-    _s_pos = open("ex+.txt", "r")
-    _s_neg = open("ex-.txt", "r")
-    _u_pos = open("ex+_u.txt", "r")
-    _u_neg = open("ex-_u.txt", "r")
+    _s_pos = open("regex+.txt", "r")
+    _s_neg = open("regex-.txt", "r")
+    _u_pos = open("regex+_u.txt", "r")
+    _u_neg = open("regex-_u.txt", "r")
     s_pos = []
     s_neg = []
     u_pos = []
@@ -209,10 +175,15 @@ while (check == False):
 
 pta.delete_unused_nodes()
 print(pta)
-print(len(pta.transitions))
-if pta.checkInputs(s_neg) == 0:
-    print("Correctly rejects all negative words")
-if pta.checkInputs(s_pos) == len(s_pos):
-    print("Correctly accepts all postive words")
+pos_count = 0
+for x in u_pos:
+    if pta.checkInput(x):
+        pos_count += 1
+neg_count = 0
+for x in u_neg:
+    if (not pta.checkInput(x)):
+        neg_count += 1
+print("The given Solution correctly accepts {}/{} of Unknown Posotive Testing Examples\nAnd correctly rejects {}/{} of Unknown Negative Testing Examples".format(pos_count, len(u_pos), neg_count, len(u_neg)))
 timed = ("--- %s seconds ---" % (time.time() - start_time))
+print(timed)
 print(its)

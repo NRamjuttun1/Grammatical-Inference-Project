@@ -1,0 +1,110 @@
+Node : T0
+Node : T1
+Node : T2
+Node : T3
+Node : T4
+Node : T5
+Node : T6
+Node : T7
+Node : T8
+Node : T9
+Node : T10
+Node : T11
+Node : T12
+Node : T13
+Node : T14
+Node : T15
+Node : T16
+Node : T17
+Node : T18
+Node : T19
+Node : T20
+Node : T21
+Node : T22
+Node : T23
+Node : T24
+Node : T25
+Node : T26
+Node : T27
+Node : T28
+Node : T29
+Node : T30
+Node : T31
+Node : T32
+Node : T33
+Node : T34
+Node : T35
+Node : T36
+Node : T37
+Node : T38
+Node : T39
+Node : T40
+
+Node : T0 -a-> Node : T32
+Node : T1 -a-> Node : T38
+Node : T1 -b-> Node : T3
+Node : T2 -b-> Node : T12
+Node : T3 -b-> Node : T19
+Node : T3 -a-> Node : T20
+Node : T4 -b-> Node : T3
+Node : T5 -b-> Node : T11
+Node : T6 -a-> Node : T28
+Node : T7 -a-> Node : T13
+Node : T8 -b-> Node : T29
+Node : T8 -a-> Node : T26
+Node : T8 -a-> Node : T31
+Node : T9 -b-> Node : T18
+Node : T10 -b-> Node : T27
+Node : T11 -b-> Node : T36
+Node : T12 -a-> Node : T35
+Node : T12 -b-> Node : T14
+Node : T13 -b-> Node : T29
+Node : T14 -a-> Node : T4
+Node : T14 -b-> Node : T14
+Node : T14 -b-> Node : T21
+Node : T15 -b-> Node : T32
+Node : T15 -a-> Node : T9
+Node : T16 -a-> Node : T15
+Node : T16 -b-> Node : T30
+Node : T17 -a-> Node : T34
+Node : T18 -b-> Node : T13
+Node : T19 -b-> Node : T29
+Node : T20 -b-> Node : T14
+Node : T21 -b-> Node : T25
+Node : T22 -a-> Node : T10
+Node : T23 -b-> Node : T32
+Node : T24 -b-> Node : T0
+Node : T25 -a-> Node : T8
+Node : T26 -a-> Node : T16
+Node : T26 -b-> Node : T39
+Node : T26 -a-> Node : T34
+Node : T26 -a-> Node : T22
+Node : T28 -b-> Node : T23
+Node : T28 -a-> Node : T26
+Node : T29 -a-> Node : T17
+Node : T29 -b-> Node : T5
+Node : T29 -a-> Node : T33
+Node : T31 -b-> Node : T24
+Node : T32 -a-> Node : T6
+Node : T32 -b-> Node : T37
+Node : T33 -b-> Node : T40
+Node : T34 -b-> Node : T7
+Node : T34 -b-> Node : T23
+Node : T34 -a-> Node : T34
+Node : T34 -b-> Node : T28
+Node : T35 -b-> Node : T8
+Node : T35 -a-> Node : T26
+Node : T36 -a-> Node : T1
+Node : T38 -b-> Node : T30
+Node : T39 -a-> Node : T15
+Node : T40 -b-> Node : T1
+
+Start Node = Node : T2
+Final Nodes = Node : T8 Node : T29 Node : T7 Node : T29 Node : T32 Node : T23 Node : T32 Node : T30 Node : T14 Node : T3 Node : T19 Node : T29 Node : T40 Node : T1 Node : T30 Node : T23 Node : T39 Node : T18 Node : T13 Node : T5 Node : T11 Node : T36 Node : T3 Node : T14 Node : T14 Node : T21 Node : T25 Node : T24 Node : T0 Node : T37 Node : T28 Node : T27
+
+4 generations
+ Correct Fitness found at position 0
+The given Solution correctly accepts 3/3 of Unknown Posotive Testing Examples
+And correctly rejects 5/5 of Unknown Negative Testing Examples
+Correct Automaton found!
+--- 0.12267351150512695 seconds ---

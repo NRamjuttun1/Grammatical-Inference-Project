@@ -1,0 +1,956 @@
+Node : T0
+Node : T1
+Node : T2
+Node : T3
+Node : T4
+Node : T5
+Node : T6
+Node : T7
+Node : T8
+Node : T9
+Node : T10
+Node : T11
+Node : T12
+Node : T13
+Node : T14
+Node : T15
+Node : T16
+Node : T17
+Node : T18
+Node : T19
+Node : T20
+Node : T21
+Node : T22
+Node : T23
+Node : T24
+Node : T25
+Node : T26
+Node : T27
+Node : T28
+Node : T29
+Node : T30
+Node : T31
+Node : T32
+Node : T33
+Node : T34
+Node : T35
+Node : T36
+Node : T37
+Node : T38
+Node : T39
+Node : T40
+Node : T41
+Node : T42
+Node : T43
+Node : T44
+Node : T45
+Node : T46
+Node : T47
+Node : T48
+Node : T49
+Node : T50
+Node : T51
+Node : T52
+Node : T53
+Node : T54
+Node : T55
+Node : T56
+Node : T57
+Node : T58
+Node : T59
+Node : T60
+Node : T61
+Node : T62
+Node : T63
+Node : T64
+Node : T65
+Node : T66
+Node : T67
+Node : T68
+Node : T69
+Node : T70
+Node : T71
+Node : T72
+Node : T73
+Node : T74
+Node : T75
+Node : T76
+Node : T77
+Node : T78
+Node : T79
+Node : T80
+Node : T81
+Node : T82
+Node : T83
+Node : T84
+Node : T85
+Node : T86
+Node : T87
+Node : T88
+Node : T89
+Node : T90
+Node : T91
+Node : T92
+Node : T93
+Node : T94
+Node : T95
+Node : T96
+Node : T97
+Node : T98
+Node : T99
+Node : T100
+Node : T101
+Node : T102
+Node : T103
+Node : T104
+Node : T105
+Node : T106
+Node : T107
+Node : T108
+Node : T109
+Node : T110
+Node : T111
+Node : T112
+Node : T113
+Node : T114
+Node : T115
+Node : T116
+Node : T117
+Node : T118
+Node : T119
+Node : T120
+Node : T121
+Node : T122
+Node : T123
+Node : T124
+Node : T125
+Node : T126
+Node : T127
+Node : T128
+Node : T129
+Node : T130
+Node : T131
+Node : T132
+Node : T133
+Node : T134
+Node : T135
+Node : T136
+Node : T137
+Node : T138
+Node : T139
+Node : T140
+Node : T141
+Node : T142
+Node : T143
+Node : T144
+Node : T145
+Node : T146
+Node : T147
+Node : T148
+Node : T149
+Node : T150
+Node : T151
+Node : T152
+Node : T153
+Node : T154
+Node : T155
+Node : T156
+Node : T157
+Node : T158
+Node : T159
+Node : T160
+Node : T161
+Node : T162
+Node : T163
+Node : T164
+Node : T165
+Node : T166
+Node : T167
+Node : T168
+Node : T169
+Node : T170
+Node : T171
+Node : T172
+Node : T173
+Node : T174
+Node : T175
+Node : T176
+Node : T177
+Node : T178
+Node : T179
+Node : T180
+Node : T181
+Node : T182
+Node : T183
+Node : T184
+Node : T185
+Node : T186
+Node : T187
+Node : T188
+Node : T189
+Node : T190
+Node : T191
+Node : T192
+Node : T193
+Node : T194
+Node : T195
+Node : T196
+Node : T197
+Node : T198
+Node : T199
+Node : T200
+Node : T201
+Node : T202
+Node : T203
+Node : T204
+Node : T205
+Node : T206
+Node : T207
+Node : T208
+Node : T209
+Node : T210
+Node : T211
+Node : T212
+Node : T213
+Node : T214
+Node : T215
+Node : T216
+Node : T217
+Node : T218
+Node : T219
+Node : T220
+Node : T221
+Node : T222
+Node : T223
+Node : T224
+Node : T225
+Node : T226
+Node : T227
+Node : T228
+Node : T229
+Node : T230
+Node : T231
+Node : T232
+Node : T233
+Node : T234
+Node : T235
+Node : T236
+Node : T237
+Node : T238
+Node : T239
+Node : T240
+Node : T241
+Node : T242
+Node : T243
+Node : T244
+Node : T245
+Node : T246
+Node : T247
+Node : T248
+Node : T249
+Node : T250
+Node : T251
+Node : T252
+Node : T253
+Node : T254
+Node : T255
+Node : T256
+Node : T257
+Node : T258
+Node : T259
+Node : T260
+Node : T261
+Node : T262
+Node : T263
+Node : T264
+Node : T265
+Node : T266
+Node : T267
+Node : T268
+Node : T269
+Node : T270
+Node : T271
+Node : T272
+Node : T273
+Node : T274
+Node : T275
+Node : T276
+Node : T277
+Node : T278
+Node : T279
+Node : T280
+Node : T281
+Node : T282
+Node : T283
+Node : T284
+Node : T285
+Node : T286
+Node : T287
+Node : T288
+Node : T289
+Node : T290
+Node : T291
+Node : T292
+Node : T293
+Node : T294
+Node : T295
+Node : T296
+Node : T297
+Node : T298
+Node : T299
+Node : T300
+Node : T301
+Node : T302
+Node : T303
+Node : T304
+Node : T305
+Node : T306
+Node : T307
+Node : T308
+Node : T309
+Node : T310
+Node : T311
+Node : T312
+Node : T313
+Node : T314
+Node : T315
+Node : T316
+Node : T317
+Node : T318
+Node : T319
+Node : T320
+Node : T321
+Node : T322
+Node : T323
+Node : T324
+Node : T325
+Node : T326
+Node : T327
+Node : T328
+Node : T329
+Node : T330
+Node : T331
+Node : T332
+Node : T333
+Node : T334
+Node : T335
+Node : T336
+Node : T337
+Node : T338
+Node : T339
+Node : T340
+Node : T341
+Node : T342
+Node : T343
+Node : T344
+Node : T345
+Node : T346
+Node : T347
+Node : T348
+Node : T349
+Node : T350
+Node : T351
+Node : T352
+Node : T353
+Node : T354
+
+Node : T0 -c-> Node : T43
+Node : T0 -b-> Node : T140
+Node : T1 -c-> Node : T288
+Node : T2 -f-> Node : T277
+Node : T3 -f-> Node : T293
+Node : T3 -c-> Node : T37
+Node : T3 -g-> Node : T312
+Node : T4 -a-> Node : T111
+Node : T4 -f-> Node : T289
+Node : T5 -a-> Node : T220
+Node : T6 -f-> Node : T250
+Node : T6 -a-> Node : T185
+Node : T6 -f-> Node : T66
+Node : T7 -a-> Node : T144
+Node : T8 -f-> Node : T185
+Node : T9 -a-> Node : T87
+Node : T9 -d-> Node : T180
+Node : T10 -g-> Node : T123
+Node : T10 -a-> Node : T142
+Node : T11 -e-> Node : T162
+Node : T12 -g-> Node : T306
+Node : T12 -b-> Node : T305
+Node : T13 -a-> Node : T40
+Node : T13 -f-> Node : T79
+Node : T13 -c-> Node : T293
+Node : T14 -g-> Node : T143
+Node : T15 -a-> Node : T190
+Node : T16 -d-> Node : T201
+Node : T17 -c-> Node : T69
+Node : T18 -f-> Node : T51
+Node : T18 -g-> Node : T113
+Node : T19 -g-> Node : T255
+Node : T19 -a-> Node : T351
+Node : T20 -c-> Node : T264
+Node : T20 -g-> Node : T258
+Node : T20 -a-> Node : T346
+Node : T20 -d-> Node : T148
+Node : T20 -a-> Node : T172
+Node : T21 -b-> Node : T345
+Node : T22 -b-> Node : T278
+Node : T23 -c-> Node : T191
+Node : T24 -a-> Node : T149
+Node : T24 -b-> Node : T334
+Node : T25 -g-> Node : T115
+Node : T26 -e-> Node : T266
+Node : T26 -f-> Node : T42
+Node : T27 -f-> Node : T58
+Node : T28 -e-> Node : T224
+Node : T29 -g-> Node : T156
+Node : T29 -g-> Node : T78
+Node : T30 -b-> Node : T128
+Node : T31 -b-> Node : T150
+Node : T31 -g-> Node : T194
+Node : T32 -b-> Node : T347
+Node : T33 -b-> Node : T145
+Node : T34 -f-> Node : T297
+Node : T34 -g-> Node : T100
+Node : T35 -g-> Node : T242
+Node : T35 -c-> Node : T303
+Node : T35 -g-> Node : T203
+Node : T36 -f-> Node : T94
+Node : T37 -b-> Node : T221
+Node : T37 -b-> Node : T263
+Node : T38 -b-> Node : T235
+Node : T39 -a-> Node : T7
+Node : T39 -d-> Node : T232
+Node : T40 -c-> Node : T120
+Node : T40 -e-> Node : T202
+Node : T40 -c-> Node : T18
+Node : T41 -e-> Node : T70
+Node : T41 -a-> Node : T122
+Node : T42 -a-> Node : T273
+Node : T42 -g-> Node : T24
+Node : T42 -d-> Node : T320
+Node : T43 -a-> Node : T308
+Node : T44 -g-> Node : T23
+Node : T44 -b-> Node : T232
+Node : T44 -d-> Node : T307
+Node : T45 -b-> Node : T248
+Node : T46 -a-> Node : T42
+Node : T47 -a-> Node : T3
+Node : T47 -c-> Node : T37
+Node : T48 -a-> Node : T224
+Node : T48 -e-> Node : T352
+Node : T48 -g-> Node : T10
+Node : T49 -f-> Node : T233
+Node : T50 -g-> Node : T252
+Node : T51 -d-> Node : T166
+Node : T52 -a-> Node : T188
+Node : T52 -e-> Node : T222
+Node : T53 -d-> Node : T18
+Node : T54 -g-> Node : T120
+Node : T55 -e-> Node : T215
+Node : T56 -c-> Node : T81
+Node : T56 -c-> Node : T343
+Node : T57 -c-> Node : T125
+Node : T57 -d-> Node : T319
+Node : T57 -c-> Node : T296
+Node : T58 -d-> Node : T25
+Node : T58 -b-> Node : T221
+Node : T59 -c-> Node : T84
+Node : T59 -c-> Node : T295
+Node : T60 -f-> Node : T96
+Node : T61 -b-> Node : T350
+Node : T62 -d-> Node : T128
+Node : T63 -f-> Node : T220
+Node : T64 -c-> Node : T175
+Node : T64 -a-> Node : T26
+Node : T65 -b-> Node : T105
+Node : T66 -a-> Node : T255
+Node : T66 -g-> Node : T211
+Node : T67 -a-> Node : T318
+Node : T68 -f-> Node : T6
+Node : T68 -g-> Node : T263
+Node : T69 -c-> Node : T354
+Node : T69 -a-> Node : T234
+Node : T70 -f-> Node : T90
+Node : T70 -a-> Node : T98
+Node : T71 -g-> Node : T58
+Node : T72 -a-> Node : T108
+Node : T73 -a-> Node : T302
+Node : T74 -d-> Node : T14
+Node : T74 -g-> Node : T267
+Node : T75 -f-> Node : T274
+Node : T75 -f-> Node : T97
+Node : T76 -f-> Node : T31
+Node : T77 -c-> Node : T334
+Node : T77 -f-> Node : T22
+Node : T78 -g-> Node : T27
+Node : T78 -b-> Node : T15
+Node : T79 -f-> Node : T269
+Node : T80 -c-> Node : T209
+Node : T80 -f-> Node : T9
+Node : T80 -c-> Node : T144
+Node : T81 -d-> Node : T88
+Node : T81 -g-> Node : T336
+Node : T82 -a-> Node : T77
+Node : T82 -a-> Node : T130
+Node : T83 -b-> Node : T248
+Node : T84 -b-> Node : T13
+Node : T84 -f-> Node : T235
+Node : T85 -f-> Node : T114
+Node : T85 -e-> Node : T223
+Node : T86 -b-> Node : T3
+Node : T87 -c-> Node : T251
+Node : T88 -d-> Node : T284
+Node : T89 -c-> Node : T175
+Node : T90 -f-> Node : T231
+Node : T90 -g-> Node : T73
+Node : T91 -d-> Node : T92
+Node : T92 -d-> Node : T138
+Node : T92 -d-> Node : T198
+Node : T93 -g-> Node : T254
+Node : T93 -g-> Node : T150
+Node : T94 -b-> Node : T99
+Node : T95 -g-> Node : T176
+Node : T96 -f-> Node : T109
+Node : T96 -f-> Node : T292
+Node : T97 -a-> Node : T82
+Node : T98 -g-> Node : T213
+Node : T98 -g-> Node : T20
+Node : T99 -b-> Node : T209
+Node : T100 -g-> Node : T41
+Node : T100 -f-> Node : T92
+Node : T101 -e-> Node : T74
+Node : T101 -a-> Node : T66
+Node : T102 -a-> Node : T287
+Node : T103 -b-> Node : T241
+Node : T103 -c-> Node : T230
+Node : T104 -a-> Node : T338
+Node : T104 -e-> Node : T80
+Node : T105 -b-> Node : T19
+Node : T105 -f-> Node : T103
+Node : T106 -b-> Node : T169
+Node : T108 -e-> Node : T143
+Node : T108 -e-> Node : T29
+Node : T109 -d-> Node : T307
+Node : T110 -e-> Node : T348
+Node : T110 -g-> Node : T196
+Node : T111 -c-> Node : T325
+Node : T112 -f-> Node : T247
+Node : T113 -f-> Node : T268
+Node : T114 -g-> Node : T282
+Node : T114 -b-> Node : T168
+Node : T114 -g-> Node : T117
+Node : T115 -f-> Node : T85
+Node : T115 -g-> Node : T29
+Node : T115 -g-> Node : T290
+Node : T115 -g-> Node : T276
+Node : T115 -f-> Node : T295
+Node : T116 -a-> Node : T117
+Node : T116 -b-> Node : T70
+Node : T117 -f-> Node : T62
+Node : T117 -e-> Node : T261
+Node : T117 -e-> Node : T279
+Node : T118 -c-> Node : T171
+Node : T119 -g-> Node : T217
+Node : T120 -a-> Node : T218
+Node : T120 -b-> Node : T342
+Node : T120 -e-> Node : T209
+Node : T120 -f-> Node : T285
+Node : T122 -d-> Node : T104
+Node : T122 -e-> Node : T208
+Node : T122 -f-> Node : T256
+Node : T123 -f-> Node : T226
+Node : T123 -a-> Node : T44
+Node : T124 -e-> Node : T131
+Node : T124 -f-> Node : T49
+Node : T124 -d-> Node : T204
+Node : T125 -c-> Node : T349
+Node : T126 -c-> Node : T326
+Node : T127 -a-> Node : T45
+Node : T127 -e-> Node : T124
+Node : T128 -a-> Node : T1
+Node : T128 -c-> Node : T64
+Node : T128 -b-> Node : T11
+Node : T128 -g-> Node : T256
+Node : T129 -b-> Node : T291
+Node : T130 -a-> Node : T3
+Node : T131 -f-> Node : T324
+Node : T132 -d-> Node : T246
+Node : T133 -g-> Node : T304
+Node : T134 -c-> Node : T215
+Node : T134 -f-> Node : T3
+Node : T135 -f-> Node : T128
+Node : T135 -e-> Node : T216
+Node : T136 -c-> Node : T57
+Node : T136 -g-> Node : T301
+Node : T137 -f-> Node : T115
+Node : T138 -c-> Node : T321
+Node : T139 -f-> Node : T34
+Node : T139 -e-> Node : T265
+Node : T139 -f-> Node : T36
+Node : T139 -c-> Node : T139
+Node : T139 -a-> Node : T136
+Node : T140 -c-> Node : T139
+Node : T140 -b-> Node : T152
+Node : T141 -g-> Node : T159
+Node : T141 -g-> Node : T281
+Node : T142 -f-> Node : T246
+Node : T142 -e-> Node : T318
+Node : T143 -c-> Node : T339
+Node : T143 -c-> Node : T310
+Node : T144 -d-> Node : T172
+Node : T144 -f-> Node : T38
+Node : T145 -e-> Node : T114
+Node : T146 -d-> Node : T119
+Node : T146 -f-> Node : T103
+Node : T146 -a-> Node : T53
+Node : T147 -g-> Node : T56
+Node : T147 -c-> Node : T253
+Node : T148 -g-> Node : T297
+Node : T148 -g-> Node : T188
+Node : T149 -f-> Node : T52
+Node : T150 -f-> Node : T180
+Node : T150 -g-> Node : T174
+Node : T151 -f-> Node : T139
+Node : T151 -c-> Node : T236
+Node : T151 -g-> Node : T115
+Node : T151 -g-> Node : T5
+Node : T152 -b-> Node : T40
+Node : T152 -d-> Node : T247
+Node : T153 -b-> Node : T126
+Node : T154 -c-> Node : T221
+Node : T155 -d-> Node : T181
+Node : T156 -g-> Node : T210
+Node : T156 -d-> Node : T151
+Node : T157 -b-> Node : T289
+Node : T158 -a-> Node : T291
+Node : T158 -e-> Node : T54
+Node : T158 -e-> Node : T229
+Node : T159 -c-> Node : T50
+Node : T159 -e-> Node : T106
+Node : T159 -c-> Node : T169
+Node : T159 -f-> Node : T120
+Node : T160 -a-> Node : T35
+Node : T161 -d-> Node : T234
+Node : T161 -a-> Node : T93
+Node : T162 -f-> Node : T224
+Node : T163 -a-> Node : T80
+Node : T164 -f-> Node : T246
+Node : T164 -g-> Node : T313
+Node : T165 -a-> Node : T173
+Node : T166 -g-> Node : T81
+Node : T167 -g-> Node : T312
+Node : T167 -a-> Node : T108
+Node : T167 -e-> Node : T298
+Node : T168 -f-> Node : T151
+Node : T169 -f-> Node : T316
+Node : T169 -a-> Node : T17
+Node : T170 -e-> Node : T69
+Node : T171 -c-> Node : T32
+Node : T172 -f-> Node : T209
+Node : T172 -c-> Node : T102
+Node : T172 -b-> Node : T116
+Node : T174 -g-> Node : T164
+Node : T175 -c-> Node : T34
+Node : T175 -b-> Node : T252
+Node : T175 -e-> Node : T142
+Node : T176 -b-> Node : T47
+Node : T177 -d-> Node : T289
+Node : T178 -f-> Node : T228
+Node : T179 -g-> Node : T167
+Node : T179 -f-> Node : T139
+Node : T180 -f-> Node : T272
+Node : T180 -c-> Node : T39
+Node : T180 -c-> Node : T262
+Node : T181 -f-> Node : T212
+Node : T182 -c-> Node : T279
+Node : T182 -a-> Node : T215
+Node : T183 -a-> Node : T64
+Node : T184 -g-> Node : T134
+Node : T185 -c-> Node : T75
+Node : T185 -a-> Node : T132
+Node : T185 -a-> Node : T57
+Node : T186 -b-> Node : T42
+Node : T187 -c-> Node : T59
+Node : T187 -e-> Node : T295
+Node : T188 -a-> Node : T122
+Node : T188 -a-> Node : T163
+Node : T189 -c-> Node : T227
+Node : T189 -g-> Node : T124
+Node : T189 -c-> Node : T167
+Node : T189 -g-> Node : T250
+Node : T190 -d-> Node : T273
+Node : T190 -a-> Node : T317
+Node : T190 -c-> Node : T48
+Node : T190 -e-> Node : T187
+Node : T190 -g-> Node : T283
+Node : T191 -c-> Node : T294
+Node : T192 -e-> Node : T8
+Node : T193 -e-> Node : T26
+Node : T194 -g-> Node : T35
+Node : T195 -e-> Node : T61
+Node : T196 -d-> Node : T80
+Node : T196 -b-> Node : T300
+Node : T197 -e-> Node : T135
+Node : T198 -g-> Node : T289
+Node : T199 -f-> Node : T275
+Node : T199 -e-> Node : T9
+Node : T199 -g-> Node : T110
+Node : T200 -g-> Node : T330
+Node : T201 -e-> Node : T146
+Node : T203 -g-> Node : T28
+Node : T204 -g-> Node : T90
+Node : T205 -c-> Node : T158
+Node : T205 -g-> Node : T136
+Node : T205 -f-> Node : T282
+Node : T206 -c-> Node : T77
+Node : T207 -b-> Node : T305
+Node : T208 -c-> Node : T184
+Node : T208 -f-> Node : T235
+Node : T209 -f-> Node : T0
+Node : T209 -f-> Node : T28
+Node : T209 -e-> Node : T199
+Node : T209 -e-> Node : T44
+Node : T210 -a-> Node : T221
+Node : T211 -b-> Node : T183
+Node : T212 -f-> Node : T277
+Node : T212 -c-> Node : T153
+Node : T213 -c-> Node : T115
+Node : T214 -e-> Node : T245
+Node : T215 -c-> Node : T116
+Node : T215 -e-> Node : T175
+Node : T215 -a-> Node : T265
+Node : T216 -g-> Node : T95
+Node : T216 -d-> Node : T24
+Node : T216 -e-> Node : T159
+Node : T217 -c-> Node : T104
+Node : T217 -b-> Node : T242
+Node : T218 -f-> Node : T190
+Node : T218 -e-> Node : T205
+Node : T218 -c-> Node : T20
+Node : T218 -d-> Node : T353
+Node : T218 -g-> Node : T189
+Node : T219 -d-> Node : T105
+Node : T220 -d-> Node : T309
+Node : T220 -g-> Node : T68
+Node : T221 -g-> Node : T307
+Node : T221 -g-> Node : T147
+Node : T221 -f-> Node : T179
+Node : T221 -c-> Node : T2
+Node : T222 -d-> Node : T214
+Node : T223 -f-> Node : T337
+Node : T223 -e-> Node : T321
+Node : T224 -a-> Node : T161
+Node : T224 -e-> Node : T207
+Node : T224 -d-> Node : T44
+Node : T224 -f-> Node : T133
+Node : T225 -c-> Node : T229
+Node : T225 -f-> Node : T262
+Node : T226 -b-> Node : T68
+Node : T227 -c-> Node : T240
+Node : T228 -d-> Node : T332
+Node : T229 -d-> Node : T16
+Node : T229 -a-> Node : T294
+Node : T229 -f-> Node : T129
+Node : T230 -f-> Node : T52
+Node : T231 -a-> Node : T161
+Node : T231 -g-> Node : T0
+Node : T232 -c-> Node : T12
+Node : T232 -b-> Node : T118
+Node : T233 -f-> Node : T71
+Node : T234 -d-> Node : T115
+Node : T234 -c-> Node : T152
+Node : T235 -e-> Node : T239
+Node : T235 -f-> Node : T295
+Node : T235 -f-> Node : T172
+Node : T236 -c-> Node : T267
+Node : T237 -f-> Node : T82
+Node : T238 -d-> Node : T251
+Node : T239 -d-> Node : T6
+Node : T239 -g-> Node : T161
+Node : T240 -b-> Node : T89
+Node : T241 -f-> Node : T165
+Node : T242 -e-> Node : T335
+Node : T242 -c-> Node : T200
+Node : T243 -d-> Node : T76
+Node : T243 -d-> Node : T259
+Node : T243 -e-> Node : T134
+Node : T244 -d-> Node : T280
+Node : T245 -e-> Node : T158
+Node : T246 -e-> Node : T178
+Node : T246 -f-> Node : T121
+Node : T246 -c-> Node : T110
+Node : T247 -b-> Node : T151
+Node : T247 -b-> Node : T199
+Node : T248 -a-> Node : T31
+Node : T248 -g-> Node : T96
+Node : T249 -g-> Node : T217
+Node : T250 -c-> Node : T252
+Node : T250 -g-> Node : T12
+Node : T251 -g-> Node : T86
+Node : T251 -a-> Node : T35
+Node : T252 -c-> Node : T243
+Node : T252 -f-> Node : T91
+Node : T252 -g-> Node : T94
+Node : T253 -d-> Node : T187
+Node : T253 -g-> Node : T333
+Node : T253 -c-> Node : T212
+Node : T254 -b-> Node : T292
+Node : T255 -g-> Node : T180
+Node : T255 -c-> Node : T141
+Node : T256 -f-> Node : T57
+Node : T256 -g-> Node : T255
+Node : T257 -b-> Node : T60
+Node : T258 -b-> Node : T112
+Node : T258 -c-> Node : T281
+Node : T259 -f-> Node : T298
+Node : T260 -f-> Node : T316
+Node : T261 -c-> Node : T221
+Node : T262 -g-> Node : T59
+Node : T262 -f-> Node : T328
+Node : T262 -f-> Node : T231
+Node : T263 -b-> Node : T19
+Node : T263 -c-> Node : T120
+Node : T264 -b-> Node : T70
+Node : T264 -c-> Node : T140
+Node : T265 -g-> Node : T78
+Node : T265 -f-> Node : T122
+Node : T266 -d-> Node : T40
+Node : T267 -d-> Node : T139
+Node : T267 -c-> Node : T151
+Node : T268 -a-> Node : T303
+Node : T269 -c-> Node : T216
+Node : T269 -g-> Node : T208
+Node : T270 -g-> Node : T159
+Node : T271 -b-> Node : T156
+Node : T272 -b-> Node : T164
+Node : T273 -b-> Node : T93
+Node : T273 -d-> Node : T314
+Node : T274 -e-> Node : T21
+Node : T275 -e-> Node : T30
+Node : T275 -e-> Node : T24
+Node : T276 -a-> Node : T46
+Node : T277 -d-> Node : T298
+Node : T277 -c-> Node : T314
+Node : T278 -f-> Node : T72
+Node : T279 -c-> Node : T177
+Node : T279 -c-> Node : T219
+Node : T280 -g-> Node : T148
+Node : T280 -e-> Node : T314
+Node : T281 -c-> Node : T67
+Node : T281 -g-> Node : T275
+Node : T282 -a-> Node : T280
+Node : T282 -f-> Node : T146
+Node : T283 -f-> Node : T98
+Node : T284 -d-> Node : T309
+Node : T285 -b-> Node : T154
+Node : T285 -b-> Node : T167
+Node : T286 -d-> Node : T299
+Node : T287 -f-> Node : T4
+Node : T288 -a-> Node : T237
+Node : T289 -g-> Node : T158
+Node : T289 -b-> Node : T170
+Node : T289 -a-> Node : T224
+Node : T289 -d-> Node : T141
+Node : T290 -e-> Node : T56
+Node : T291 -b-> Node : T194
+Node : T291 -b-> Node : T329
+Node : T292 -g-> Node : T306
+Node : T292 -f-> Node : T192
+Node : T293 -c-> Node : T238
+Node : T293 -g-> Node : T47
+Node : T294 -f-> Node : T85
+Node : T294 -g-> Node : T147
+Node : T295 -d-> Node : T55
+Node : T295 -a-> Node : T331
+Node : T295 -e-> Node : T157
+Node : T295 -b-> Node : T189
+Node : T296 -f-> Node : T186
+Node : T297 -a-> Node : T6
+Node : T297 -d-> Node : T262
+Node : T298 -b-> Node : T189
+Node : T298 -g-> Node : T123
+Node : T298 -f-> Node : T243
+Node : T299 -a-> Node : T128
+Node : T299 -g-> Node : T301
+Node : T300 -f-> Node : T223
+Node : T300 -a-> Node : T243
+Node : T301 -g-> Node : T107
+Node : T301 -a-> Node : T261
+Node : T302 -b-> Node : T285
+Node : T303 -b-> Node : T63
+Node : T303 -a-> Node : T286
+Node : T304 -a-> Node : T317
+Node : T305 -g-> Node : T225
+Node : T305 -a-> Node : T199
+Node : T306 -c-> Node : T322
+Node : T306 -b-> Node : T101
+Node : T307 -a-> Node : T271
+Node : T307 -e-> Node : T126
+Node : T307 -a-> Node : T4
+Node : T308 -f-> Node : T48
+Node : T309 -f-> Node : T59
+Node : T309 -d-> Node : T83
+Node : T310 -e-> Node : T13
+Node : T311 -f-> Node : T13
+Node : T312 -a-> Node : T206
+Node : T312 -b-> Node : T179
+Node : T314 -d-> Node : T259
+Node : T314 -d-> Node : T327
+Node : T314 -d-> Node : T75
+Node : T315 -b-> Node : T253
+Node : T316 -b-> Node : T249
+Node : T316 -b-> Node : T300
+Node : T317 -b-> Node : T311
+Node : T317 -g-> Node : T10
+Node : T318 -b-> Node : T195
+Node : T318 -g-> Node : T127
+Node : T319 -e-> Node : T193
+Node : T320 -a-> Node : T159
+Node : T321 -b-> Node : T270
+Node : T321 -c-> Node : T239
+Node : T322 -g-> Node : T127
+Node : T323 -g-> Node : T341
+Node : T324 -f-> Node : T216
+Node : T325 -b-> Node : T101
+Node : T326 -c-> Node : T146
+Node : T327 -g-> Node : T257
+Node : T327 -d-> Node : T39
+Node : T328 -c-> Node : T117
+Node : T329 -e-> Node : T253
+Node : T330 -a-> Node : T315
+Node : T331 -c-> Node : T244
+Node : T332 -a-> Node : T33
+Node : T333 -c-> Node : T260
+Node : T334 -c-> Node : T65
+Node : T334 -g-> Node : T74
+Node : T335 -d-> Node : T225
+Node : T336 -a-> Node : T327
+Node : T337 -a-> Node : T299
+Node : T338 -f-> Node : T41
+Node : T339 -d-> Node : T100
+Node : T340 -f-> Node : T224
+Node : T341 -b-> Node : T269
+Node : T342 -d-> Node : T160
+Node : T343 -g-> Node : T114
+Node : T344 -d-> Node : T340
+Node : T345 -b-> Node : T344
+Node : T346 -f-> Node : T84
+Node : T347 -f-> Node : T196
+Node : T348 -g-> Node : T137
+Node : T349 -f-> Node : T185
+Node : T350 -b-> Node : T229
+Node : T351 -c-> Node : T323
+Node : T352 -d-> Node : T155
+Node : T353 -b-> Node : T197
+Node : T353 -f-> Node : T182
+Node : T354 -b-> Node : T205
+
+Start Node = Node : T218
+Final Nodes = Node : T190 Node : T93 Node : T306 Node : T322 Node : T248 Node : T332 Node : T280 Node : T250 Node : T243 Node : T31 Node : T194 Node : T158 Node : T242 Node : T335 Node : T16 Node : T119 Node : T104 Node : T231 Node : T234 Node : T34 Node : T59 Node : T20 Node : T98 Node : T115 Node : T156 Node : T267 Node : T27 Node : T25 Node : T290 Node : T56 Node : T284 Node : T13 Node : T218 Node : T1 Node : T288 Node : T82 Node : T255 Node : T39 Node : T93 Node : T174 Node : T313 Node : T276 Node : T42 Node : T314 Node : T34 Node : T41 Node : T80 Node : T28 Node : T235 Node : T6 Node : T274 Node : T344 Node : T225 Node : T328 Node : T62 Node : T92 Node : T159 Node : T50 Node : T94 Node : T124 Node : T131 Node : T95 Node : T3 Node : T22 Node : T108 Node : T143 Node : T92 Node : T158 Node : T54 Node : T120 Node : T309 Node : T96 Node : T307 Node : T126 Node : T122 Node : T208 Node : T117 Node : T56 Node : T343 Node : T117 Node : T146 Node : T241 Node : T173 Node : T67 Node : T229 Node : T44 Node : T191 Node : T294 Node : T253 Node : T121 Node : T269 Node : T149 Node : T188 Node : T80 Node : T251 Node : T28 Node : T224 Node : T123 Node : T255 Node : T253 Node : T260 Node : T161 Node : T185 Node : T246 Node : T348 Node : T137 Node : T331 Node : T244 Node : T327 Node : T192 Node : T57 Node : T40 Node : T202 Node : T233 Node : T108 Node : T29 Node : T78 Node : T172 Node : T102 Node : T4 Node : T14 Node : T310 Node : T13 Node : T221 Node : T139 Node : T182 Node : T219 Node : T103 Node : T52 Node : T214 Node : T245 Node : T329 Node : T253 Node : T277 Node : T232 Node : T12 Node : T66 Node : T64 Node : T24 Node : T181 Node : T146 Node : T18 Node : T39 Node : T80 Node : T144 Node : T224 Node : T94 Node : T209 Node : T199 Node : T186 Node : T17 Node : T69 Node : T113 Node : T303 Node : T299 Node : T107 Node : T142 Node : T318 Node : T204 Node : T73 Node : T277 Node : T97 Node : T130 Node : T351 Node : T323 Node : T208 Node : T172 Node : T70 Node : T265 Node : T256 Node : T255 Node : T307 Node : T289 Node : T275 Node : T267 Node : T263 Node : T120 Node : T259 Node : T250 Node : T9 Node : T231 Node : T0 Node : T152 Node : T110 Node : T134 Node : T261
+
+341 generations
+ Correct Fitness found at position 0
+The given Solution correctly accepts 16/30 of Unknown Positive Testing Examples
+And correctly rejects 30/30 of Unknown Negative Testing Examples
+Correct Automaton found!
+--- 600.3175745010376 seconds ---

@@ -91,12 +91,28 @@ while(not value == '4'):
 words = []
 while(len(words) < a.getSize() + 5):
     words += getPosWords(a, words)
+u_poswords = []
+try:
+    while(not len(u_poswords) == 5):
+        ran_pos = random.choice(poswords)
+        if (checkUniqueSymbols(ran_pos, poswords) == False):
+            u_poswords.append(ran_pos)
+            poswords.remove(ran_pos)
+except(IndexError):
+    print("Positive words were not generated")
+    exit()
 neg_words = getNegWords(a, [])
 while(len(neg_words) < a.getSize() + 5):
     neg_words += getNegWords(a, neg_words, len(neg_words))
+while(not len(u_negwords) == 30):
+    ran_pos = random.choice(negwords)
+    u_negwords.append(ran_pos)
+    negwords.remove(ran_pos)
 try:
     pos_file = open("ex+.txt", "w")
     neg_file = open("ex-.txt", "w")
+    u_pos_file = open("ex+_u.txt", "w")
+    u_neg_file = open("ex-_u.txt", "w")
     sstring = ""
     for x in words:
         sstring += x + "\n"
@@ -105,6 +121,16 @@ try:
     for x in neg_words:
         sstring += x + "\n"
     neg_file.write(sstring)
+    sstring = ""
+    for x in u_poswords:
+        sstring += x + "\n"
+    u_pos_file.write(sstring)
+    sstring = ""
+    for x in u_negwords:
+        sstring += x + "\n"
+    u_neg_file.write(sstring)
+    u_neg_file.close()
+    u_pos_file.close()
     pos_file.close()
     neg_file.close()
 except:

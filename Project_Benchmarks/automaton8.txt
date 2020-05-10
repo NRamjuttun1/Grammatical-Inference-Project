@@ -1,0 +1,31 @@
+Node : E0
+Node : E1
+Node : E2
+Node : E3
+Node : E4
+Node : E5
+
+Node : E4 -b-> Node : E4
+Node : E2 -c-> Node : E0
+Node : E3 -a-> Node : E4
+Node : E4 -a-> Node : E5
+Node : E1 -b-> Node : E1
+Node : E5 -a-> Node : E5
+Node : E4 -c-> Node : E5
+Node : E0 -b-> Node : E3
+Node : E2 -a-> Node : E5
+Node : E2 -b-> Node : E0
+Node : E3 -b-> Node : E2
+Node : E1 -c-> Node : E2
+Node : E3 -c-> Node : E0
+Node : E1 -a-> Node : E5
+Node : E0 -a-> Node : E4
+
+Start Node = Node : E0
+Final Nodes = Node : E5 Node : E4
+
+
+train_pos = 92
+train_neg = 180
+test_pos = 20
+test_neg = 20

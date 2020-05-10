@@ -1,0 +1,17 @@
+Node : A0
+Node : A1
+Node : A2
+
+Node : A0 -b-> Node : A1
+Node : A1 -b-> Node : A2
+Node : A1 -a-> Node : A1
+Node : A2 -a-> Node : A1
+Node : A2 -b-> Node : A2
+
+Start Node = Node : A0
+Final Nodes = Node : A2
+
+train_pos = 32
+train_neg = 34
+test_pos = 3
+test_neg = 5

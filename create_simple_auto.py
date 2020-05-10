@@ -56,11 +56,12 @@ a.addTransition(a.findNode(1), a.findNode(1), "a")
 a.addTransition(a.findNode(2), a.findNode(1), "a")
 a.addTransition(a.findNode(2), a.findNode(2), "b")
 a.addEnd(a.findNode(2))
+print(a)
 words = []
-while(len(words) < 25):
+while(len(words) < 30):
     words += getPosWords(a, words)
 neg_words = getNegWords(a, [])
-while(len(neg_words) < 25):
+while(len(neg_words) < 30):
     neg_words += getNegWords(a, neg_words, len(neg_words))
 try:
     pos_file = open("ex+.txt", "w")

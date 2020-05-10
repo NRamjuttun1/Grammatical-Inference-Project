@@ -4,7 +4,7 @@ import random
 def getAlphabet():
     alphabet = []
     allow_empty_string = False
-    msg = "Enter Character for alphabet (Enter EXIT to finish):\n"
+    msg = "Enter Character for alphabet, enter empty symbol to allow the empty string as correct input, (Enter EXIT to finish):\n"
     value = input(msg)
     while(not value == 'EXIT'):
         if (value == ''):
@@ -14,7 +14,7 @@ def getAlphabet():
         else:
             print("Character already exists in Alphabet\n")
         value = input(msg)
-    return alphabet
+    return alphabet, allow_empty_string
 
 def tryParse(input):
     try:
@@ -32,7 +32,7 @@ def getSize():
 def getPosWords(_auto, ls):
     auto, terminating = _auto.getComplementAutomaton(True)
     words = []
-    for x in range(auto.getSize() * 3):
+    for x in range(auto.getSize()):
         current = auto.start
         word = ""
         count = 0
@@ -65,9 +65,9 @@ def getPosWords(_auto, ls):
 
 def getNegWords(auto, ls):
     words = []
-    for x in range(auto.getSize() * 2):
+    for x in range(auto.getSize() * 10):
         word = ""
-        for x in range(auto.getSize()):
+        for x in range(auto.getSize() * 3):
             if (random.randint(0,1)):
                 word += random.choice(alphabet)
                 if (not auto.checkInput(word)):
@@ -103,90 +103,99 @@ def removeAllFromList(el, arr):
             ls.append(x)
     return ls
 
-
-
-
-alphabet = getAlphabet()
-poswords = []
-negwords = []
-exampleAuto = Automaton("E")
-if allow_empty_string:
-    exampleAuto.addEnd(exampleAuto.start)
-size = getSize()
-for i in range(size):
-    exampleAuto.addNode()
-exampleAuto.end.append(exampleAuto.nodes[-1])
-#for x in range(size * 2):
-failed = 0
-while(not failed == 5):
-    newtrans = Transition(random.choice(exampleAuto.nodes), random.choice(exampleAuto.nodes), random.choice(alphabet))
-    if ((not exampleAuto.checkTransExists(newtrans)) and (exampleAuto.checkNoRepeatSymbol(newtrans))):
-        exampleAuto.addNewTrans(newtrans)
-        failed = 0
-    else:
-        failed += 1
-print(exampleAuto)
-print("Determinism = {}".format(exampleAuto.checkDeterministic()))
-poswords = []
-count = 0
-while(len(poswords) < 50 or count == 20):
-    poswords += getPosWords(exampleAuto, poswords)
-    count += 1
-if (len(poswords) < 10):
-    print("Positive words found is {} regular expression may not be inferred from examples".format(len(poswords)))
-    exit()
-u_poswords = []
-try:
-    while(not len(u_poswords) == 5):
-        ran_pos = random.choice(poswords)
-        if (checkUniqueSymbols(ran_pos, poswords) == False):
-            u_poswords.append(ran_pos)
-            poswords.remove(ran_pos)
-except(IndexError):
-    print("Positive words were not generated")
-    exit()
-negwords = []
-while(len(negwords) < 50):
-    negwords += getNegWords(exampleAuto, negwords)
-u_negwords = []
-while(not len(u_negwords) == 5):
-    ran_pos = random.choice(negwords)
-    u_negwords.append(ran_pos)
-    negwords.remove(ran_pos)
-if allow_empty_string:
-    poswords.append('')
-try:
-    pos_file = open("regex+.txt", "w")
-    neg_file = open("regex-.txt", "w")
-    u_pos_file = open("regex+_u.txt", "w")
-    u_neg_file = open("regex-_u.txt", "w")
-    sstring = ""
+if __name__ == "__main__":
+    alphabet, allow_empty_string = getAlphabet()
+    poswords = []
+    negwords = []
+    exampleAuto = Automaton("E")
+    if allow_empty_string:
+        exampleAuto.addEnd(exampleAuto.start)
+    size = getSize()
+    for i in range(size):
+        exampleAuto.addNode()
+    exampleAuto.end.append(exampleAuto.nodes[-1])
+    for x in range(len(exampleAuto.nodes)//5):
+        check = False
+        while(not check):
+            rand = random.randint(0, len(exampleAuto.nodes)-2)
+            if (exampleAuto.getNode(rand) not in exampleAuto.end):
+                check = True
+        exampleAuto.addEnd(exampleAuto.getNode(rand))
+    failed = 0
+    while(not failed == 5):
+        newtrans = Transition(random.choice(exampleAuto.nodes), random.choice(exampleAuto.nodes), random.choice(alphabet))
+        if ((not exampleAuto.checkTransExists(newtrans)) and (exampleAuto.checkNoRepeatSymbol(newtrans))):
+            exampleAuto.addNewTrans(newtrans)
+            failed = 0
+        else:
+            failed += 1
+    print(exampleAuto)
+    print("Determinism = {}".format(exampleAuto.checkDeterministic()))
+    poswords = []
+    count = 0
+    len_poswords = 112
+    while(len(poswords) < len_poswords or count == 20):
+        poswords += getPosWords(exampleAuto, poswords)
+        count += 1
+    if (len(poswords) < 5):
+        print("Positive words found is {} regular expression may not be inferred from examples".format(len(poswords)))
+        exit()
+    poswords = poswords[0:len_poswords]
+    u_poswords = []
+    try:
+        while(not len(u_poswords) == 20):
+            ran_pos = random.choice(poswords)
+            if (checkUniqueSymbols(ran_pos, poswords) == False):
+                u_poswords.append(ran_pos)
+                poswords.remove(ran_pos)
+    except(IndexError):
+        print("Positive words were not generated")
+        exit()
+    negwords = []
+    len_negwords = 200
+    while(len(negwords) < len_negwords):
+        negwords += getNegWords(exampleAuto, negwords)
+    negwords = negwords[0:len_negwords]
+    u_negwords = []
+    while(not len(u_negwords) == 20):
+        ran_pos = random.choice(negwords)
+        u_negwords.append(ran_pos)
+        negwords.remove(ran_pos)
+    if allow_empty_string:
+        if '' not in poswords:
+            poswords.append('')
+    try:
+        pos_file = open("regex+.txt", "w")
+        neg_file = open("regex-.txt", "w")
+        u_pos_file = open("regex+_u.txt", "w")
+        u_neg_file = open("regex-_u.txt", "w")
+        sstring = ""
+        for x in poswords:
+            sstring += x + "\n"
+        pos_file.write(sstring)
+        sstring = ""
+        for x in negwords:
+            sstring += x + "\n"
+        neg_file.write(sstring)
+        sstring = ""
+        for x in u_poswords:
+            sstring += x + "\n"
+        u_pos_file.write(sstring)
+        sstring = ""
+        for x in u_negwords:
+            sstring += x + "\n"
+        u_neg_file.write(sstring)
+        u_neg_file.close()
+        u_pos_file.close()
+        pos_file.close()
+        neg_file.close()
+    except:
+        print("File not found!")
+        exit()
+    #print("Positive words -> {}".format(poswords))
+    #print("Negative words -> {}".format(negwords))
+    i = 0
     for x in poswords:
-        sstring += x + "\n"
-    pos_file.write(sstring)
-    sstring = ""
-    for x in negwords:
-        sstring += x + "\n"
-    neg_file.write(sstring)
-    sstring = ""
-    for x in u_poswords:
-        sstring += x + "\n"
-    u_pos_file.write(sstring)
-    sstring = ""
-    for x in u_negwords:
-        sstring += x + "\n"
-    u_neg_file.write(sstring)
-    u_neg_file.close()
-    u_pos_file.close()
-    pos_file.close()
-    neg_file.close()
-except:
-    print("File not found!")
-    exit()
-#print("Positive words -> {}".format(poswords))
-#print("Negative words -> {}".format(negwords))
-i = 0
-for x in poswords:
-    if (exampleAuto.checkInput(x) == False):
-        print("OH BOY")
-        i+=1
+        if (exampleAuto.checkInput(x) == False):
+            print("OH BOY")
+            i+=1

@@ -277,7 +277,7 @@ class Automaton:
                     for x in trans_to_fold:
                         current_node = x.getEnd()
                         nodes_to_fold = []
-                        while(end == False): #traversing each node to get to the end
+                        while(end == False):
                             nodes_to_fold.append(current_node)
                             new_trans = self.findTransFromNode(current_node, i)
                             if (len(new_trans) > 1):
@@ -294,10 +294,6 @@ class Automaton:
                         for m in nodes_to_fold:
                             get_trans = self.findTransFromNode(m)
                             for x in get_trans:
-                                #if (not x.getEnd() == merged_node):
-                                    #if (x.getSymbol() == i):
-                                    #    print("Deleted Transition {}".format(x))
-                                    #    self.deleteTransition(x)
                                 if(x.getEnd() in nodes_to_fold):
                                     if (not self.checkTransExists(Transition(merged_node, merged_node, x.getSymbol()))):
                                         x.setStart(merged_node)
@@ -563,7 +559,7 @@ def buildPTA(sstrings, ssymbol, cauto = True):
 def buildPTA2(str, newauto, current_node):
     if str == '':
         if newauto.start not in newauto.end:
-            newauto.addEnd(auto.start)
+            newauto.addEnd(newauto.start)
         return newauto
     for letter in str:
         trans = newauto.findTransFromNode(current_node, letter)

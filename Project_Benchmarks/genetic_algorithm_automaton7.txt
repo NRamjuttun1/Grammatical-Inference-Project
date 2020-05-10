@@ -1,0 +1,357 @@
+Node : T0
+Node : T1
+Node : T2
+Node : T3
+Node : T4
+Node : T5
+Node : T6
+Node : T7
+Node : T8
+Node : T9
+Node : T10
+Node : T11
+Node : T12
+Node : T13
+Node : T14
+Node : T15
+Node : T16
+Node : T17
+Node : T18
+Node : T19
+Node : T20
+Node : T21
+Node : T22
+Node : T23
+Node : T24
+Node : T25
+Node : T26
+Node : T27
+Node : T28
+Node : T29
+Node : T30
+Node : T31
+Node : T32
+Node : T33
+Node : T34
+Node : T35
+Node : T36
+Node : T37
+Node : T38
+Node : T39
+Node : T40
+Node : T41
+Node : T42
+Node : T43
+Node : T44
+Node : T45
+Node : T46
+Node : T47
+Node : T48
+Node : T49
+Node : T50
+Node : T51
+Node : T52
+Node : T53
+Node : T54
+Node : T55
+Node : T56
+Node : T57
+Node : T58
+Node : T59
+Node : T60
+Node : T61
+Node : T62
+Node : T63
+Node : T64
+Node : T65
+Node : T66
+Node : T67
+Node : T68
+Node : T69
+Node : T70
+Node : T71
+Node : T72
+Node : T73
+Node : T74
+Node : T75
+Node : T76
+Node : T77
+Node : T78
+Node : T79
+Node : T80
+Node : T81
+Node : T82
+Node : T83
+Node : T84
+Node : T85
+Node : T86
+Node : T87
+Node : T88
+Node : T89
+Node : T90
+Node : T91
+Node : T92
+Node : T93
+Node : T94
+Node : T95
+Node : T96
+Node : T97
+Node : T98
+Node : T99
+Node : T100
+Node : T101
+Node : T102
+Node : T103
+Node : T104
+Node : T105
+Node : T106
+Node : T107
+Node : T108
+Node : T109
+Node : T110
+Node : T111
+Node : T112
+Node : T113
+Node : T114
+Node : T115
+Node : T116
+Node : T117
+Node : T118
+Node : T119
+Node : T120
+Node : T121
+
+Node : T0 -b-> Node : T14
+Node : T0 -a-> Node : T57
+Node : T0 -b-> Node : T21
+Node : T1 -a-> Node : T29
+Node : T2 -a-> Node : T43
+Node : T3 -b-> Node : T69
+Node : T4 -a-> Node : T66
+Node : T4 -b-> Node : T37
+Node : T5 -c-> Node : T62
+Node : T7 -c-> Node : T3
+Node : T8 -c-> Node : T110
+Node : T8 -a-> Node : T119
+Node : T8 -c-> Node : T4
+Node : T8 -c-> Node : T51
+Node : T10 -b-> Node : T111
+Node : T11 -b-> Node : T29
+Node : T11 -a-> Node : T63
+Node : T11 -b-> Node : T2
+Node : T12 -c-> Node : T8
+Node : T12 -a-> Node : T58
+Node : T12 -b-> Node : T81
+Node : T12 -b-> Node : T31
+Node : T13 -c-> Node : T66
+Node : T14 -c-> Node : T66
+Node : T14 -a-> Node : T31
+Node : T14 -a-> Node : T76
+Node : T15 -b-> Node : T66
+Node : T15 -a-> Node : T24
+Node : T15 -c-> Node : T98
+Node : T15 -b-> Node : T32
+Node : T17 -c-> Node : T50
+Node : T17 -c-> Node : T83
+Node : T18 -a-> Node : T44
+Node : T18 -b-> Node : T28
+Node : T18 -b-> Node : T45
+Node : T19 -a-> Node : T45
+Node : T19 -c-> Node : T80
+Node : T19 -c-> Node : T38
+Node : T20 -a-> Node : T67
+Node : T20 -a-> Node : T24
+Node : T21 -b-> Node : T53
+Node : T21 -c-> Node : T8
+Node : T21 -a-> Node : T4
+Node : T22 -b-> Node : T41
+Node : T23 -a-> Node : T57
+Node : T23 -c-> Node : T34
+Node : T23 -b-> Node : T8
+Node : T24 -c-> Node : T94
+Node : T24 -b-> Node : T65
+Node : T24 -b-> Node : T90
+Node : T25 -c-> Node : T81
+Node : T26 -b-> Node : T90
+Node : T26 -c-> Node : T74
+Node : T26 -b-> Node : T47
+Node : T27 -b-> Node : T105
+Node : T27 -c-> Node : T18
+Node : T27 -b-> Node : T66
+Node : T28 -c-> Node : T32
+Node : T29 -c-> Node : T11
+Node : T29 -b-> Node : T97
+Node : T29 -b-> Node : T87
+Node : T30 -a-> Node : T38
+Node : T30 -b-> Node : T82
+Node : T30 -b-> Node : T47
+Node : T31 -a-> Node : T79
+Node : T31 -c-> Node : T77
+Node : T32 -c-> Node : T15
+Node : T32 -a-> Node : T89
+Node : T33 -a-> Node : T109
+Node : T33 -b-> Node : T25
+Node : T33 -c-> Node : T5
+Node : T33 -b-> Node : T43
+Node : T34 -c-> Node : T92
+Node : T34 -b-> Node : T21
+Node : T35 -b-> Node : T87
+Node : T36 -c-> Node : T74
+Node : T36 -c-> Node : T95
+Node : T37 -b-> Node : T49
+Node : T38 -c-> Node : T85
+Node : T38 -a-> Node : T36
+Node : T38 -b-> Node : T17
+Node : T39 -c-> Node : T112
+Node : T39 -c-> Node : T64
+Node : T40 -a-> Node : T74
+Node : T40 -a-> Node : T34
+Node : T41 -c-> Node : T59
+Node : T42 -c-> Node : T106
+Node : T43 -b-> Node : T1
+Node : T44 -b-> Node : T68
+Node : T45 -a-> Node : T54
+Node : T45 -a-> Node : T81
+Node : T45 -b-> Node : T96
+Node : T46 -a-> Node : T85
+Node : T46 -b-> Node : T20
+Node : T47 -a-> Node : T11
+Node : T48 -a-> Node : T26
+Node : T48 -a-> Node : T40
+Node : T49 -b-> Node : T0
+Node : T49 -c-> Node : T67
+Node : T50 -c-> Node : T13
+Node : T50 -b-> Node : T29
+Node : T51 -c-> Node : T72
+Node : T51 -c-> Node : T75
+Node : T52 -c-> Node : T42
+Node : T52 -a-> Node : T33
+Node : T53 -c-> Node : T14
+Node : T54 -b-> Node : T69
+Node : T55 -a-> Node : T7
+Node : T55 -b-> Node : T75
+Node : T56 -c-> Node : T70
+Node : T57 -a-> Node : T103
+Node : T57 -b-> Node : T20
+Node : T57 -c-> Node : T19
+Node : T57 -a-> Node : T55
+Node : T57 -b-> Node : T42
+Node : T58 -a-> Node : T30
+Node : T58 -b-> Node : T46
+Node : T58 -c-> Node : T41
+Node : T59 -b-> Node : T24
+Node : T59 -c-> Node : T78
+Node : T61 -c-> Node : T37
+Node : T62 -b-> Node : T14
+Node : T62 -c-> Node : T79
+Node : T63 -a-> Node : T71
+Node : T63 -b-> Node : T13
+Node : T64 -a-> Node : T99
+Node : T64 -a-> Node : T75
+Node : T66 -a-> Node : T57
+Node : T66 -b-> Node : T61
+Node : T66 -a-> Node : T77
+Node : T66 -b-> Node : T71
+Node : T66 -c-> Node : T15
+Node : T66 -b-> Node : T9
+Node : T66 -b-> Node : T12
+Node : T67 -a-> Node : T89
+Node : T67 -c-> Node : T52
+Node : T68 -c-> Node : T120
+Node : T69 -c-> Node : T55
+Node : T70 -b-> Node : T64
+Node : T71 -b-> Node : T16
+Node : T71 -a-> Node : T71
+Node : T71 -b-> Node : T60
+Node : T71 -c-> Node : T75
+Node : T72 -c-> Node : T87
+Node : T72 -a-> Node : T26
+Node : T72 -c-> Node : T2
+Node : T74 -b-> Node : T93
+Node : T74 -c-> Node : T11
+Node : T74 -a-> Node : T19
+Node : T75 -a-> Node : T91
+Node : T75 -c-> Node : T30
+Node : T75 -a-> Node : T27
+Node : T75 -c-> Node : T79
+Node : T76 -c-> Node : T38
+Node : T77 -b-> Node : T83
+Node : T77 -c-> Node : T68
+Node : T78 -a-> Node : T39
+Node : T78 -a-> Node : T17
+Node : T79 -b-> Node : T40
+Node : T79 -a-> Node : T91
+Node : T79 -b-> Node : T48
+Node : T80 -c-> Node : T1
+Node : T80 -b-> Node : T84
+Node : T81 -c-> Node : T59
+Node : T81 -b-> Node : T102
+Node : T81 -c-> Node : T47
+Node : T82 -b-> Node : T84
+Node : T82 -a-> Node : T22
+Node : T83 -c-> Node : T48
+Node : T83 -a-> Node : T80
+Node : T85 -c-> Node : T49
+Node : T85 -a-> Node : T39
+Node : T86 -c-> Node : T46
+Node : T87 -a-> Node : T82
+Node : T88 -c-> Node : T18
+Node : T89 -b-> Node : T36
+Node : T89 -b-> Node : T6
+Node : T91 -a-> Node : T83
+Node : T91 -a-> Node : T26
+Node : T92 -c-> Node : T21
+Node : T92 -b-> Node : T45
+Node : T94 -a-> Node : T51
+Node : T95 -a-> Node : T35
+Node : T96 -b-> Node : T118
+Node : T96 -a-> Node : T30
+Node : T97 -c-> Node : T36
+Node : T98 -b-> Node : T56
+Node : T99 -b-> Node : T73
+Node : T100 -c-> Node : T107
+Node : T101 -b-> Node : T90
+Node : T101 -c-> Node : T86
+Node : T101 -c-> Node : T52
+Node : T103 -b-> Node : T103
+Node : T103 -a-> Node : T96
+Node : T104 -a-> Node : T12
+Node : T104 -c-> Node : T110
+Node : T105 -b-> Node : T78
+Node : T106 -c-> Node : T115
+Node : T107 -b-> Node : T63
+Node : T108 -a-> Node : T104
+Node : T108 -c-> Node : T23
+Node : T108 -b-> Node : T15
+Node : T109 -c-> Node : T71
+Node : T109 -a-> Node : T27
+Node : T110 -c-> Node : T100
+Node : T110 -b-> Node : T117
+Node : T110 -c-> Node : T10
+Node : T111 -a-> Node : T101
+Node : T112 -a-> Node : T20
+Node : T113 -b-> Node : T114
+Node : T113 -a-> Node : T121
+Node : T113 -c-> Node : T0
+Node : T114 -a-> Node : T101
+Node : T114 -b-> Node : T58
+Node : T114 -c-> Node : T88
+Node : T115 -b-> Node : T27
+Node : T116 -a-> Node : T108
+Node : T116 -b-> Node : T105
+Node : T116 -c-> Node : T113
+Node : T117 -c-> Node : T72
+Node : T119 -a-> Node : T50
+Node : T120 -b-> Node : T19
+Node : T121 -c-> Node : T33
+Node : T121 -b-> Node : T54
+
+Start Node = Node : T116
+Final Nodes = Node : T16 Node : T105 Node : T90 Node : T118 Node : T60 Node : T84 Node : T36 Node : T54 Node : T43 Node : T20 Node : T83 Node : T93 Node : T68 Node : T1 Node : T90 Node : T13 Node : T69 Node : T102 Node : T73 Node : T65 Node : T9 Node : T87 Node : T47 Node : T41 Node : T87 Node : T90 Node : T2 Node : T42 Node : T47 Node : T6 Node : T84 Node : T37
+
+79 generations
+ Correct Fitness found at position 1
+The given Solution correctly accepts 2/20 of Unknown Posotive Testing Examples
+And correctly rejects 20/20 of Unknown Negative Testing Examples
+Correct Automaton found!
+--- 11.54789662361145 seconds ---

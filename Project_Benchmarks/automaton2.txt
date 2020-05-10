@@ -1,0 +1,64 @@
+Node : E0
+Node : E1
+Node : E2
+Node : E3
+Node : E4
+Node : E5
+
+Node : E4 -j-> Node : E1
+Node : E2 -k-> Node : E0
+Node : E4 -a-> Node : E5
+Node : E3 -f-> Node : E5
+Node : E2 -g-> Node : E1
+Node : E1 -i-> Node : E0
+Node : E1 -k-> Node : E4
+Node : E2 -d-> Node : E5
+Node : E0 -b-> Node : E4
+Node : E2 -j-> Node : E4
+Node : E2 -b-> Node : E0
+Node : E4 -c-> Node : E4
+Node : E3 -g-> Node : E5
+Node : E0 -k-> Node : E4
+Node : E0 -d-> Node : E3
+Node : E0 -i-> Node : E5
+Node : E5 -g-> Node : E3
+Node : E5 -c-> Node : E1
+Node : E0 -j-> Node : E5
+Node : E0 -h-> Node : E4
+Node : E1 -g-> Node : E1
+Node : E4 -f-> Node : E5
+Node : E3 -d-> Node : E2
+Node : E1 -c-> Node : E1
+Node : E5 -k-> Node : E5
+Node : E1 -h-> Node : E5
+Node : E5 -e-> Node : E1
+Node : E2 -f-> Node : E5
+Node : E5 -d-> Node : E3
+Node : E5 -h-> Node : E1
+Node : E4 -i-> Node : E4
+Node : E3 -h-> Node : E5
+Node : E4 -g-> Node : E5
+Node : E4 -k-> Node : E2
+Node : E2 -e-> Node : E0
+Node : E1 -j-> Node : E0
+Node : E2 -c-> Node : E4
+Node : E1 -f-> Node : E3
+Node : E0 -g-> Node : E0
+Node : E5 -b-> Node : E0
+Node : E4 -d-> Node : E1
+Node : E5 -f-> Node : E5
+Node : E0 -c-> Node : E2
+Node : E0 -f-> Node : E5
+Node : E5 -i-> Node : E5
+Node : E3 -a-> Node : E5
+Node : E4 -h-> Node : E1
+Node : E4 -e-> Node : E0
+Node : E1 -d-> Node : E0
+Node : E3 -c-> Node : E0
+Node : E1 -a-> Node : E3
+Node : E2 -i-> Node : E3
+Node : E2 -h-> Node : E0
+Node : E2 -a-> Node : E2
+
+Start Node = Node : E0
+Final Nodes = Node : E5 Node : E0

@@ -1,0 +1,64 @@
+Node : E0
+Node : E1
+Node : E2
+Node : E3
+Node : E4
+Node : E5
+Node : E6
+Node : E7
+Node : E8
+Node : E9
+Node : E10
+
+Node : E8 -b-> Node : E7
+Node : E9 -a-> Node : E4
+Node : E10 -d-> Node : E8
+Node : E8 -f-> Node : E4
+Node : E0 -a-> Node : E6
+Node : E9 -f-> Node : E5
+Node : E10 -a-> Node : E0
+Node : E7 -d-> Node : E0
+Node : E6 -a-> Node : E0
+Node : E7 -e-> Node : E4
+Node : E3 -c-> Node : E5
+Node : E6 -f-> Node : E5
+Node : E8 -c-> Node : E5
+Node : E1 -e-> Node : E1
+Node : E3 -b-> Node : E0
+Node : E1 -f-> Node : E10
+Node : E2 -b-> Node : E2
+Node : E1 -a-> Node : E2
+Node : E6 -b-> Node : E5
+Node : E5 -f-> Node : E10
+Node : E10 -f-> Node : E6
+Node : E7 -a-> Node : E2
+Node : E9 -b-> Node : E9
+Node : E8 -a-> Node : E6
+Node : E1 -b-> Node : E7
+Node : E0 -f-> Node : E3
+Node : E3 -d-> Node : E5
+Node : E7 -b-> Node : E6
+Node : E0 -e-> Node : E10
+Node : E1 -d-> Node : E4
+Node : E4 -f-> Node : E7
+Node : E8 -e-> Node : E5
+Node : E4 -b-> Node : E6
+Node : E5 -e-> Node : E1
+Node : E4 -e-> Node : E1
+Node : E3 -e-> Node : E0
+Node : E10 -b-> Node : E9
+Node : E0 -c-> Node : E9
+Node : E0 -b-> Node : E4
+Node : E10 -c-> Node : E0
+Node : E4 -d-> Node : E2
+Node : E0 -d-> Node : E6
+Node : E4 -a-> Node : E6
+Node : E7 -f-> Node : E9
+
+Start Node = Node : E0
+Final Nodes = Node : E10 Node : E4 Node : E7
+
+train_pos = 151
+train_neg = 1447
+test_pos = 100
+test_neg = 100 

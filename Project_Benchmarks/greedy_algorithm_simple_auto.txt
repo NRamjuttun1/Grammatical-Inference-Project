@@ -1,0 +1,62 @@
+cNode : A0 - State : Red
+cNode : A1 - State : Red
+cNode : A2 - State : Red
+cNode : A3 - State : Red
+cNode : A4 - State : Red
+cNode : A5 - State : Red
+cNode : A6 - State : Red
+cNode : A7 - State : Red
+cNode : A8 - State : Red
+cNode : A9 - State : Red
+cNode : A10 - State : Red
+cNode : A11 - State : Red
+cNode : A12 - State : Red
+cNode : A13 - State : Red
+cNode : A14 - State : Red
+cNode : A15 - State : Red
+cNode : A16 - State : Red
+cNode : A17 - State : Red
+cNode : A18 - State : Red
+
+cNode : A0 -a-> cNode : A1
+cNode : A4 -b-> cNode : A4
+cNode : A5 -b-> cNode : A5
+cNode : A4 -a-> cNode : A5
+cNode : A6 -b-> cNode : A0
+cNode : A1 -b-> cNode : A7
+cNode : A7 -a-> cNode : A2
+cNode : A8 -a-> cNode : A8
+cNode : A2 -b-> cNode : A8
+cNode : A9 -b-> cNode : A4
+cNode : A5 -a-> cNode : A10
+cNode : A1 -a-> cNode : A10
+cNode : A10 -b-> cNode : A6
+cNode : A8 -b-> cNode : A11
+cNode : A10 -a-> cNode : A12
+cNode : A12 -b-> cNode : A7
+cNode : A9 -a-> cNode : A13
+cNode : A13 -b-> cNode : A14
+cNode : A13 -a-> cNode : A14
+cNode : A14 -b-> cNode : A11
+cNode : A11 -a-> cNode : A15
+cNode : A14 -a-> cNode : A15
+cNode : A15 -b-> cNode : A12
+cNode : A15 -a-> cNode : A3
+cNode : A3 -b-> cNode : A16
+cNode : A12 -a-> cNode : A16
+cNode : A16 -b-> cNode : A13
+cNode : A17 -a-> cNode : A17
+cNode : A2 -a-> cNode : A17
+cNode : A17 -b-> cNode : A17
+cNode : A7 -b-> cNode : A17
+cNode : A18 -b-> cNode : A18
+cNode : A0 -b-> cNode : A18
+cNode : A11 -b-> cNode : A18
+cNode : A18 -a-> cNode : A9
+
+Start Node = cNode : A6
+Final Nodes = cNode : A4 cNode : A5 cNode : A6 cNode : A7 cNode : A8 cNode : A11 cNode : A12 cNode : A13 cNode : A14 cNode : A16 cNode : A17 cNode : A18
+
+The given Solution correctly accepts 3/3 of Unknown Posotive Testing Examples
+And correctly rejects 5/5 of Unknown Negative Testing Examples
+--- 0.9801595211029053 seconds ---
